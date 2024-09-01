@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35222.181
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "redTaller", "redTaller.csproj", "{9405A10E-BF77-473D-BA69-E40DA3654406}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9405A10E-BF77-473D-BA69-E40DA3654406}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9405A10E-BF77-473D-BA69-E40DA3654406}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9405A10E-BF77-473D-BA69-E40DA3654406}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9405A10E-BF77-473D-BA69-E40DA3654406}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C53CDC0D-6A4F-47BD-9932-6645EF4F6626}
+	EndGlobalSection
+EndGlobal
