@@ -28,22 +28,62 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.menuFicheros = new System.Windows.Forms.MenuStrip();
+            this.ficherosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuFicherosProvincias = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuFicheros.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // menuFicheros
+            // 
+            this.menuFicheros.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ficherosToolStripMenuItem});
+            this.menuFicheros.Location = new System.Drawing.Point(0, 0);
+            this.menuFicheros.Name = "menuFicheros";
+            this.menuFicheros.Size = new System.Drawing.Size(1476, 24);
+            this.menuFicheros.TabIndex = 1;
+            this.menuFicheros.Text = "menuStrip1";
+            // 
+            // ficherosToolStripMenuItem
+            // 
+            this.ficherosToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuFicherosProvincias});
+            this.ficherosToolStripMenuItem.Name = "ficherosToolStripMenuItem";
+            this.ficherosToolStripMenuItem.ShowShortcutKeys = false;
+            this.ficherosToolStripMenuItem.Size = new System.Drawing.Size(63, 20);
+            this.ficherosToolStripMenuItem.Text = "Ficheros";
+            // 
+            // menuFicherosProvincias
+            // 
+            this.menuFicherosProvincias.Name = "menuFicherosProvincias";
+            this.menuFicherosProvincias.Size = new System.Drawing.Size(186, 22);
+            this.menuFicherosProvincias.Text = "Fichero de &Provincias";
+            this.menuFicherosProvincias.Click += new System.EventHandler(this.menuFicherosProvincias_Click);
             // 
             // Principal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1476, 638);
+            this.Controls.Add(this.menuFicheros);
+            this.IsMdiContainer = true;
+            this.MainMenuStrip = this.menuFicheros;
             this.Name = "Principal";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "redTaller";
             this.TopMost = true;
+            this.menuFicheros.ResumeLayout(false);
+            this.menuFicheros.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
+
+        private System.Windows.Forms.MenuStrip menuFicheros;
+        private System.Windows.Forms.ToolStripMenuItem ficherosToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem menuFicherosProvincias;
     }
 }
 
