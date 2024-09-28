@@ -39,6 +39,7 @@ namespace redTaller.Controlador
         {
         }
 
+        // para buscar por provincia
         public void buscar()
         {
         }
