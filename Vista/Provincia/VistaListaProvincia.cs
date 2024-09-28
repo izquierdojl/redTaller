@@ -14,30 +14,12 @@ namespace redTaller.Vista
 {
     public partial class VistaListaProvincia : Form
     {
-        public VistaListaProvincia()
+
+        public VistaListaProvincia(DataTable data)
         {
             InitializeComponent();
-            CargarProvincias();
+            gridProvincias.DataSource = data;
         }
 
-        private void CargarProvincias()
-        {
-
-           DatabaseUtil db = new DatabaseUtil();
-            try
-            {
-                // Abrir la conexión a la base de datos
-                db.Conectar();
-                string query = "SELECT codigo, nombre FROM provincia";
-                MySqlDataAdapter adapter = new MySqlDataAdapter( query, db.DbConn );
-                DataTable dataTable = new DataTable();
-                adapter.Fill(dataTable);
-                gridProvincias.DataSource = dataTable;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error: " + ex.Message);
-            }
-        }
     }
 }

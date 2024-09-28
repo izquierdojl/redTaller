@@ -71,7 +71,6 @@
             this.Name = "Principal";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "redTaller";
-            this.TopMost = true;
             this.menuFicheros.ResumeLayout(false);
             this.menuFicheros.PerformLayout();
             this.ResumeLayout(false);

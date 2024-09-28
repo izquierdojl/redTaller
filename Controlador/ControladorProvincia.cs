@@ -1,7 +1,9 @@
-﻿using redTaller.Modelo;
+﻿using redTaller.Database.Provincia;
+using redTaller.Modelo;
 using redTaller.Vista;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,7 +21,8 @@ namespace redTaller.Controlador
 
         public void mostrar(Form parent)
         {
-            VistaListaProvincia visProvincia = new VistaListaProvincia();
+            ProvinciaDB provinciaDB = new ProvinciaDB();
+            VistaListaProvincia visProvincia = new VistaListaProvincia( provinciaDB.extraeProvincias() );
             visProvincia.MdiParent = parent;
             visProvincia.Show();
         }
@@ -36,5 +39,10 @@ namespace redTaller.Controlador
         {
         }
 
+        public void buscar()
+        {
+        }
+
     }
+
 }
