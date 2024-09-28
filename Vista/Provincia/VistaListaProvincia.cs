@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using redTaller.Controlador;
+using System.Data;
 using System.Windows.Forms;
 
 namespace redTaller.Vista
@@ -9,8 +10,18 @@ namespace redTaller.Vista
         public VistaListaProvincia(DataTable data)
         {
             InitializeComponent();
-            gridProvincias.DataSource = data;
+            recarga(data);
         }
 
+        public void recarga(DataTable data)
+        {
+            gridPrincipal.DataSource = data;
+        }
+
+        private void textSearch_TextChanged(object sender, System.EventArgs e)
+        {
+            ControladorProvincia controlador = new ControladorProvincia();
+            controlador.buscar(this,textSearch.Text);
+        }
     }
 }

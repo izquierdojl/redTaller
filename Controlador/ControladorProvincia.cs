@@ -32,9 +32,10 @@ namespace redTaller.Controlador
         {
         }
 
-        // para buscar por provincia
-        public void buscar()
+        public void buscar( VistaListaProvincia visProvincia, string filtro )
         {
+            ProvinciaDB provinciaDB = new ProvinciaDB();
+            visProvincia.recarga(provinciaDB.extraeProvinciasFiltro(filtro));
         }
 
     }

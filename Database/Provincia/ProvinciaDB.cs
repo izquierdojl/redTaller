@@ -39,5 +39,30 @@ namespace redTaller.Database.Provincia
 
             return dataTable;
         }
+
+        public DataTable extraeProvinciasFiltro( String filtro )
+        {
+
+            MySqlDataAdapter adapter = null;
+            DataTable dataTable = new DataTable();
+            try
+            {
+                db.Conectar();
+                string query = "SELECT codigo, nombre FROM provincia WHERE nombre LIKE '%" + filtro + "%'";
+                adapter = new MySqlDataAdapter(query, db.DbConn);
+                adapter.Fill(dataTable);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error al obtener provincias: {ex.Message}");
+            }
+            finally
+            {
+                db.Desconectar();
+            }
+
+            return dataTable;
+        }
+
     }
 }
