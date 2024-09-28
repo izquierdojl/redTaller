@@ -99,7 +99,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controlador\ControladorProvincia.cs" />
-    <Compile Include="Database\DatabaseUtils.cs" />
+    <Compile Include="Database\Util\DatabaseUtil.cs" />
     <Compile Include="Modelo\Provincia.cs" />
     <Compile Include="Modelo\Taller.cs" />
     <Compile Include="Vista\Provincia\VistaListaProvincia.cs">

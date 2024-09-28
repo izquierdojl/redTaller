@@ -8,14 +8,14 @@ namespace redTaller.Database
     /// <summary>
     /// Clase DababaseUtils, para gestionar conexiones y rutinas de la base de datos
     /// </summary>
-    internal class DatabaseUtils
+    internal class DatabaseUtil
     {
         MySqlConnection dbConn;
 
         /// <summary>
         /// Método constructor 
         /// </summary>
-        public DatabaseUtils()
+        public DatabaseUtil()
         {
             string connectionString = ConfigurationManager.ConnectionStrings["dbTaller"].ConnectionString;
             dbConn = new MySqlConnection(connectionString);

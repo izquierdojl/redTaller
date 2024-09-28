@@ -23,7 +23,7 @@ namespace redTaller.Vista
         private void CargarProvincias()
         {
 
-           DatabaseUtils db = new DatabaseUtils();
+           DatabaseUtil db = new DatabaseUtil();
             try
             {
                 // Abrir la conexión a la base de datos
