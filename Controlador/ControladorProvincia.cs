@@ -1,10 +1,12 @@
-﻿using redTaller.Vista;
+﻿using redTaller.Modelo;
+using redTaller.Vista;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
 
 namespace redTaller.Controlador
 {
@@ -17,12 +19,12 @@ namespace redTaller.Controlador
 
         public void mostrar(Form parent)
         {
-            VistaProvincia visProvincia = new VistaProvincia();
+            VistaListaProvincia visProvincia = new VistaListaProvincia();
             visProvincia.MdiParent = parent;
             visProvincia.Show();
         }
 
-        public void nuevo()
+        public void nuevo( Provincia provincia , Form parent )
         {
         }
 
