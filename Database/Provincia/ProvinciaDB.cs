@@ -1,5 +1,6 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
 
@@ -18,15 +19,16 @@ namespace redTaller.Database.Provincia
         public DataTable extraeProvincias()
         {
 
-            MySqlDataAdapter adapter = null;
             DataTable dataTable = new DataTable();
 
             try
             {
                 db.Conectar();
                 string query = "SELECT codigo, nombre FROM provincia";
-                adapter = new MySqlDataAdapter(query, db.DbConn);
-                adapter.Fill(dataTable);
+                using (MySqlDataAdapter adapter = new MySqlDataAdapter(query, db.DbConn))
+                {
+                    adapter.Fill(dataTable);
+                }
             }
             catch (Exception ex)
             {
@@ -40,17 +42,22 @@ namespace redTaller.Database.Provincia
             return dataTable;
         }
 
-        public DataTable extraeProvinciasFiltro( String filtro )
+        public DataTable extraeProvinciasFiltro(string filtro)
         {
 
-            MySqlDataAdapter adapter = null;
             DataTable dataTable = new DataTable();
+
             try
             {
                 db.Conectar();
-                string query = "SELECT codigo, nombre FROM provincia WHERE nombre LIKE '%" + filtro + "%'";
-                adapter = new MySqlDataAdapter(query, db.DbConn);
-                adapter.Fill(dataTable);
+
+                string query = "SELECT codigo, nombre FROM provincia WHERE nombre LIKE @Filtro";
+
+                using (MySqlDataAdapter adapter = new MySqlDataAdapter(query, db.DbConn))
+                {
+                    adapter.SelectCommand.Parameters.AddWithValue("@Filtro", "%" + filtro + "%");
+                    adapter.Fill(dataTable);
+                }
             }
             catch (Exception ex)
             {
@@ -58,11 +65,35 @@ namespace redTaller.Database.Provincia
             }
             finally
             {
-                db.Desconectar();
+                db.Desconectar(); // Cerrar la conexión
             }
 
             return dataTable;
         }
 
+        public int borraProvincias( List<string> provincias )
+        {
+            int borradas = 0;
+            try
+            {
+                db.Conectar();
+                string query = "DELETE FROM provincia WHERE codigo IN (" + string.Join(",", provincias) + ")";
+
+                using ( MySqlCommand cmd = new MySqlCommand(query, db.DbConn ))
+                {
+
+                    borradas = cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error al borrar provincias: {ex.Message}");
+            }
+            finally
+            {
+                db.Desconectar();
+            }
+            return borradas;
+        }
     }
 }
