@@ -29,6 +29,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.panelTop = new System.Windows.Forms.Panel();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnEdit = new System.Windows.Forms.Button();
@@ -36,6 +37,8 @@
             this.textSearch = new System.Windows.Forms.TextBox();
             this.panelCenter = new System.Windows.Forms.Panel();
             this.gridPrincipal = new System.Windows.Forms.DataGridView();
+            this.toolAnade = new System.Windows.Forms.ToolTip(this.components);
+            this.toolEdita = new System.Windows.Forms.ToolTip(this.components);
             this.panelTop.SuspendLayout();
             this.panelCenter.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridPrincipal)).BeginInit();
@@ -71,15 +74,18 @@
             this.btnEdit.Size = new System.Drawing.Size(92, 29);
             this.btnEdit.TabIndex = 2;
             this.btnEdit.Text = "Editar";
+            this.toolEdita.SetToolTip(this.btnEdit, "Edita un registro seleccionado (INTRO)");
             this.btnEdit.UseVisualStyleBackColor = true;
             // 
             // btnAdd
             // 
+            this.btnAdd.AccessibleDescription = "";
             this.btnAdd.Location = new System.Drawing.Point(13, 10);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(92, 29);
             this.btnAdd.TabIndex = 1;
             this.btnAdd.Text = "Añadir";
+            this.toolAnade.SetToolTip(this.btnAdd, "Añade un Registro (Ins)");
             this.btnAdd.UseVisualStyleBackColor = true;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
@@ -115,6 +121,14 @@
             this.gridPrincipal.TabIndex = 1;
             this.gridPrincipal.KeyDown += new System.Windows.Forms.KeyEventHandler(this.gridPrincipal_KeyDown);
             // 
+            // toolAnade
+            // 
+            this.toolAnade.Tag = "Añade un Registro";
+            // 
+            // toolEdita
+            // 
+            this.toolEdita.Tag = "Añade un Registro";
+            // 
             // VistaListaProvincia
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -141,5 +155,7 @@
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnEdit;
         private System.Windows.Forms.Button btnAdd;
+        private System.Windows.Forms.ToolTip toolAnade;
+        private System.Windows.Forms.ToolTip toolEdita;
     }
 }
