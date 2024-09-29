@@ -35,21 +35,18 @@ namespace redTaller.Controlador
             ProvinciaDB provinciaDB = new ProvinciaDB();
             if (provinciaDB.borraProvincias(keys) > 0)
             {
-                vistaListaProvincia.msgInfo("Se han borrido " + keys.Count.ToString() + "provincias" );
-                vistaListaProvincia.recarga(provinciaDB.extraeProvincias());
+                vistaListaProvincia.msgInfo("Se ha borrido " + keys.Count.ToString() + " provincia(s)" );
             }
             else
             {
                 vistaListaProvincia.msgInfo("No se han podido borrar provincias");
-
             }
-
         }
 
         public void buscar( VistaListaProvincia vistaListaProvincia, string filtro )
         {
             ProvinciaDB provinciaDB = new ProvinciaDB();
-            vistaListaProvincia.recarga(provinciaDB.extraeProvinciasFiltro(filtro));
+            vistaListaProvincia.recargaGrid(provinciaDB.extraeProvinciasFiltro(filtro));
         }
 
     }
