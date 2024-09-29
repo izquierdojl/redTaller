@@ -39,6 +39,12 @@ namespace redTaller.Vista
             }
         }
 
+        private void vistaAnadir()
+        {
+            ControladorProvincia controlador = new ControladorProvincia();
+            controlador.nuevo(this);
+        }
+
         private void textSearch_TextChanged(object sender, System.EventArgs e)
         {
             ControladorProvincia controlador = new ControladorProvincia();
@@ -58,10 +64,19 @@ namespace redTaller.Vista
 
         private void gridPrincipal_KeyDown(object sender, KeyEventArgs e)
         {
-            if ( e.KeyCode == Keys.Delete ) {
+            if ( e.KeyCode == Keys.Delete ) 
+            {
                 vistaBorrar();
+            }
+            else if ( e.KeyCode == Keys.Insert)
+            {
+                vistaAnadir();
             }
         }
 
+        private void btnAdd_Click(object sender, System.EventArgs e)
+        {
+            vistaAnadir();
+        }
     }
 }

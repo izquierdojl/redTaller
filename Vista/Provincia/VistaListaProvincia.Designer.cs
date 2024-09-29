@@ -81,6 +81,7 @@
             this.btnAdd.TabIndex = 1;
             this.btnAdd.Text = "Añadir";
             this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // textSearch
             // 

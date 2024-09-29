@@ -1,7 +1,7 @@
 ﻿using redTaller.Database.Provincia;
 using redTaller.Modelo;
 using redTaller.Vista;
-using System.Collections;
+using redTaller.Vista.Provincia;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
@@ -22,8 +22,10 @@ namespace redTaller.Controlador
             visProvincia.Show();
         }
 
-        public void nuevo( Provincia provincia , Form parent )
+        public void nuevo( Form parent )
         {
+            VistaFormProvincia vistaFormProvincia = new VistaFormProvincia();
+            vistaFormProvincia.Show();
         }
 
         public void modificar()
