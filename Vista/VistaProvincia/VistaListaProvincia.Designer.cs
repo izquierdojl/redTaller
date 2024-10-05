@@ -77,6 +77,7 @@
             this.btnEdit.Text = "Editar";
             this.toolBotones.SetToolTip(this.btnEdit, "Edita un Registro (ENTER)");
             this.btnEdit.UseVisualStyleBackColor = true;
+            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
             // btnAdd
             // 
@@ -135,6 +136,7 @@
             this.Controls.Add(this.panelCenter);
             this.Controls.Add(this.panelTop);
             this.Name = "VistaListaProvincia";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Provincia";
             this.panelTop.ResumeLayout(false);

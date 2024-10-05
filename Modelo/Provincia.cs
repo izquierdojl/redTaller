@@ -1,19 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace redTaller.Modelo
 {
-    internal class Provincia
+    public class Provincia
     {
 
         private String codigo;
         private String nombre;
 
         public Provincia() { }
-
         
         /// <summary>
         /// Constructor de Provincia

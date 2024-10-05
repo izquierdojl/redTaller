@@ -99,20 +99,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controlador\ControladorProvincia.cs" />
-    <Compile Include="Database\Provincia\ProvinciaDB.cs" />
+    <Compile Include="Database\ProvinciaDB.cs" />
     <Compile Include="Database\Util\DatabaseUtil.cs" />
     <Compile Include="Modelo\Provincia.cs" />
     <Compile Include="Modelo\Taller.cs" />
-    <Compile Include="Vista\Provincia\VistaFormProvincia.cs">
+    <Compile Include="Vista\VistaProvincia\VistaFormProvincia.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Vista\Provincia\VistaFormProvincia.Designer.cs">
+    <Compile Include="Vista\VistaProvincia\VistaFormProvincia.Designer.cs">
       <DependentUpon>VistaFormProvincia.cs</DependentUpon>
     </Compile>
-    <Compile Include="Vista\Provincia\VistaListaProvincia.cs">
+    <Compile Include="Vista\VistaProvincia\VistaListaProvincia.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Vista\Provincia\VistaListaProvincia.Designer.cs">
+    <Compile Include="Vista\VistaProvincia\VistaListaProvincia.Designer.cs">
       <DependentUpon>VistaListaProvincia.cs</DependentUpon>
     </Compile>
     <Compile Include="Vista\Principal.cs">
@@ -135,10 +135,10 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Vista\Provincia\VistaFormProvincia.resx">
+    <EmbeddedResource Include="Vista\VistaProvincia\VistaFormProvincia.resx">
       <DependentUpon>VistaFormProvincia.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Vista\Provincia\VistaListaProvincia.resx">
+    <EmbeddedResource Include="Vista\VistaProvincia\VistaListaProvincia.resx">
       <DependentUpon>VistaListaProvincia.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />

@@ -1,6 +1,9 @@
 ﻿using redTaller.Controlador;
+using redTaller.Modelo;
+using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace redTaller.Vista
@@ -11,14 +14,27 @@ namespace redTaller.Vista
         public VistaListaProvincia(DataTable data)
         {
             InitializeComponent();
-            recargaGrid(data);
+            recargaGrid(data,"");
         }
 
-        public void recargaGrid(DataTable data)
+        public void recargaGrid(DataTable data, string keyPosiciona )
         {
             gridPrincipal.DataSource = data;
             gridPrincipal.Columns["codigo"].HeaderText = "Código" ;
             gridPrincipal.Columns["nombre"].HeaderText = "Nombre";
+            if ( keyPosiciona != null )
+            {
+                int index = gridPrincipal.Rows
+                    .Cast<DataGridViewRow>()
+                    .FirstOrDefault(row => (string)row.Cells["codigo"].Value == keyPosiciona)?.Index ?? -1;
+                if (index != -1)
+                {
+                    gridPrincipal.ClearSelection(); 
+                    gridPrincipal.Rows[index].Selected = true; 
+                    gridPrincipal.CurrentCell = gridPrincipal.Rows[index].Cells[0]; 
+                    gridPrincipal.FirstDisplayedScrollingRowIndex = index; 
+                }
+            }
         }
 
         private void vistaBorrar()
@@ -43,6 +59,12 @@ namespace redTaller.Vista
         {
             ControladorProvincia controlador = new ControladorProvincia();
             controlador.nuevo(this);
+        }
+        private void vistaEditar()
+        {
+            ControladorProvincia controlador = new ControladorProvincia();
+            string key = gridPrincipal.Rows[gridPrincipal.CurrentRow.Index].Cells["codigo"].Value.ToString();
+            controlador.modificar(this,key);
         }
 
         private void textSearch_TextChanged(object sender, System.EventArgs e)
@@ -72,11 +94,20 @@ namespace redTaller.Vista
             {
                 vistaAnadir();
             }
+            else if (e.KeyCode == Keys.Enter)
+            {
+                vistaEditar();
+            }
         }
 
         private void btnAdd_Click(object sender, System.EventArgs e)
         {
             vistaAnadir();
+        }
+
+        private void btnEdit_Click(object sender, System.EventArgs e)
+        {
+            vistaEditar();
         }
     }
 }
