@@ -37,8 +37,8 @@
             this.textSearch = new System.Windows.Forms.TextBox();
             this.panelCenter = new System.Windows.Forms.Panel();
             this.gridPrincipal = new System.Windows.Forms.DataGridView();
-            this.toolAnade = new System.Windows.Forms.ToolTip(this.components);
-            this.toolEdita = new System.Windows.Forms.ToolTip(this.components);
+            this.toolBotones = new System.Windows.Forms.ToolTip(this.components);
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.panelTop.SuspendLayout();
             this.panelCenter.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridPrincipal)).BeginInit();
@@ -64,6 +64,7 @@
             this.btnDelete.Size = new System.Drawing.Size(92, 29);
             this.btnDelete.TabIndex = 3;
             this.btnDelete.Text = "Borrar";
+            this.toolBotones.SetToolTip(this.btnDelete, "Elimina los registros seleccionados (Supr)");
             this.btnDelete.UseVisualStyleBackColor = true;
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
@@ -74,7 +75,7 @@
             this.btnEdit.Size = new System.Drawing.Size(92, 29);
             this.btnEdit.TabIndex = 2;
             this.btnEdit.Text = "Editar";
-            this.toolEdita.SetToolTip(this.btnEdit, "Edita un registro seleccionado (INTRO)");
+            this.toolBotones.SetToolTip(this.btnEdit, "Edita un Registro (ENTER)");
             this.btnEdit.UseVisualStyleBackColor = true;
             // 
             // btnAdd
@@ -85,7 +86,7 @@
             this.btnAdd.Size = new System.Drawing.Size(92, 29);
             this.btnAdd.TabIndex = 1;
             this.btnAdd.Text = "Añadir";
-            this.toolAnade.SetToolTip(this.btnAdd, "Añade un Registro (Ins)");
+            this.toolBotones.SetToolTip(this.btnAdd, "Añade un Registro (Ins)");
             this.btnAdd.UseVisualStyleBackColor = true;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
@@ -96,6 +97,7 @@
             this.textSearch.Name = "textSearch";
             this.textSearch.Size = new System.Drawing.Size(243, 20);
             this.textSearch.TabIndex = 0;
+            this.toolBotones.SetToolTip(this.textSearch, "Introduzca texto a buscar.");
             this.textSearch.TextChanged += new System.EventHandler(this.textSearch_TextChanged);
             // 
             // panelCenter
@@ -121,13 +123,9 @@
             this.gridPrincipal.TabIndex = 1;
             this.gridPrincipal.KeyDown += new System.Windows.Forms.KeyEventHandler(this.gridPrincipal_KeyDown);
             // 
-            // toolAnade
+            // toolBotones
             // 
-            this.toolAnade.Tag = "Añade un Registro";
-            // 
-            // toolEdita
-            // 
-            this.toolEdita.Tag = "Añade un Registro";
+            this.toolBotones.Tag = "Añade un Registro";
             // 
             // VistaListaProvincia
             // 
@@ -155,7 +153,7 @@
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnEdit;
         private System.Windows.Forms.Button btnAdd;
-        private System.Windows.Forms.ToolTip toolAnade;
-        private System.Windows.Forms.ToolTip toolEdita;
+        private System.Windows.Forms.ToolTip toolBotones;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
     }
 }
