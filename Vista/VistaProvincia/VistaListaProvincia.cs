@@ -109,5 +109,10 @@ namespace redTaller.Vista
         {
             vistaEditar();
         }
+
+        private void gridPrincipal_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            vistaEditar();
+        }
     }
 }
