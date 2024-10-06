@@ -23,8 +23,9 @@ namespace redTaller.Database
             try
             {
                 db.Conectar();
-                string query = "SELECT * FROM provincia";
+                string query = "SELECT * FROM provincia WHERE codigo=@key";
                 MySqlCommand cmd = new MySqlCommand(query, db.DbConn);
+                cmd.Parameters.AddWithValue("@key", key);
                 using (MySqlDataReader reader = cmd.ExecuteReader())
                 {
                     if ( reader.Read() ) 

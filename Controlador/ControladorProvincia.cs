@@ -31,9 +31,13 @@ namespace redTaller.Controlador
 
         public void modificar(VistaListaProvincia vistaListaProvincia, string key)
         {
-            Provincia provincia = new Provincia();
-            VistaFormProvincia vistaFormProvincia = new VistaFormProvincia(vistaListaProvincia, 2 , provincia );
-            vistaFormProvincia.ShowDialog();
+            ProvinciaDB provinciaDB = new ProvinciaDB();
+            Provincia provincia = provinciaDB.CargaProvincia(key);
+            if (provincia != null)
+            {
+                VistaFormProvincia vistaFormProvincia = new VistaFormProvincia(vistaListaProvincia, 2, provincia);
+                vistaFormProvincia.ShowDialog();
+            }
         }
 
         public void borrar( VistaListaProvincia vistaListaProvincia, List<string> keys )

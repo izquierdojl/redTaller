@@ -32,7 +32,7 @@ namespace redTaller.Vista
                     gridPrincipal.ClearSelection(); 
                     gridPrincipal.Rows[index].Selected = true; 
                     gridPrincipal.CurrentCell = gridPrincipal.Rows[index].Cells[0]; 
-                    gridPrincipal.FirstDisplayedScrollingRowIndex = index; 
+                   // gridPrincipal.FirstDisplayedScrollingRowIndex = index; // lo posiciona en la primera fila, lo desactivo porque parece que va bien sin ello
                 }
             }
         }
