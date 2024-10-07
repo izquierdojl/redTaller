@@ -114,5 +114,10 @@ namespace redTaller.Vista
         {
             vistaEditar();
         }
+
+        private void btnSalir_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

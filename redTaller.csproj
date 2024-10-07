@@ -134,6 +134,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="Vista\VistaProvincia\VistaFormProvincia.resx">
       <DependentUpon>VistaFormProvincia.cs</DependentUpon>
@@ -155,6 +156,23 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="img\anadir.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="img\borrar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="img\cancelar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="img\editar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="img\guardar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="img\salir.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

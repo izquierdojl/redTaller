@@ -31,7 +31,7 @@ namespace redTaller.Vista.VistaProvincia
             provincia.Nombre = textNombre.Text;
             ControladorProvincia controlador = new ControladorProvincia();
             this.Close();
-            controlador.guardar( provincia, modo, lista);
+            controlador.guardar(provincia, modo, lista);
         }
 
         private void btnCancelar_Click(object sender, System.EventArgs e)
