@@ -1,8 +1,7 @@
-﻿namespace redTaller.Vista
+﻿namespace redTaller.Vista.VistaBase
 {
-    partial class VistaListaProvincia
+    partial class VistaListaBase
     {
-
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -40,13 +39,10 @@
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnEdit = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
-            this.panelCenter = new System.Windows.Forms.Panel();
             this.toolBotones = new System.Windows.Forms.ToolTip(this.components);
-            this.gridPrincipal = new System.Windows.Forms.DataGridView();
+            this.panelCenter = new System.Windows.Forms.Panel();
             this.panelTop.SuspendLayout();
             this.panelSearch.SuspendLayout();
-            this.panelCenter.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gridPrincipal)).BeginInit();
             this.SuspendLayout();
             // 
             // panelTop
@@ -60,8 +56,8 @@
             this.panelTop.Location = new System.Drawing.Point(0, 0);
             this.panelTop.Name = "panelTop";
             this.panelTop.Padding = new System.Windows.Forms.Padding(10);
-            this.panelTop.Size = new System.Drawing.Size(1033, 81);
-            this.panelTop.TabIndex = 1;
+            this.panelTop.Size = new System.Drawing.Size(800, 81);
+            this.panelTop.TabIndex = 3;
             // 
             // panelSearch
             // 
@@ -70,7 +66,7 @@
             this.panelSearch.Controls.Add(this.btnSearch);
             this.panelSearch.Controls.Add(this.textSearch);
             this.panelSearch.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panelSearch.Location = new System.Drawing.Point(616, 10);
+            this.panelSearch.Location = new System.Drawing.Point(383, 10);
             this.panelSearch.Name = "panelSearch";
             this.panelSearch.Size = new System.Drawing.Size(407, 61);
             this.panelSearch.TabIndex = 10;
@@ -84,9 +80,8 @@
             this.btnInitSearch.Name = "btnInitSearch";
             this.btnInitSearch.Size = new System.Drawing.Size(32, 32);
             this.btnInitSearch.TabIndex = 10;
-            this.toolBotones.SetToolTip(this.btnInitSearch, "Busca por el texto indicado");
+            this.toolBotones.SetToolTip(this.btnInitSearch, "Inicializa la búsqueda");
             this.btnInitSearch.UseVisualStyleBackColor = true;
-            this.btnInitSearch.Click += new System.EventHandler(this.btnInitSearch_Click);
             // 
             // comboSearch
             // 
@@ -108,7 +103,6 @@
             this.btnSearch.TabIndex = 9;
             this.toolBotones.SetToolTip(this.btnSearch, "Busca por el texto indicado");
             this.btnSearch.UseVisualStyleBackColor = true;
-            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
             // textSearch
             // 
@@ -117,7 +111,6 @@
             this.textSearch.Size = new System.Drawing.Size(208, 20);
             this.textSearch.TabIndex = 8;
             this.toolBotones.SetToolTip(this.textSearch, "Introduzca texto a buscar.");
-            this.textSearch.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textSearch_KeyPress);
             // 
             // btnSalir
             // 
@@ -132,7 +125,6 @@
             this.btnSalir.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.toolBotones.SetToolTip(this.btnSalir, "Añade un Registro (Ins)");
             this.btnSalir.UseVisualStyleBackColor = true;
-            this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
             // 
             // btnDelete
             // 
@@ -142,11 +134,10 @@
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(57, 58);
             this.btnDelete.TabIndex = 3;
-            this.btnDelete.Text = "Borrar";
+            this.btnDelete.Text = "Eliminar";
             this.btnDelete.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.toolBotones.SetToolTip(this.btnDelete, "Elimina los registros seleccionados (Supr)");
             this.btnDelete.UseVisualStyleBackColor = true;
-            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // btnEdit
             // 
@@ -160,7 +151,6 @@
             this.btnEdit.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.toolBotones.SetToolTip(this.btnEdit, "Edita un Registro (ENTER)");
             this.btnEdit.UseVisualStyleBackColor = true;
-            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
             // btnAdd
             // 
@@ -175,71 +165,46 @@
             this.btnAdd.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.toolBotones.SetToolTip(this.btnAdd, "Añade un Registro (Ins)");
             this.btnAdd.UseVisualStyleBackColor = true;
-            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
-            // 
-            // panelCenter
-            // 
-            this.panelCenter.Controls.Add(this.gridPrincipal);
-            this.panelCenter.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelCenter.Location = new System.Drawing.Point(0, 81);
-            this.panelCenter.Name = "panelCenter";
-            this.panelCenter.Size = new System.Drawing.Size(1033, 454);
-            this.panelCenter.TabIndex = 2;
             // 
             // toolBotones
             // 
             this.toolBotones.Tag = "Añade un Registro";
             // 
-            // gridPrincipal
+            // panelCenter
             // 
-            this.gridPrincipal.AllowUserToAddRows = false;
-            this.gridPrincipal.AllowUserToDeleteRows = false;
-            this.gridPrincipal.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gridPrincipal.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gridPrincipal.Location = new System.Drawing.Point(0, 0);
-            this.gridPrincipal.Name = "gridPrincipal";
-            this.gridPrincipal.ReadOnly = true;
-            this.gridPrincipal.RowHeadersWidth = 62;
-            this.gridPrincipal.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.gridPrincipal.Size = new System.Drawing.Size(1033, 454);
-            this.gridPrincipal.TabIndex = 1;
-            this.gridPrincipal.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.gridPrincipal_CellMouseDoubleClick);
-            this.gridPrincipal.KeyDown += new System.Windows.Forms.KeyEventHandler(this.gridPrincipal_KeyDown);
+            this.panelCenter.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelCenter.Location = new System.Drawing.Point(0, 81);
+            this.panelCenter.Name = "panelCenter";
+            this.panelCenter.Size = new System.Drawing.Size(800, 369);
+            this.panelCenter.TabIndex = 4;
             // 
-            // VistaListaProvincia
+            // VistaListaBase
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1033, 535);
+            this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.panelCenter);
             this.Controls.Add(this.panelTop);
-            this.Name = "VistaListaProvincia";
-            this.ShowIcon = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Provincia";
-            this.Load += new System.EventHandler(this.VistaListaProvincia_Load);
+            this.Name = "VistaListaBase";
             this.panelTop.ResumeLayout(false);
             this.panelSearch.ResumeLayout(false);
             this.panelSearch.PerformLayout();
-            this.panelCenter.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.gridPrincipal)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-        private System.Windows.Forms.Panel panelTop;
-        private System.Windows.Forms.Panel panelCenter;
-        private System.Windows.Forms.Button btnDelete;
-        private System.Windows.Forms.Button btnEdit;
-        private System.Windows.Forms.Button btnAdd;
-        private System.Windows.Forms.ToolTip toolBotones;
-        private System.Windows.Forms.Button btnSalir;
-        private System.Windows.Forms.ComboBox comboSearch;
-        private System.Windows.Forms.TextBox textSearch;
-        private System.Windows.Forms.Button btnSearch;
-        private System.Windows.Forms.Panel panelSearch;
-        private System.Windows.Forms.Button btnInitSearch;
-        private System.Windows.Forms.DataGridView gridPrincipal;
+        protected System.Windows.Forms.Button btnInitSearch;
+        protected System.Windows.Forms.ComboBox comboSearch;
+        protected System.Windows.Forms.Button btnSearch;
+        protected System.Windows.Forms.TextBox textSearch;
+        protected System.Windows.Forms.Button btnSalir;
+        protected System.Windows.Forms.Button btnDelete;
+        protected System.Windows.Forms.Button btnEdit;
+        protected System.Windows.Forms.Button btnAdd;
+        protected System.Windows.Forms.Panel panelTop;
+        protected System.Windows.Forms.Panel panelSearch;
+        protected System.Windows.Forms.ToolTip toolBotones;
+        protected System.Windows.Forms.Panel panelCenter;
     }
 }

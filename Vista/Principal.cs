@@ -14,7 +14,6 @@ namespace redTaller
     public partial class Principal : Form
     {
 
-        ControladorProvincia contProvincia = new ControladorProvincia();
 
         public Principal()
         {
@@ -23,7 +22,15 @@ namespace redTaller
 
         private void menuFicherosProvincias_Click(object sender, EventArgs e)
         {
-            contProvincia.mostrar(this);
+            ControladorProvincia controladorProvincia = new ControladorProvincia();
+            controladorProvincia.mostrar(this);
+        }
+
+        private void menuFicherosCodigosPostales_Click(object sender, EventArgs e)
+        {
+            ControladorCodigoPostal controladorCodigoPostal = new ControladorCodigoPostal();    
+            controladorCodigoPostal.mostrar(this);
+           
         }
     }
 }

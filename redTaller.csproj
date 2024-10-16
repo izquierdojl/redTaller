@@ -98,11 +98,38 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controlador\ControladorCodigoPostal.cs" />
     <Compile Include="Controlador\ControladorProvincia.cs" />
+    <Compile Include="Database\CodigoPostalDB.cs" />
     <Compile Include="Database\ProvinciaDB.cs" />
     <Compile Include="Database\Util\DatabaseUtil.cs" />
+    <Compile Include="Modelo\CodigoPostal.cs" />
     <Compile Include="Modelo\Provincia.cs" />
     <Compile Include="Modelo\Taller.cs" />
+    <Compile Include="Vista\VistaBase\VistaFormBase.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Vista\VistaBase\VistaFormBase.Designer.cs">
+      <DependentUpon>VistaFormBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Vista\VistaBase\VistaListaBase.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Vista\VistaBase\VistaListaBase.Designer.cs">
+      <DependentUpon>VistaListaBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Vista\VistaCodigoPostal\VistaFormCodigoPostal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Vista\VistaCodigoPostal\VistaFormCodigoPostal.Designer.cs">
+      <DependentUpon>VistaFormCodigoPostal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Vista\VistaCodigoPostal\VistaListaCodigoPostal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Vista\VistaCodigoPostal\VistaListaCodigoPostal.Designer.cs">
+      <DependentUpon>VistaListaCodigoPostal.cs</DependentUpon>
+    </Compile>
     <Compile Include="Vista\VistaProvincia\VistaFormProvincia.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -136,6 +163,18 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Vista\VistaBase\VistaFormBase.resx">
+      <DependentUpon>VistaFormBase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Vista\VistaBase\VistaListaBase.resx">
+      <DependentUpon>VistaListaBase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Vista\VistaCodigoPostal\VistaFormCodigoPostal.resx">
+      <DependentUpon>VistaFormCodigoPostal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Vista\VistaCodigoPostal\VistaListaCodigoPostal.resx">
+      <DependentUpon>VistaListaCodigoPostal.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Vista\VistaProvincia\VistaFormProvincia.resx">
       <DependentUpon>VistaFormProvincia.cs</DependentUpon>
     </EmbeddedResource>
@@ -180,5 +219,6 @@
   <ItemGroup>
     <None Include="img\iniciar.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

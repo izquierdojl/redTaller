@@ -31,6 +31,7 @@
             this.menuFicheros = new System.Windows.Forms.MenuStrip();
             this.ficherosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuFicherosProvincias = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuFicherosCodigosPostales = new System.Windows.Forms.ToolStripMenuItem();
             this.menuFicheros.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -47,7 +48,8 @@
             // ficherosToolStripMenuItem
             // 
             this.ficherosToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.menuFicherosProvincias});
+            this.menuFicherosProvincias,
+            this.menuFicherosCodigosPostales});
             this.ficherosToolStripMenuItem.Name = "ficherosToolStripMenuItem";
             this.ficherosToolStripMenuItem.ShowShortcutKeys = false;
             this.ficherosToolStripMenuItem.Size = new System.Drawing.Size(63, 20);
@@ -56,9 +58,16 @@
             // menuFicherosProvincias
             // 
             this.menuFicherosProvincias.Name = "menuFicherosProvincias";
-            this.menuFicherosProvincias.Size = new System.Drawing.Size(186, 22);
+            this.menuFicherosProvincias.Size = new System.Drawing.Size(222, 22);
             this.menuFicherosProvincias.Text = "Fichero de &Provincias";
             this.menuFicherosProvincias.Click += new System.EventHandler(this.menuFicherosProvincias_Click);
+            // 
+            // menuFicherosCodigosPostales
+            // 
+            this.menuFicherosCodigosPostales.Name = "menuFicherosCodigosPostales";
+            this.menuFicherosCodigosPostales.Size = new System.Drawing.Size(222, 22);
+            this.menuFicherosCodigosPostales.Text = "Fichero de Códigos &Postales";
+            this.menuFicherosCodigosPostales.Click += new System.EventHandler(this.menuFicherosCodigosPostales_Click);
             // 
             // Principal
             // 
@@ -83,6 +92,7 @@
         private System.Windows.Forms.MenuStrip menuFicheros;
         private System.Windows.Forms.ToolStripMenuItem ficherosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem menuFicherosProvincias;
+        private System.Windows.Forms.ToolStripMenuItem menuFicherosCodigosPostales;
     }
 }
 
