@@ -1,5 +1,4 @@
 ﻿using redTaller.Controlador;
-using redTaller.Modelo;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -59,12 +58,14 @@ namespace redTaller.Vista
             ControladorProvincia controlador = new ControladorProvincia();
             controlador.nuevo(this);
         }
+
         private void vistaEditar()
         {
             ControladorProvincia controlador = new ControladorProvincia();
             string key = gridPrincipal.Rows[gridPrincipal.CurrentRow.Index].Cells["codigo"].Value.ToString();
             controlador.modificar(this,key);
         }
+
         private void vistaBuscar()
         {
             ControladorProvincia controlador = new ControladorProvincia();
