@@ -174,5 +174,11 @@
   <ItemGroup>
     <None Include="img\salir.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="img\buscar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="img\iniciar.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

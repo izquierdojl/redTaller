@@ -53,10 +53,10 @@ namespace redTaller.Controlador
             }
         }
 
-        public void buscar( VistaListaProvincia vistaListaProvincia, string filtro )
+        public void buscar( VistaListaProvincia vistaListaProvincia, string filtro, string campo )
         {
             ProvinciaDB provinciaDB = new ProvinciaDB();
-            vistaListaProvincia.recargaGrid(provinciaDB.extraeProvinciasFiltro(filtro),null);
+            vistaListaProvincia.recargaGrid(provinciaDB.extraeProvinciasFiltro(filtro,campo),null);
         }
 
         public void guardar(Provincia provincia,int modo,VistaListaProvincia vistaListaProvincia)

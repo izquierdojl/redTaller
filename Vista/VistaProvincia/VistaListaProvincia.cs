@@ -32,7 +32,6 @@ namespace redTaller.Vista
                     gridPrincipal.ClearSelection(); 
                     gridPrincipal.Rows[index].Selected = true; 
                     gridPrincipal.CurrentCell = gridPrincipal.Rows[index].Cells[0]; 
-                   // gridPrincipal.FirstDisplayedScrollingRowIndex = index; // lo posiciona en la primera fila, lo desactivo porque parece que va bien sin ello
                 }
             }
         }
@@ -66,11 +65,12 @@ namespace redTaller.Vista
             string key = gridPrincipal.Rows[gridPrincipal.CurrentRow.Index].Cells["codigo"].Value.ToString();
             controlador.modificar(this,key);
         }
-
-        private void textSearch_TextChanged(object sender, System.EventArgs e)
+        private void vistaBuscar()
         {
             ControladorProvincia controlador = new ControladorProvincia();
-            controlador.buscar(this,textSearch.Text);
+            int selected = comboSearch.SelectedIndex;
+            string campo = gridPrincipal.Columns[selected].Name;
+            controlador.buscar(this, textSearch.Text, campo);
         }
 
         private void btnDelete_Click(object sender, System.EventArgs e)
@@ -118,6 +118,35 @@ namespace redTaller.Vista
         private void btnSalir_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void VistaListaProvincia_Load(object sender, EventArgs e)
+        {
+            foreach (DataGridViewColumn column in gridPrincipal.Columns)
+            {
+                comboSearch.Items.Add(column.HeaderText);
+            }
+            comboSearch.SelectedIndex = 0;
+        }
+
+        private void textSearch_KeyPress(object sender, KeyPressEventArgs e)
+        {
+
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                vistaBuscar();
+            }     
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            vistaBuscar();
+        }
+
+        private void btnInitSearch_Click(object sender, EventArgs e)
+        {
+            textSearch.Text = "";
+            vistaBuscar();
         }
     }
 }

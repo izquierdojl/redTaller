@@ -153,7 +153,7 @@ namespace redTaller.Database
             return dataTable;
         }
 
-        public DataTable extraeProvinciasFiltro(string filtro)
+        public DataTable extraeProvinciasFiltro(string filtro, string campo)
         {
 
             DataTable dataTable = new DataTable();
@@ -162,8 +162,7 @@ namespace redTaller.Database
             {
                 db.Conectar();
 
-                string query = "SELECT codigo, nombre FROM provincia WHERE nombre LIKE @Filtro";
-
+                string query = "SELECT codigo, nombre FROM provincia WHERE " + campo + " LIKE @Filtro";
                 using (MySqlDataAdapter adapter = new MySqlDataAdapter(query, db.DbConn))
                 {
                     adapter.SelectCommand.Parameters.AddWithValue("@Filtro", "%" + filtro + "%");
