@@ -1,5 +1,6 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
 
@@ -60,6 +61,28 @@ namespace redTaller.Database
 
         public MySqlConnection DbConn { get => dbConn; set => dbConn = value; }
 
+        static public string selectColumns(Dictionary<string, CampoInfo> dc, bool all)
+        {
+            string select = "";
+            foreach (string key in dc.Keys)
+            {
+                if ( dc[key].VisibleTabla || all )
+                  select += " " + dc[key].SelectCampo + " as " + key + ",";
+            }
+            if (dc.Count > 0)
+            {
+                select = select.Substring(0, select.Length - 1);
+            }
+            return select;
+        }
+
     }
+
+    public class CampoInfo
+    {
+        public string SelectCampo { get; set; }
+        public bool VisibleTabla { get; set; }
+    }
+
 
 }

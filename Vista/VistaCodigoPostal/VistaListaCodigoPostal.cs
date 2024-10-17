@@ -16,13 +16,7 @@ namespace redTaller.Vista.VistaCodigoPostal
         public VistaListaCodigoPostal(DataTable data)
         {
             InitializeComponent();
-            panelCenter.BackColor = Color.LightBlue; // Temporal para verificar si el panel es visible
             recargaGrid(data, "");
-            foreach (DataGridViewColumn column in gridPrincipal.Columns)
-            {
-                comboSearch.Items.Add(column.HeaderText);
-            }
-            comboSearch.SelectedIndex = 0;
         }
 
         public void recargaGrid(DataTable data, string keyPosiciona)
@@ -33,6 +27,17 @@ namespace redTaller.Vista.VistaCodigoPostal
             gridPrincipal.Columns["codigo"].HeaderText = "Código";
             gridPrincipal.Columns["nombre"].HeaderText = "Nombre";
             gridPrincipal.Columns["nombre_provincia"].HeaderText = "Provincia";
+
+            var listaColumnas = new List<object>();
+            comboSearch.DisplayMember = "Nombre";
+            comboSearch.ValueMember = "Codigo";
+            foreach (DataColumn column in data.Columns)
+            {
+                listaColumnas.Add(new { Nombre = gridPrincipal.Columns[column.ColumnName].HeaderText , Codigo = column.ColumnName });
+            }
+            comboSearch.DataSource = listaColumnas;
+            //comboSearch.SelectedIndex = 0;
+
 
             if (keyPosiciona != null)
             {

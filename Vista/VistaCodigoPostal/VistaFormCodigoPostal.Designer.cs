@@ -82,6 +82,7 @@
             this.textCodigo.Name = "textCodigo";
             this.textCodigo.Size = new System.Drawing.Size(81, 20);
             this.textCodigo.TabIndex = 7;
+            this.textCodigo.Validating += new System.ComponentModel.CancelEventHandler(this.textCodigo_Validating);
             // 
             // labCodigo
             // 
@@ -100,7 +101,6 @@
             this.labelProvincia.Size = new System.Drawing.Size(54, 13);
             this.labelProvincia.TabIndex = 11;
             this.labelProvincia.Text = "Provincia:";
-            this.labelProvincia.Click += new System.EventHandler(this.label1_Click);
             // 
             // comboProvincia
             // 

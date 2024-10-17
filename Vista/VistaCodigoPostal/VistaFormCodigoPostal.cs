@@ -1,6 +1,8 @@
 ﻿using redTaller.Controlador;
 using redTaller.Modelo;
-using System.Windows.Forms;
+using System.Collections.Generic;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace redTaller.Vista.VistaCodigoPostal
 {
@@ -18,23 +20,29 @@ namespace redTaller.Vista.VistaCodigoPostal
             this.lista = lista;
             this.modo = modo;
             this.codigoPostal = codigoPostal;
+
+            ControladorProvincia controladorProvincia = new ControladorProvincia();
+            List<Provincia> provincias = controladorProvincia.listProvincias();
+            comboProvincia.DisplayMember = "nombre";
+            comboProvincia.ValueMember = "codigo";
+            comboProvincia.DataSource = provincias;
+
             if (modo == 2)
             {
                 textCodigo.Enabled = false;
                 textCodigo.Text = codigoPostal.Codigo;
                 textNombre.Text = codigoPostal.Nombre;
+                comboProvincia.SelectedValue = codigoPostal.Provincia.Codigo;
             }
 
-
-            comboProvincia.Items.Add("Teruel");
-            comboProvincia.Items.Add("Zaragoza");
-
         }
+
 
         private void btnAceptar_Click(object sender, System.EventArgs e)
         {
             codigoPostal.Codigo = textCodigo.Text;
             codigoPostal.Nombre = textNombre.Text;
+            codigoPostal.Provincia = new Provincia(comboProvincia.SelectedValue.ToString());
             this.Close();
             controlador.guardar(codigoPostal, modo, lista);
         }
@@ -44,8 +52,13 @@ namespace redTaller.Vista.VistaCodigoPostal
             this.Close();
         }
 
-        private void label1_Click(object sender, System.EventArgs e)
+        private void textCodigo_Validating(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            if (!controlador.valida(textCodigo.Text))
+            {
+                MessageBox.Show("El código ya existe o es inválido.");
+                textCodigo.Select();
+            }
 
         }
     }

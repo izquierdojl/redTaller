@@ -181,5 +181,41 @@ namespace redTaller.Database
             return dataTable;
         }
 
+        public List<Provincia> listProvincias()
+        {
+            List<Provincia> list = new List<Provincia> ();
+
+            try
+            {
+                db.Conectar();
+
+                string query = "SELECT codigo, nombre FROM provincia ORDER BY codigo";
+
+                MySqlCommand cmd = new MySqlCommand(query, db.DbConn);
+
+                using (MySqlDataReader provincias = cmd.ExecuteReader())
+                {
+                    while (provincias.Read())
+                    {
+                        Provincia provincia = new Provincia();
+                        provincia.Codigo = provincias["codigo"].ToString();
+                        provincia.Nombre = provincias["nombre"].ToString();
+                        list.Add(provincia);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error al obtener provincias: {ex.Message}");
+            }
+            finally
+            {
+                db.Desconectar(); // Cerrar la conexión
+            }
+
+            return list;
+
+        }
+
     }
 }

@@ -73,7 +73,13 @@ namespace redTaller.Controlador
             }
             vistaListaCodigoPostal.recargaGrid(CodigoPostalDB.extraeCodigosPostal(), CodigoPostal.Codigo);
         }
-    
+
+        public bool valida(string key)
+        {
+            CodigoPostalDB CodigoPostalDB = new CodigoPostalDB();
+            return CodigoPostalDB.validaKey(key);
+        }
+
     }
 
 }

@@ -72,6 +72,12 @@ namespace redTaller.Controlador
             vistaListaProvincia.recargaGrid(provinciaDB.extraeProvincias(), provincia.Codigo);
         }
 
+        public List<Provincia> listProvincias()
+        {
+            ProvinciaDB provinciaDB = new ProvinciaDB();
+            return provinciaDB.listProvincias();
+        }
+
     }
 
 }

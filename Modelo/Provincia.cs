@@ -5,8 +5,8 @@ namespace redTaller.Modelo
     public class Provincia
     {
 
-        private String codigo;
-        private String nombre;
+        private string codigo;
+        private string nombre;
 
         public Provincia() { }
         
@@ -20,6 +20,12 @@ namespace redTaller.Modelo
             this.Codigo = codigo;
             this.Nombre = nombre;
         }
+
+        public Provincia(string codigo)
+        {
+            this.Codigo = codigo;
+        }
+
 
         public string Codigo { get => codigo; set => codigo = value; }
         public string Nombre { get => nombre; set => nombre = value; }
