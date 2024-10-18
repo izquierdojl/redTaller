@@ -21,6 +21,7 @@ namespace redTaller.Vista.VistaCodigoPostal
             this.modo = modo;
             this.codigoPostal = codigoPostal;
 
+            // configuración combo
             ControladorProvincia controladorProvincia = new ControladorProvincia();
             List<Provincia> provincias = controladorProvincia.listProvincias();
             comboProvincia.DisplayMember = "nombre";

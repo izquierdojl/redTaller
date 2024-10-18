@@ -1,6 +1,7 @@
 ﻿using redTaller.Database;
 using redTaller.Modelo;
 using redTaller.Vista.VistaCodigoPostal;
+using redTaller.Vista.VistaUtil;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
@@ -45,11 +46,11 @@ namespace redTaller.Controlador
             CodigoPostalDB CodigoPostalDB = new CodigoPostalDB();
             if (CodigoPostalDB.deleteCodigoPostals(keys) > 0)
             {
-                vistaListaCodigoPostal.msgInfo("Se ha borrido " + keys.Count.ToString() + " CodigoPostal(s)" );
+                VistaUtil.MsgInfo("Se ha borrado " + keys.Count.ToString() + " registro(s)"  , "Información" );
             }
             else
             {
-                vistaListaCodigoPostal.msgInfo("No se han podido borrar CodigoPostals");
+                VistaUtil.MsgInfo("No se han podido borrar", "Información");
             }
         }
 

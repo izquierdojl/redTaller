@@ -36,8 +36,6 @@ namespace redTaller.Vista.VistaCodigoPostal
                 listaColumnas.Add(new { Nombre = gridPrincipal.Columns[column.ColumnName].HeaderText , Codigo = column.ColumnName });
             }
             comboSearch.DataSource = listaColumnas;
-            //comboSearch.SelectedIndex = 0;
-
 
             if (keyPosiciona != null)
             {
@@ -92,12 +90,6 @@ namespace redTaller.Vista.VistaCodigoPostal
         private void btnDelete_Click(object sender, System.EventArgs e)
         {
             vistaBorrar();
-        }
-
-        public void msgInfo(string msg)
-        {
-            MessageBox.Show(msg, "Información - CodigoPostals");
-            gridPrincipal.Focus();
         }
 
         private void gridPrincipal_KeyDown(object sender, KeyEventArgs e)
