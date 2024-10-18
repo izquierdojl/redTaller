@@ -54,9 +54,10 @@
             this.panelTop.Controls.Add(this.btnAdd);
             this.panelTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelTop.Location = new System.Drawing.Point(0, 0);
+            this.panelTop.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panelTop.Name = "panelTop";
-            this.panelTop.Padding = new System.Windows.Forms.Padding(10);
-            this.panelTop.Size = new System.Drawing.Size(800, 81);
+            this.panelTop.Padding = new System.Windows.Forms.Padding(15, 15, 15, 15);
+            this.panelTop.Size = new System.Drawing.Size(1200, 125);
             this.panelTop.TabIndex = 3;
             // 
             // panelSearch
@@ -66,9 +67,10 @@
             this.panelSearch.Controls.Add(this.btnSearch);
             this.panelSearch.Controls.Add(this.textSearch);
             this.panelSearch.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panelSearch.Location = new System.Drawing.Point(383, 10);
+            this.panelSearch.Location = new System.Drawing.Point(575, 15);
+            this.panelSearch.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panelSearch.Name = "panelSearch";
-            this.panelSearch.Size = new System.Drawing.Size(407, 61);
+            this.panelSearch.Size = new System.Drawing.Size(610, 95);
             this.panelSearch.TabIndex = 10;
             // 
             // btnInitSearch
@@ -76,9 +78,10 @@
             this.btnInitSearch.AutoSize = true;
             this.btnInitSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnInitSearch.Image = global::redTaller.Properties.Resources.iniciar;
-            this.btnInitSearch.Location = new System.Drawing.Point(372, 1);
+            this.btnInitSearch.Location = new System.Drawing.Point(558, 2);
+            this.btnInitSearch.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnInitSearch.Name = "btnInitSearch";
-            this.btnInitSearch.Size = new System.Drawing.Size(32, 32);
+            this.btnInitSearch.Size = new System.Drawing.Size(48, 49);
             this.btnInitSearch.TabIndex = 10;
             this.toolBotones.SetToolTip(this.btnInitSearch, "Inicializa la búsqueda");
             this.btnInitSearch.UseVisualStyleBackColor = true;
@@ -87,9 +90,10 @@
             // 
             this.comboSearch.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboSearch.FormattingEnabled = true;
-            this.comboSearch.Location = new System.Drawing.Point(0, 2);
+            this.comboSearch.Location = new System.Drawing.Point(0, 3);
+            this.comboSearch.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.comboSearch.Name = "comboSearch";
-            this.comboSearch.Size = new System.Drawing.Size(115, 21);
+            this.comboSearch.Size = new System.Drawing.Size(170, 28);
             this.comboSearch.TabIndex = 5;
             // 
             // btnSearch
@@ -97,18 +101,20 @@
             this.btnSearch.AutoSize = true;
             this.btnSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSearch.Image = global::redTaller.Properties.Resources.buscar;
-            this.btnSearch.Location = new System.Drawing.Point(335, 1);
+            this.btnSearch.Location = new System.Drawing.Point(502, 2);
+            this.btnSearch.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(32, 32);
+            this.btnSearch.Size = new System.Drawing.Size(48, 49);
             this.btnSearch.TabIndex = 9;
             this.toolBotones.SetToolTip(this.btnSearch, "Busca por el texto indicado");
             this.btnSearch.UseVisualStyleBackColor = true;
             // 
             // textSearch
             // 
-            this.textSearch.Location = new System.Drawing.Point(121, 3);
+            this.textSearch.Location = new System.Drawing.Point(182, 5);
+            this.textSearch.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.textSearch.Name = "textSearch";
-            this.textSearch.Size = new System.Drawing.Size(208, 20);
+            this.textSearch.Size = new System.Drawing.Size(310, 26);
             this.textSearch.TabIndex = 8;
             this.toolBotones.SetToolTip(this.textSearch, "Introduzca texto a buscar.");
             // 
@@ -117,9 +123,10 @@
             this.btnSalir.AccessibleDescription = "";
             this.btnSalir.Image = global::redTaller.Properties.Resources.salir;
             this.btnSalir.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnSalir.Location = new System.Drawing.Point(13, 10);
+            this.btnSalir.Location = new System.Drawing.Point(20, 15);
+            this.btnSalir.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnSalir.Name = "btnSalir";
-            this.btnSalir.Size = new System.Drawing.Size(57, 58);
+            this.btnSalir.Size = new System.Drawing.Size(86, 89);
             this.btnSalir.TabIndex = 4;
             this.btnSalir.Text = "Salir";
             this.btnSalir.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -130,9 +137,10 @@
             // 
             this.btnDelete.Image = global::redTaller.Properties.Resources.borrar;
             this.btnDelete.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnDelete.Location = new System.Drawing.Point(203, 10);
+            this.btnDelete.Location = new System.Drawing.Point(304, 15);
+            this.btnDelete.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(57, 58);
+            this.btnDelete.Size = new System.Drawing.Size(86, 89);
             this.btnDelete.TabIndex = 3;
             this.btnDelete.Text = "Eliminar";
             this.btnDelete.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -143,9 +151,10 @@
             // 
             this.btnEdit.Image = global::redTaller.Properties.Resources.editar;
             this.btnEdit.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnEdit.Location = new System.Drawing.Point(139, 10);
+            this.btnEdit.Location = new System.Drawing.Point(208, 15);
+            this.btnEdit.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnEdit.Name = "btnEdit";
-            this.btnEdit.Size = new System.Drawing.Size(57, 58);
+            this.btnEdit.Size = new System.Drawing.Size(86, 89);
             this.btnEdit.TabIndex = 2;
             this.btnEdit.Text = "Editar";
             this.btnEdit.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -157,9 +166,10 @@
             this.btnAdd.AccessibleDescription = "";
             this.btnAdd.Image = global::redTaller.Properties.Resources.anadir;
             this.btnAdd.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnAdd.Location = new System.Drawing.Point(76, 10);
+            this.btnAdd.Location = new System.Drawing.Point(114, 15);
+            this.btnAdd.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(57, 58);
+            this.btnAdd.Size = new System.Drawing.Size(86, 89);
             this.btnAdd.TabIndex = 1;
             this.btnAdd.Text = "Añadir";
             this.btnAdd.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -173,18 +183,20 @@
             // panelCenter
             // 
             this.panelCenter.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelCenter.Location = new System.Drawing.Point(0, 81);
+            this.panelCenter.Location = new System.Drawing.Point(0, 125);
+            this.panelCenter.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panelCenter.Name = "panelCenter";
-            this.panelCenter.Size = new System.Drawing.Size(800, 369);
+            this.panelCenter.Size = new System.Drawing.Size(1200, 567);
             this.panelCenter.TabIndex = 4;
             // 
             // VistaListaBase
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1200, 692);
             this.Controls.Add(this.panelCenter);
             this.Controls.Add(this.panelTop);
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "VistaListaBase";
             this.panelTop.ResumeLayout(false);
             this.panelSearch.ResumeLayout(false);
@@ -195,9 +207,7 @@
 
         #endregion
         protected System.Windows.Forms.Button btnInitSearch;
-        protected System.Windows.Forms.ComboBox comboSearch;
         protected System.Windows.Forms.Button btnSearch;
-        protected System.Windows.Forms.TextBox textSearch;
         protected System.Windows.Forms.Button btnSalir;
         protected System.Windows.Forms.Button btnDelete;
         protected System.Windows.Forms.Button btnEdit;
@@ -206,5 +216,7 @@
         protected System.Windows.Forms.Panel panelSearch;
         protected System.Windows.Forms.ToolTip toolBotones;
         protected System.Windows.Forms.Panel panelCenter;
+        public System.Windows.Forms.TextBox textSearch;
+        public System.Windows.Forms.ComboBox comboSearch;
     }
 }

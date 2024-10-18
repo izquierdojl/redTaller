@@ -1,4 +1,5 @@
 ﻿using redTaller.Controlador;
+using redTaller.Modelo;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -13,41 +14,86 @@ namespace redTaller.Vista.VistaCodigoPostal
 
         ControladorCodigoPostal controlador = new ControladorCodigoPostal();
 
-        public VistaListaCodigoPostal(DataTable data)
+        public VistaListaCodigoPostal(List<CodigoPostal> data)
         {
             InitializeComponent();
-            recargaGrid(data, "");
-        }
 
-        public void recargaGrid(DataTable data, string keyPosiciona)
-        {
+            gridPrincipal.AutoGenerateColumns = false;
+            gridPrincipal.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill; // Ajusta automáticamente las columnas
 
-            gridPrincipal.AutoGenerateColumns = true;
-            gridPrincipal.DataSource = data;
-            gridPrincipal.Columns["codigo"].HeaderText = "Código";
-            gridPrincipal.Columns["nombre"].HeaderText = "Nombre";
-            gridPrincipal.Columns["nombre_provincia"].HeaderText = "Provincia";
 
             var listaColumnas = new List<object>();
+
+            gridPrincipal.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "codigo", HeaderText = "Código"
+            }); 
+            listaColumnas.Add(new { Nombre ="Codigo", Codigo = "codigo" });
+
+            gridPrincipal.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "nombre",
+                HeaderText = "Nombre"
+            });
+            listaColumnas.Add(new { Nombre = "Nombre", Codigo = "nombre" });
+
+                gridPrincipal.Columns.Add(new DataGridViewTextBoxColumn
+                {
+                    Name = "provincia.nombre",
+                    DataPropertyName = "provincia.nombre",
+                    Visible = true,  
+                    HeaderText = "Provinciax",
+                    Width = 50      
+                });
+
+            listaColumnas.Add(new { Nombre = "Provincia", Codigo = "nombre_provincia" });
+
+            gridPrincipal.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "id",
+                DataPropertyName = "id",
+                HeaderText = "Id"
+            });
+
+            comboSearch.DataSource = listaColumnas;
             comboSearch.DisplayMember = "Nombre";
             comboSearch.ValueMember = "Codigo";
-            foreach (DataColumn column in data.Columns)
-            {
-                listaColumnas.Add(new { Nombre = gridPrincipal.Columns[column.ColumnName].HeaderText , Codigo = column.ColumnName });
-            }
-            comboSearch.DataSource = listaColumnas;
 
-            if (keyPosiciona != null)
+            gridPrincipal.CellFormatting += (s, e) =>
             {
+                if (e.ColumnIndex == gridPrincipal.Columns["provincia.nombre"].Index)
+                {
+                    var codigoPostal = (CodigoPostal)gridPrincipal.Rows[e.RowIndex].DataBoundItem;
+                    e.Value = codigoPostal.provincia?.nombre ?? "Sin Provincia"; // Muestra un texto alternativo si es nulo
+                }
+            };
+
+            recargaGrid(data);
+
+        }
+
+        public void recargaGrid(List<CodigoPostal> data, int idPosiciona = 0 )
+        {
+
+
+            gridPrincipal.DataSource = null; 
+            gridPrincipal.DataSource = data;
+            gridPrincipal.Refresh();
+
+
+            if (idPosiciona != 0 )
+            {
+                
                 int index = gridPrincipal.Rows
                     .Cast<DataGridViewRow>()
-                    .FirstOrDefault(row => (string)row.Cells["codigo"].Value == keyPosiciona)?.Index ?? -1;
+                    .FirstOrDefault(row => (int)row.Cells[3].Value == idPosiciona)?.Index ?? -1;
                 if (index != -1)
                 {
                     gridPrincipal.ClearSelection();
                     gridPrincipal.Rows[index].Selected = true;
                     gridPrincipal.CurrentCell = gridPrincipal.Rows[index].Cells[0];
                 }
+                
             }
             
         }
@@ -61,7 +107,7 @@ namespace redTaller.Vista.VistaCodigoPostal
                     List<string> recs = new List<string>();
                     foreach (DataGridViewRow row in gridPrincipal.SelectedRows)
                     {
-                        recs.Add((string)row.Cells["codigo"].Value);
+                        recs.Add((string)row.Cells["id"].Value);
                         gridPrincipal.Rows.Remove(row);
                     }
                     controlador.borrar(this, recs);
@@ -76,8 +122,8 @@ namespace redTaller.Vista.VistaCodigoPostal
 
         private void vistaEditar()
         {
-            string key = gridPrincipal.Rows[gridPrincipal.CurrentRow.Index].Cells["codigo"].Value.ToString();
-            controlador.modificar(this, key);
+            int id = (int)gridPrincipal.Rows[gridPrincipal.CurrentRow.Index].Cells["id"].Value;
+            controlador.modificar(this, id);
         }
 
         private void vistaBuscar()

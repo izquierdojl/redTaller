@@ -1,4 +1,4 @@
-﻿using MySql.Data.MySqlClient;
+﻿using MySqlConnector; 
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -7,7 +7,7 @@ using System.Diagnostics;
 namespace redTaller.Database
 {
     /// <summary>
-    /// Clase DababaseUtils, para gestionar conexiones y rutinas de la base de datos
+    /// Clase DatabaseUtils, para gestionar conexiones y rutinas de la base de datos
     /// </summary>
     internal class DatabaseUtil
     {
@@ -66,8 +66,8 @@ namespace redTaller.Database
             string select = "";
             foreach (string key in dc.Keys)
             {
-                if ( dc[key].VisibleTabla || all )
-                  select += " " + dc[key].SelectCampo + " as " + key + ",";
+                if (dc[key].VisibleTabla || all)
+                    select += " " + dc[key].SelectCampo + " as " + key + ",";
             }
             if (dc.Count > 0)
             {
@@ -83,6 +83,4 @@ namespace redTaller.Database
         public string SelectCampo { get; set; }
         public bool VisibleTabla { get; set; }
     }
-
-
 }

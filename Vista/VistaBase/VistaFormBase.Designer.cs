@@ -90,6 +90,8 @@
             this.Controls.Add(this.panelButton);
             this.Controls.Add(this.panelPrincipal);
             this.Name = "VistaFormBase";
+            this.ShowIcon = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.panelButton.ResumeLayout(false);
             this.ResumeLayout(false);
 

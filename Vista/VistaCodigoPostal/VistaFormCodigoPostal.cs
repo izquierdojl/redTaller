@@ -23,7 +23,7 @@ namespace redTaller.Vista.VistaCodigoPostal
 
             // configuración combo
             ControladorProvincia controladorProvincia = new ControladorProvincia();
-            List<Provincia> provincias = controladorProvincia.listProvincias();
+            List<Provincia> provincias = controladorProvincia.listar();
             comboProvincia.DisplayMember = "nombre";
             comboProvincia.ValueMember = "codigo";
             comboProvincia.DataSource = provincias;
@@ -31,9 +31,9 @@ namespace redTaller.Vista.VistaCodigoPostal
             if (modo == 2)
             {
                 textCodigo.Enabled = false;
-                textCodigo.Text = codigoPostal.Codigo;
-                textNombre.Text = codigoPostal.Nombre;
-                comboProvincia.SelectedValue = codigoPostal.Provincia.Codigo;
+                textCodigo.Text = codigoPostal.codigo;
+                textNombre.Text = codigoPostal.nombre;
+                comboProvincia.SelectedValue = codigoPostal.provincia.codigo;
             }
 
         }
@@ -41,9 +41,9 @@ namespace redTaller.Vista.VistaCodigoPostal
 
         private void btnAceptar_Click(object sender, System.EventArgs e)
         {
-            codigoPostal.Codigo = textCodigo.Text;
-            codigoPostal.Nombre = textNombre.Text;
-            codigoPostal.Provincia = new Provincia(comboProvincia.SelectedValue.ToString());
+            codigoPostal.codigo = textCodigo.Text;
+            codigoPostal.nombre = textNombre.Text;
+            codigoPostal.provincia = new Provincia(comboProvincia.SelectedValue.ToString());
             this.Close();
             controlador.guardar(codigoPostal, modo, lista);
         }

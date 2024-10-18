@@ -1,51 +1,57 @@
 ﻿using redTaller.Modelo;
-using MySql.Data.MySqlClient;
+using MySqlConnector; // Cambiar la importación aquí
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Diagnostics;
-using System.Windows.Documents;
 
 namespace redTaller.Database
 {
     internal class CodigoPostalDB
     {
-
         private readonly DatabaseUtil db;
+        private string tabla;
+        private string key;
         private Dictionary<string, CampoInfo> dc;
 
         public CodigoPostalDB()
         {
             db = new DatabaseUtil();
-            Dc = new Dictionary<string, CampoInfo>()
+            tabla = "codigopostal";
+            key = "id";
+            dc = new Dictionary<string, CampoInfo>()
             {
                 { "codigo", new CampoInfo { SelectCampo = "codigopostal.codigo", VisibleTabla = true } },
                 { "nombre", new CampoInfo { SelectCampo = "codigopostal.nombre", VisibleTabla = true } },
                 { "nombre_provincia", new CampoInfo { SelectCampo = "provincia.nombre", VisibleTabla = true } },
-                { "codigo_provincia", new CampoInfo { SelectCampo = "codigopostal.cod_provincia", VisibleTabla = false } }
+                { "codigo_provincia", new CampoInfo { SelectCampo = "codigopostal.cod_provincia", VisibleTabla = true } },
+                { "id", new CampoInfo { SelectCampo = "codigopostal.id", VisibleTabla = true } }
             };
-
         }
 
-        public CodigoPostal CargaCodigoPostal(string key)
+        public CodigoPostal CargaElemento(int id)
         {
-            CodigoPostal CodigoPostal = new Modelo.CodigoPostal();
+            CodigoPostal codigoPostal = new Modelo.CodigoPostal();
             try
             {
                 db.Conectar();
-                string query = "SELECT " + DatabaseUtil.selectColumns(Dc,true) + 
-                               " FROM codigopostal " +
-                               "   LEFT JOIN provincia ON provincia.codigo=codigopostal.cod_provincia "+
-                               " WHERE " + dc["codigo"].SelectCampo + "=@key" ;
-                MySqlCommand cmd = new MySqlCommand(query, db.DbConn);
-                cmd.Parameters.AddWithValue("@key", key);
-                using (MySqlDataReader reader = cmd.ExecuteReader())
+
+                string query = $@"
+                               SELECT {DatabaseUtil.selectColumns(dc, true)}
+                               FROM {tabla}
+                               LEFT JOIN provincia ON provincia.codigo=codigopostal.cod_provincia 
+                               WHERE id=@key
+                                ";
+                using (MySqlCommand cmd = new MySqlCommand(query, db.DbConn))
                 {
-                    if ( reader.Read() ) 
+                    cmd.Parameters.AddWithValue("@key", key);
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
-                        CodigoPostal.Codigo = reader.GetString("codigo");
-                        CodigoPostal.Nombre = reader.GetString("nombre");
-                        CodigoPostal.Provincia = new Provincia(reader.GetString("codigo_provincia"),reader.GetString("nombre_provincia"));
+                        if (reader.Read())
+                        {
+                            codigoPostal.codigo = reader.GetString("codigo");
+                            codigoPostal.nombre = reader.GetString("nombre");
+                            codigoPostal.provincia = new Provincia(reader.GetString("codigo_provincia"), reader.GetString("nombre_provincia"));
+                        }
                     }
                 }
             }
@@ -58,23 +64,22 @@ namespace redTaller.Database
                 db.Desconectar();
             }
 
-            return CodigoPostal;
-
+            return codigoPostal;
         }
 
-        public int insertCodigoPostal(CodigoPostal CodigoPostal)
+        public int Insert(CodigoPostal codigoPostal)
         {
             int nuevas = 0;
             try
             {
                 db.Conectar();
-                string query = "INSERT INTO codigopostal set codigo=@codigo, nombre=@nombre, cod_provincia=@cod_provincia";
+                string query = $"INSERT INTO {tabla} set codigo=@codigo, nombre=@nombre, cod_provincia=@cod_provincia";
 
                 using (MySqlCommand cmd = new MySqlCommand(query, db.DbConn))
                 {
-                    cmd.Parameters.AddWithValue("@codigo",CodigoPostal.Codigo);
-                    cmd.Parameters.AddWithValue("@nombre", CodigoPostal.Nombre);
-                    cmd.Parameters.AddWithValue("@cod_provincia", CodigoPostal.Provincia.Codigo);
+                    cmd.Parameters.AddWithValue("@codigo", codigoPostal.codigo);
+                    cmd.Parameters.AddWithValue("@nombre", codigoPostal.nombre);
+                    cmd.Parameters.AddWithValue("@cod_provincia", codigoPostal.provincia.codigo);
                     nuevas = cmd.ExecuteNonQuery();
                 }
             }
@@ -87,22 +92,21 @@ namespace redTaller.Database
                 db.Desconectar();
             }
             return nuevas;
-
         }
 
-        public int updateCodigoPostal(CodigoPostal CodigoPostal)
+        public int Update(CodigoPostal codigoPostal)
         {
             int modificadas = 0;
             try
             {
                 db.Conectar();
-                string query = "UPDATE codigopostal set nombre=@nombre, cod_provincia=@cod_provincia WHERE codigo=@codigo";
+                string query = $"UPDATE {tabla} set nombre=@nombre, cod_provincia=@cod_provincia WHERE {key}=@codigo";
 
                 using (MySqlCommand cmd = new MySqlCommand(query, db.DbConn))
                 {
-                    cmd.Parameters.AddWithValue("@codigo", CodigoPostal.Codigo);
-                    cmd.Parameters.AddWithValue("@nombre", CodigoPostal.Nombre);
-                    cmd.Parameters.AddWithValue("@cod_provincia", CodigoPostal.Provincia.Codigo);
+                    cmd.Parameters.AddWithValue("@codigo", codigoPostal.codigo);
+                    cmd.Parameters.AddWithValue("@nombre", codigoPostal.nombre);
+                    cmd.Parameters.AddWithValue("@cod_provincia", codigoPostal.provincia.codigo);
                     modificadas = cmd.ExecuteNonQuery();
                 }
             }
@@ -115,20 +119,18 @@ namespace redTaller.Database
                 db.Desconectar();
             }
             return modificadas;
-
         }
 
-        public int deleteCodigoPostals(List<string> CodigoPostals)
+        public int Delete(List<string> codigosPostales)
         {
             int borradas = 0;
             try
             {
                 db.Conectar();
-                string query = "DELETE FROM codigopostal WHERE codigo IN (" + string.Join(",", CodigoPostals) + ")";
+                string query = $"DELETE FROM {tabla} WHERE {key} IN ({string.Join(",", codigosPostales)})";
 
                 using (MySqlCommand cmd = new MySqlCommand(query, db.DbConn))
                 {
-
                     borradas = cmd.ExecuteNonQuery();
                 }
             }
@@ -143,66 +145,73 @@ namespace redTaller.Database
             return borradas;
         }
 
-        public DataTable extraeCodigosPostal()
+        public List<CodigoPostal> Load(Dictionary<string, object> filtros = null)
         {
-
-            DataTable dataTable = new DataTable();
+            List<CodigoPostal> codigosPostales = new List<CodigoPostal>();
 
             try
             {
                 db.Conectar();
-                string query = "SELECT " + DatabaseUtil.selectColumns(Dc,false) + 
-                               " FROM codigopostal " +
-                               "   LEFT JOIN provincia ON provincia.codigo=codigopostal.cod_provincia ";
-                using (MySqlDataAdapter adapter = new MySqlDataAdapter(query, db.DbConn))
+                string query = $@"
+                                SELECT {DatabaseUtil.selectColumns(dc, true)} 
+                                FROM {tabla}
+                                LEFT JOIN provincia ON provincia.codigo=codigopostal.cod_provincia
+                                ";
+
+                if (filtros != null && filtros.Count > 0)
                 {
-                    adapter.Fill(dataTable);
+                    List<string> whereFiltros = new List<string>();
+                    foreach (var filtro in filtros)
+                    {
+                        whereFiltros.Add($"{filtro.Key} LIKE @{filtro.Key}");
+                    }
+                    query += " WHERE " + string.Join(" AND ", whereFiltros);
+                }
+
+                using (MySqlCommand command = new MySqlCommand(query, db.DbConn))
+                {
+                    if (filtros != null && filtros.Count > 0)
+                    {
+                        foreach (var filtro in filtros)
+                            command.Parameters.AddWithValue($"@{filtro.Key}", "%" + filtro.Value.ToString() + "%");
+                    }
+
+                    Debug.WriteLine(query); // Para ver la consulta final generada
+
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+
+                            CodigoPostal codigoPostal = new CodigoPostal();
+                            codigoPostal.codigo = reader["codigo"] as string;
+                            codigoPostal.nombre = reader["nombre"] as string;
+                            codigoPostal.id = GetInt32(reader, "id");
+
+                            Provincia provincia = new Provincia();
+                            provincia.codigo = reader["codigo_provincia"] as string;
+                            provincia.nombre = reader["nombre_provincia"] as string;
+                            codigoPostal.provincia = provincia;
+
+                            codigosPostales.Add(codigoPostal);
+
+                        }
+                    }
                 }
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Error al obtener CodigoPostals: {ex.Message}");
+                Debug.WriteLine($"Error al obtener CodigoPostals: {ex.GetType()} - {ex.Message}");
             }
             finally
             {
                 db.Desconectar();
             }
 
-            return dataTable;
+            return codigosPostales;
         }
 
-        public DataTable extraeCodigoPostalsFiltro(string filtro, string campo)
-        {
-
-            DataTable dataTable = new DataTable();
-
-            try
-            {
-                db.Conectar();
-
-                string query = "SELECT " + DatabaseUtil.selectColumns(Dc,false) + 
-                               "   FROM codigopostal " +
-                               "   LEFT JOIN provincia ON provincia.codigo=codigopostal.cod_provincia " +
-                               "   WHERE " + Dc[campo].SelectCampo +" LIKE @filtro ";
-                using (MySqlDataAdapter adapter = new MySqlDataAdapter(query, db.DbConn))
-                {
-                    adapter.SelectCommand.Parameters.AddWithValue("@Filtro", "%" + filtro + "%");
-                    adapter.Fill(dataTable);
-                }
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine($"Error al obtener CodigoPostals: {ex.Message}");
-            }
-            finally
-            {
-                db.Desconectar(); // Cerrar la conexión
-            }
-
-            return dataTable;
-        }
-
-        public List<CodigoPostal> listCodigosPostal()
+        public List<CodigoPostal> Lista()
         {
             List<CodigoPostal> list = new List<CodigoPostal>();
 
@@ -210,22 +219,23 @@ namespace redTaller.Database
             {
                 db.Conectar();
 
-                string query = "SELECT " + DatabaseUtil.selectColumns(Dc, true) + 
-                               " provincia.nombre as nombre_provincia " +
-                               " FROM codigopostal " +
-                               "   LEFT JOIN provincia ON provincia.codigo=codigopostal.cod_provincia ";
-
-                MySqlCommand cmd = new MySqlCommand(query, db.DbConn);
-
-                using (MySqlDataReader reader = cmd.ExecuteReader())
+                string query = $@"
+                                SELECT {DatabaseUtil.selectColumns(dc, true)} 
+                                FROM {tabla}
+                                LEFT JOIN provincia ON provincia.codigo=codigopostal.cod_provincia
+                                ";
+                using (MySqlCommand cmd = new MySqlCommand(query, db.DbConn))
                 {
-                    while (reader.Read())
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
-                        CodigoPostal codigoPostal = new CodigoPostal();
-                        codigoPostal.Codigo = reader["codigo"].ToString();
-                        codigoPostal.Nombre = reader["nombre"].ToString();
-                        codigoPostal.Provincia = new Provincia(reader["provincia"].ToString(), reader["nombre_provincia"].ToString());
-                        list.Add(codigoPostal);
+                        while (reader.Read())
+                        {
+                            CodigoPostal codigoPostal = new CodigoPostal();
+                            codigoPostal.codigo = reader["codigo"].ToString();
+                            codigoPostal.nombre = reader["nombre"].ToString();
+                            codigoPostal.provincia = new Provincia(reader["codigo_provincia"].ToString(), reader["nombre_provincia"].ToString());
+                            list.Add(codigoPostal);
+                        }
                     }
                 }
             }
@@ -239,31 +249,35 @@ namespace redTaller.Database
             }
 
             return list;
-
         }
 
-        public bool validaKey( string key )
+        public static Int32 GetInt32(MySqlDataReader rdr, string column)
         {
+            return Convert.ToInt32(rdr[column]);
+        }
 
+        public bool ValidaKey(string key)
+        {
             try
             {
                 db.Conectar();
 
-                string query = "SELECT * " +
-                               " FROM codigopostal " +
-                               " WHERE codigo=@key ";
-                MySqlCommand cmd = new MySqlCommand(query, db.DbConn);
-                cmd.Parameters.AddWithValue("@key", key);
-                using (MySqlDataReader reader = cmd.ExecuteReader())
+                string query = $"SELECT {this.key} FROM {tabla} WHERE {this.key}=@key ";
+                using (MySqlCommand cmd = new MySqlCommand(query, db.DbConn))
                 {
-                    if (reader.Read()) {
-                        return false;
+                    cmd.Parameters.AddWithValue("@key", key);
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            return false;
+                        }
                     }
                 }
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Error al Validar Código POstal: {ex.Message}");
+                Debug.WriteLine($"Error al Validar {tabla}: {ex.Message}");
             }
             finally
             {
@@ -274,7 +288,5 @@ namespace redTaller.Database
         }
 
         public Dictionary<string, CampoInfo> Dc { get => dc; set => dc = value; }
-
-
     }
 }

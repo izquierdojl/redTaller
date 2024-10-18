@@ -1,6 +1,7 @@
 ﻿using redTaller.Database;
 using redTaller.Modelo;
 using redTaller.Vista.VistaCodigoPostal;
+using redTaller.Vista.VistaProvincia;
 using redTaller.Vista.VistaUtil;
 using System.Collections.Generic;
 using System.Windows.Forms;
@@ -10,15 +11,17 @@ namespace redTaller.Controlador
     internal class ControladorCodigoPostal
     {
 
+        CodigoPostalDB codigoPostalDB;
+
         public ControladorCodigoPostal()
         {
+            codigoPostalDB = new CodigoPostalDB();
         }
         
         public void mostrar(Form parent)
         {
             
-            CodigoPostalDB codigoPostalDB = new CodigoPostalDB();
-            VistaListaCodigoPostal visCodigoPostal = new VistaListaCodigoPostal(codigoPostalDB.extraeCodigosPostal());
+            VistaListaCodigoPostal visCodigoPostal = new VistaListaCodigoPostal(codigoPostalDB.Load());
             visCodigoPostal.MdiParent = parent;
             visCodigoPostal.Show();
             
@@ -30,10 +33,9 @@ namespace redTaller.Controlador
             vistaFormCodigoPostal.ShowDialog();
         }
 
-        public void modificar(VistaListaCodigoPostal vistaListaCodigoPostal, string key)
+        public void modificar(VistaListaCodigoPostal vistaListaCodigoPostal, int id)
         {
-            CodigoPostalDB CodigoPostalDB = new CodigoPostalDB();
-            CodigoPostal CodigoPostal = CodigoPostalDB.CargaCodigoPostal(key);
+            CodigoPostal CodigoPostal = codigoPostalDB.CargaElemento(id);
             if (CodigoPostal != null)
             {
                 VistaFormCodigoPostal vistaFormCodigoPostal = new VistaFormCodigoPostal(vistaListaCodigoPostal, 2, CodigoPostal);
@@ -43,8 +45,7 @@ namespace redTaller.Controlador
         
         public void borrar( VistaListaCodigoPostal vistaListaCodigoPostal, List<string> keys )
         {
-            CodigoPostalDB CodigoPostalDB = new CodigoPostalDB();
-            if (CodigoPostalDB.deleteCodigoPostals(keys) > 0)
+            if (codigoPostalDB.Delete(keys) > 0)
             {
                 VistaUtil.MsgInfo("Se ha borrado " + keys.Count.ToString() + " registro(s)"  , "Información" );
             }
@@ -56,31 +57,38 @@ namespace redTaller.Controlador
 
         public void buscar( VistaListaCodigoPostal vistaListaCodigoPostal, string filtro, string campo )
         {
-            CodigoPostalDB CodigoPostalDB = new CodigoPostalDB();
-            vistaListaCodigoPostal.recargaGrid(CodigoPostalDB.extraeCodigoPostalsFiltro(filtro,campo),null);
+            Dictionary<string, object> filtros = new Dictionary<string, object>();
+            filtros.Add(vistaListaCodigoPostal.comboSearch.SelectedValue.ToString(), vistaListaCodigoPostal.textSearch.Text);  // Filtro
+            vistaListaCodigoPostal.recargaGrid(codigoPostalDB.Load(filtros));
         }
-        
 
-        public void guardar(CodigoPostal CodigoPostal,int modo,VistaListaCodigoPostal vistaListaCodigoPostal)
+
+        public void guardar(CodigoPostal codigoPostal, int modo, VistaListaCodigoPostal vistaListaCodigoPostal)
         {
-            CodigoPostalDB CodigoPostalDB = new CodigoPostalDB();
-            if ( modo == 1 )
+            if (modo == 1)
             {
-                CodigoPostalDB.insertCodigoPostal(CodigoPostal);
+                codigoPostalDB.Insert(codigoPostal);
             }
             else
             {
-                CodigoPostalDB.updateCodigoPostal(CodigoPostal);
+                codigoPostalDB.Update(codigoPostal);
             }
-            vistaListaCodigoPostal.recargaGrid(CodigoPostalDB.extraeCodigosPostal(), CodigoPostal.Codigo);
+            if (string.IsNullOrEmpty(vistaListaCodigoPostal.textSearch.Text))
+            {
+                vistaListaCodigoPostal.recargaGrid(codigoPostalDB.Load(), codigoPostal.id);
+            }
+            else
+            {
+                Dictionary<string, object> filtros = new Dictionary<string, object>();
+                filtros.Add(vistaListaCodigoPostal.comboSearch.SelectedValue.ToString(), vistaListaCodigoPostal.textSearch.Text );  // Filtro
+                vistaListaCodigoPostal.recargaGrid(codigoPostalDB.Load(filtros), codigoPostal.id);
+            }
         }
 
         public bool valida(string key)
         {
-            CodigoPostalDB CodigoPostalDB = new CodigoPostalDB();
-            return CodigoPostalDB.validaKey(key);
+            return codigoPostalDB.ValidaKey(key);
         }
-
     }
 
 }

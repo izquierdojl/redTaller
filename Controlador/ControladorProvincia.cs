@@ -1,8 +1,13 @@
 ﻿using redTaller.Database;
 using redTaller.Modelo;
-using redTaller.Vista;
+using redTaller.Vista.VistaCodigoPostal;
 using redTaller.Vista.VistaProvincia;
+using redTaller.Vista.VistaUtil;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace redTaller.Controlador
@@ -10,28 +15,28 @@ namespace redTaller.Controlador
     internal class ControladorProvincia
     {
 
-        public ControladorProvincia()
-        {
+        private ProvinciaDB provinciaDB;
+
+        public ControladorProvincia() {
+            provinciaDB = new ProvinciaDB();
         }
 
         public void mostrar(Form parent)
         {
-            ProvinciaDB provinciaDB = new ProvinciaDB();
-            VistaListaProvincia visProvincia = new VistaListaProvincia( provinciaDB.extraeProvincias() );
-            visProvincia.MdiParent = parent;
-            visProvincia.Show();
+            VistaListaProvincia vistaListaProvincia = new VistaListaProvincia(provinciaDB.extraeDT());
+            vistaListaProvincia.MdiParent = parent;
+            vistaListaProvincia.Show();
         }
 
         public void nuevo(VistaListaProvincia vistaListaProvincia)
         {
-            VistaFormProvincia vistaFormProvincia = new VistaFormProvincia(vistaListaProvincia, 1 , new Provincia() );
+            VistaFormProvincia vistaFormProvincia = new VistaFormProvincia(vistaListaProvincia, 1, new Provincia());
             vistaFormProvincia.ShowDialog();
         }
 
         public void modificar(VistaListaProvincia vistaListaProvincia, string key)
         {
-            ProvinciaDB provinciaDB = new ProvinciaDB();
-            Provincia provincia = provinciaDB.CargaProvincia(key);
+            Provincia provincia = provinciaDB.CargaElemento(key);
             if (provincia != null)
             {
                 VistaFormProvincia vistaFormProvincia = new VistaFormProvincia(vistaListaProvincia, 2, provincia);
@@ -39,45 +44,49 @@ namespace redTaller.Controlador
             }
         }
 
-        public void borrar( VistaListaProvincia vistaListaProvincia, List<string> keys )
+        public void borrar(VistaListaProvincia vistaListaProvincia, List<string> keys)
         {
-            ProvinciaDB provinciaDB = new ProvinciaDB();
-            if (provinciaDB.deleteProvincias(keys) > 0)
+            if (provinciaDB.delete(keys) > 0)
             {
-                vistaListaProvincia.msgInfo("Se ha borrido " + keys.Count.ToString() + " provincia(s)" );
+                VistaUtil.MsgInfo("Se ha borrado " + keys.Count.ToString() + " registro(s)", "Información");
             }
             else
             {
-                vistaListaProvincia.msgInfo("No se han podido borrar provincias");
+                VistaUtil.MsgInfo("No se han podido borrar", "Información");
             }
         }
 
-        public void buscar( VistaListaProvincia vistaListaProvincia, string filtro, string campo )
+        public void buscar(VistaListaProvincia vistaListaProvincia, string filtro, string campo)
         {
-            ProvinciaDB provinciaDB = new ProvinciaDB();
-            vistaListaProvincia.recargaGrid(provinciaDB.extraeProvinciasFiltro(filtro,campo),null);
+            vistaListaProvincia.recargaGrid(provinciaDB.extraeDTFiltro(filtro, campo), null);
         }
 
-        public void guardar(Provincia provincia,int modo,VistaListaProvincia vistaListaProvincia)
+
+        public void guardar(Provincia provincia, int modo, VistaListaProvincia vistaListaProvincia)
         {
-            ProvinciaDB provinciaDB = new ProvinciaDB();
-            if ( modo == 1 )
+            if (modo == 1)
             {
-                provinciaDB.insertProvincia(provincia);
+                provinciaDB.insert(provincia);
             }
             else
             {
-                provinciaDB.updateProvincia(provincia);
+                provinciaDB.update(provincia);
             }
-            vistaListaProvincia.recargaGrid(provinciaDB.extraeProvincias(), provincia.Codigo);
+            if( string.IsNullOrEmpty(vistaListaProvincia.textSearch.Text) )
+               vistaListaProvincia.recargaGrid(provinciaDB.extraeDT(), provincia.codigo);
+            else
+               vistaListaProvincia.recargaGrid(provinciaDB.extraeDTFiltro(vistaListaProvincia.textSearch.Text,vistaListaProvincia.comboSearch.SelectedValue.ToString()), provincia.codigo);
         }
 
-        public List<Provincia> listProvincias()
+        public List<Provincia> listar()
         {
-            ProvinciaDB provinciaDB = new ProvinciaDB();
-            return provinciaDB.listProvincias();
+            return provinciaDB.lista();
+        }
+
+        public bool valida(string key)
+        {
+            return provinciaDB.validaKey(key);
         }
 
     }
-
 }
