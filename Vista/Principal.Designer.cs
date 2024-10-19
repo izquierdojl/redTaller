@@ -32,7 +32,10 @@
             this.ficherosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuFicherosProvincias = new System.Windows.Forms.ToolStripMenuItem();
             this.menuFicherosCodigosPostales = new System.Windows.Forms.ToolStripMenuItem();
+            this.barStatus = new System.Windows.Forms.StatusStrip();
+            this.barLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuFicheros.SuspendLayout();
+            this.barStatus.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuFicheros
@@ -69,11 +72,29 @@
             this.menuFicherosCodigosPostales.Text = "Fichero de Códigos &Postales";
             this.menuFicherosCodigosPostales.Click += new System.EventHandler(this.menuFicherosCodigosPostales_Click);
             // 
+            // barStatus
+            // 
+            this.barStatus.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.barLabel1});
+            this.barStatus.Location = new System.Drawing.Point(0, 616);
+            this.barStatus.Name = "barStatus";
+            this.barStatus.Size = new System.Drawing.Size(1476, 22);
+            this.barStatus.TabIndex = 3;
+            this.barStatus.Text = "statusStrip1";
+            // 
+            // barLabel1
+            // 
+            this.barLabel1.Name = "barLabel1";
+            this.barLabel1.Size = new System.Drawing.Size(51, 17);
+            this.barLabel1.Text = "redTaller";
+            this.barLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // Principal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1476, 638);
+            this.Controls.Add(this.barStatus);
             this.Controls.Add(this.menuFicheros);
             this.IsMdiContainer = true;
             this.MainMenuStrip = this.menuFicheros;
@@ -82,6 +103,8 @@
             this.Text = "redTaller";
             this.menuFicheros.ResumeLayout(false);
             this.menuFicheros.PerformLayout();
+            this.barStatus.ResumeLayout(false);
+            this.barStatus.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -93,6 +116,8 @@
         private System.Windows.Forms.ToolStripMenuItem ficherosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem menuFicherosProvincias;
         private System.Windows.Forms.ToolStripMenuItem menuFicherosCodigosPostales;
+        private System.Windows.Forms.StatusStrip barStatus;
+        private System.Windows.Forms.ToolStripStatusLabel barLabel1;
     }
 }
 

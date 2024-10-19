@@ -14,10 +14,13 @@ namespace redTaller
     public partial class Principal : Form
     {
 
+        ControladorLogin controladorLogin;
 
         public Principal()
         {
             InitializeComponent();
+            controladorLogin = new ControladorLogin(this);
+            Login();
         }
 
         private void menuFicherosProvincias_Click(object sender, EventArgs e)
@@ -32,5 +35,10 @@ namespace redTaller
             controladorCodigoPostal.mostrar(this);
            
         }
+        private void Login()
+        {
+            controladorLogin.mostrar();
+        }
+
     }
 }
