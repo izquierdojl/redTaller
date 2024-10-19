@@ -3,50 +3,48 @@ using redTaller.Modelo;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Common;
 using System.Diagnostics;
 using System.Linq;
 
 namespace redTaller.Database
 {
-    internal class ProvinciaDB
-    {
-
-        private readonly DatabaseUtil db;
-        private string tabla;
-        private string key;
-        private Dictionary<string, CampoInfo> dc;
+    internal class ProvinciaDB : GeneralDB
+    { 
 
         public ProvinciaDB()
         {
-            db = new DatabaseUtil();
             tabla = "provincia";
             key = "codigo";
-            Dc = new Dictionary<string, CampoInfo>()
+            dc = new Dictionary<string, CampoInfo>()
             {
-                { "codigo", new CampoInfo { SelectCampo = tabla + ".codigo", VisibleTabla = true } },
-                { "nombre", new CampoInfo { SelectCampo = tabla + ".nombre", VisibleTabla = true } },
+                { "codigo", new CampoInfo { SelectCampo = tabla + ".codigo", VisibleTabla = true, VisibleFiltro = true , Header = "Código"  } },
+                { "nombre", new CampoInfo { SelectCampo = tabla + ".nombre", VisibleTabla = true, VisibleFiltro = true , Header = "Nombre"  } },
+                { "id", new CampoInfo { SelectCampo = tabla + ".id", VisibleTabla = false } },
             };
 
         }
 
-        public Provincia CargaElemento(string key)
+        public Provincia CargaElemento(int id)
         {
             Provincia provincia = new Provincia();
             try
             {
                 db.Conectar();
                 string query = $@"
-                                SELECT {DatabaseUtil.selectColumns(Dc, true)}
+                                SELECT {DatabaseUtil.selectColumns(dc)}
                                 FROM {tabla}  
-                                WHERE {dc["codigo"].SelectCampo}=@key";
+                                WHERE id=@key
+                               ";
 
                 using (MySqlCommand cmd = new MySqlCommand(query, db.DbConn))
                 {
-                    cmd.Parameters.AddWithValue("@key", key);
+                    cmd.Parameters.AddWithValue("@key", id);
                     using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
                         if (reader.Read())
                         {
+                            provincia.id = id;
                             provincia.codigo = reader.GetString("codigo");
                             provincia.nombre = reader.GetString("nombre");
                         }
@@ -55,7 +53,7 @@ namespace redTaller.Database
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Error al obtener Provincia: {ex.Message}");
+                Debug.WriteLine($"Error al obtener {tabla}: {ex.Message}");
             }
             finally
             {
@@ -68,6 +66,8 @@ namespace redTaller.Database
         public int insert(Provincia provincia)
         {
             int nuevas = 0;
+            int lastId = 0;
+
             try
             {
                 db.Conectar();
@@ -78,17 +78,23 @@ namespace redTaller.Database
                     cmd.Parameters.AddWithValue("@codigo", provincia.codigo);
                     cmd.Parameters.AddWithValue("@nombre", provincia.nombre);
                     nuevas = cmd.ExecuteNonQuery();
+                    if (nuevas > 0)
+                    {
+                        cmd.CommandText = "SELECT LAST_INSERT_ID()";
+                        lastId = Convert.ToInt32(cmd.ExecuteScalar());
+                        provincia.id = lastId;
+                    }
                 }
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Error al insertar Provincia: {ex.Message}");
+                Debug.WriteLine($"Error al insertar {tabla}: {ex.Message}");
             }
             finally
             {
                 db.Desconectar();
             }
-            return nuevas;
+            return lastId;
         }
 
         public int update(Provincia provincia)
@@ -108,7 +114,7 @@ namespace redTaller.Database
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Error al modificar Provincia: {ex.Message}");
+                Debug.WriteLine($"Error al modificar {tabla}: {ex.Message}");
             }
             finally
             {
@@ -116,77 +122,41 @@ namespace redTaller.Database
             }
             return modificadas;
         }
-
-        public int delete(List<string> provincias)
-        {
-            int borradas = 0;
-            try
-            {
-                db.Conectar();
-                string query = $"DELETE FROM {tabla} WHERE {key} IN ({string.Join(",", provincias.Select(p => "'" + p + "'"))})";
-                using (MySqlCommand cmd = new MySqlCommand(query, db.DbConn))
-                {
-                    borradas = cmd.ExecuteNonQuery();
-                }
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine($"Error al borrar Provincias: {ex.Message}");
-            }
-            finally
-            {
-                db.Desconectar();
-            }
-            return borradas;
-        }
-
-        public DataTable extraeDT()
+        public DataTable Load(Dictionary<string, object> filtros = null)
         {
             DataTable dataTable = new DataTable();
 
             try
             {
                 db.Conectar();
-                string query = $"SELECT {DatabaseUtil.selectColumns(Dc, false)} FROM {tabla} ";
+                string query = $"SELECT {DatabaseUtil.selectColumns(dc)} FROM {tabla} ";
+                if (filtros != null && filtros.Count > 0)
+                {
+                    List<string> whereFiltros = new List<string>();
+                    foreach (var filtro in filtros)
+                    {
+                        whereFiltros.Add($"{filtro.Key} LIKE @{filtro.Key}");
+                    }
+                    query += " WHERE " + string.Join(" AND ", whereFiltros);
+                }
+
                 using (MySqlDataAdapter adapter = new MySqlDataAdapter(query, db.DbConn))
                 {
+                    if (filtros != null && filtros.Count > 0)
+                    {
+                        foreach (var filtro in filtros)
+                          adapter.SelectCommand.Parameters.AddWithValue($"@{filtro.Key}", "%" + filtro.Value.ToString() + "%");
+                    }
                     adapter.Fill(dataTable);
                 }
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Error al obtener CodigoPostals: {ex.Message}");
+                Debug.WriteLine($"Error al obtener {tabla}: {ex.Message}");
             }
             finally
             {
                 db.Desconectar();
-            }
-
-            return dataTable;
-        }
-
-        public DataTable extraeDTFiltro(string filtro, string campo)
-        {
-            DataTable dataTable = new DataTable();
-
-            try
-            {
-                db.Conectar();
-
-                string query = $"SELECT {DatabaseUtil.selectColumns(Dc, false)} FROM {tabla} WHERE {Dc[campo].SelectCampo} LIKE @filtro ";
-                using (MySqlDataAdapter adapter = new MySqlDataAdapter(query, db.DbConn))
-                {
-                    adapter.SelectCommand.Parameters.AddWithValue("@filtro", "%" + filtro + "%");
-                    adapter.Fill(dataTable);
-                }
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine($"Error al obtener CodigoPostals: {ex.Message}");
-            }
-            finally
-            {
-                db.Desconectar(); // Cerrar la conexión
             }
 
             return dataTable;
@@ -200,7 +170,7 @@ namespace redTaller.Database
             {
                 db.Conectar();
 
-                string query = $"SELECT {DatabaseUtil.selectColumns(Dc, true)} FROM {tabla} ";
+                string query = $"SELECT {DatabaseUtil.selectColumns(dc)} FROM {tabla} ";
                 using (MySqlCommand cmd = new MySqlCommand(query, db.DbConn))
                 {
                     using (MySqlDataReader reader = cmd.ExecuteReader())
@@ -258,6 +228,6 @@ namespace redTaller.Database
             return true; // correcto, podemos continuar
         }
 
-        public Dictionary<string, CampoInfo> Dc { get => dc; set => dc = value; }
     }
+
 }

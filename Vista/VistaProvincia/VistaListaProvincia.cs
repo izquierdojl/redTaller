@@ -1,4 +1,5 @@
 ﻿using redTaller.Controlador;
+using redTaller.Database;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,43 +14,58 @@ namespace redTaller.Vista.VistaProvincia
     public partial class VistaListaProvincia : redTaller.Vista.VistaBase.VistaListaBase
     {
         ControladorProvincia controlador = new ControladorProvincia();
+        Dictionary<string, CampoInfo> dc;
 
-        public VistaListaProvincia(DataTable data)
+        public VistaListaProvincia(DataTable data, Dictionary<string, CampoInfo> dc)
         {
             InitializeComponent();
 
             gridPrincipal.AutoGenerateColumns = true;
-            recargaGrid(data, "");
+            this.dc = dc;
+
+            recargaGrid(data);
+
+            gridPrincipal.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
             var listaColumnas = new List<object>();
             comboSearch.DisplayMember = "Nombre";
             comboSearch.ValueMember = "Codigo";
-            foreach (DataColumn column in data.Columns)
+
+            foreach (string key in dc.Keys)
             {
-                listaColumnas.Add(new { Nombre = gridPrincipal.Columns[column.ColumnName].HeaderText, Codigo = column.ColumnName });
+                if (dc[key].VisibleFiltro)
+                    listaColumnas.Add(new { Nombre = dc[key].Header, Codigo = dc[key].SelectCampo });
             }
+
             comboSearch.DataSource = listaColumnas;
 
         }
 
-        public void recargaGrid(DataTable data, string keyPosiciona)
+        public void recargaGrid(DataTable data, int idPosiciona = 0)
         {
 
+            gridPrincipal.DataSource = null;
             gridPrincipal.DataSource = data;
-            gridPrincipal.Columns["codigo"].HeaderText = "Código";
-            gridPrincipal.Columns["nombre"].HeaderText = "Nombre";
 
-
-            if (keyPosiciona != null)
+            if (idPosiciona != 0)
             {
                 int index = gridPrincipal.Rows
                     .Cast<DataGridViewRow>()
-                    .FirstOrDefault(row => (string)row.Cells["codigo"].Value == keyPosiciona)?.Index ?? -1;
+                    .FirstOrDefault(row => (int)row.Cells["id"].Value == idPosiciona)?.Index ?? -1;
                 if (index != -1)
                 {
                     gridPrincipal.ClearSelection();
                     gridPrincipal.Rows[index].Selected = true;
                     gridPrincipal.CurrentCell = gridPrincipal.Rows[index].Cells[0];
+                }
+            }
+
+            foreach (string key in dc.Keys)
+            {
+                gridPrincipal.Columns[key].HeaderText = dc[key].Header;
+                if (dc[key].VisibleTabla == false)
+                {
+                    gridPrincipal.Columns[key].Visible = false;
                 }
             }
 
@@ -61,13 +77,13 @@ namespace redTaller.Vista.VistaProvincia
             {
                 if (MessageBox.Show("¿ Seguro de borrar las Provincias seleccionadas ?", "Eliminar Registros", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    List<string> recs = new List<string>();
+                    List<int> ids = new List<int>();
                     foreach (DataGridViewRow row in gridPrincipal.SelectedRows)
                     {
-                        recs.Add((string)row.Cells["codigo"].Value);
+                        ids.Add((int)row.Cells["id"].Value);
                         gridPrincipal.Rows.Remove(row);
                     }
-                    controlador.borrar(this, recs);
+                    controlador.borrar(this, ids);
                 }
             }
         }
@@ -79,8 +95,8 @@ namespace redTaller.Vista.VistaProvincia
 
         private void vistaEditar()
         {
-            string key = gridPrincipal.Rows[gridPrincipal.CurrentRow.Index].Cells["codigo"].Value.ToString();
-            controlador.modificar(this, key);
+            int id = (int)gridPrincipal.Rows[gridPrincipal.CurrentRow.Index].Cells["id"].Value;
+            controlador.modificar(this, id);
         }
 
         private void vistaBuscar()

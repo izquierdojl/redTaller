@@ -21,7 +21,7 @@ namespace redTaller.Controlador
         public void mostrar(Form parent)
         {
             
-            VistaListaCodigoPostal visCodigoPostal = new VistaListaCodigoPostal(codigoPostalDB.Load());
+            VistaListaCodigoPostal visCodigoPostal = new VistaListaCodigoPostal(codigoPostalDB.Load(),codigoPostalDB.dc);
             visCodigoPostal.MdiParent = parent;
             visCodigoPostal.Show();
             
@@ -43,11 +43,11 @@ namespace redTaller.Controlador
             }
         }
         
-        public void borrar( VistaListaCodigoPostal vistaListaCodigoPostal, List<string> keys )
+        public void borrar( VistaListaCodigoPostal vistaListaCodigoPostal, List<int> ids )
         {
-            if (codigoPostalDB.Delete(keys) > 0)
+            if (codigoPostalDB.delete(ids) > 0)
             {
-                VistaUtil.MsgInfo("Se ha borrado " + keys.Count.ToString() + " registro(s)"  , "Información" );
+                VistaUtil.MsgInfo("Se ha borrado " + ids.Count.ToString() + " registro(s)"  , "Información" );
             }
             else
             {

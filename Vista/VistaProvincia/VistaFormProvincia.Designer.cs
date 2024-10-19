@@ -54,6 +54,7 @@
             // textNombre
             // 
             this.textNombre.Location = new System.Drawing.Point(94, 55);
+            this.textNombre.MaxLength = 80;
             this.textNombre.Name = "textNombre";
             this.textNombre.Size = new System.Drawing.Size(395, 20);
             this.textNombre.TabIndex = 12;
@@ -70,6 +71,7 @@
             // textCodigo
             // 
             this.textCodigo.Location = new System.Drawing.Point(94, 22);
+            this.textCodigo.MaxLength = 2;
             this.textCodigo.Name = "textCodigo";
             this.textCodigo.Size = new System.Drawing.Size(81, 20);
             this.textCodigo.TabIndex = 11;

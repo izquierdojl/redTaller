@@ -45,10 +45,6 @@
             this.toolBotones.SetToolTip(this.btnSearch, "Busca por el texto indicado");
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
-            // textSearch
-            // 
-            this.toolBotones.SetToolTip(this.textSearch, "Introduzca texto a buscar.");
-            // 
             // btnSalir
             // 
             this.toolBotones.SetToolTip(this.btnSalir, "Añade un Registro (Ins)");
@@ -81,6 +77,7 @@
             // 
             this.panelCenter.Controls.Add(this.gridPrincipal);
             this.panelCenter.Size = new System.Drawing.Size(1054, 454);
+            this.panelCenter.TabIndex = 0;
             // 
             // gridPrincipal
             // 
@@ -94,7 +91,7 @@
             this.gridPrincipal.RowHeadersWidth = 62;
             this.gridPrincipal.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.gridPrincipal.Size = new System.Drawing.Size(1054, 454);
-            this.gridPrincipal.TabIndex = 2;
+            this.gridPrincipal.TabIndex = 1;
             this.gridPrincipal.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.gridPrincipal_CellMouseDoubleClick);
             this.gridPrincipal.KeyDown += new System.Windows.Forms.KeyEventHandler(this.gridPrincipal_KeyDown);
             // 

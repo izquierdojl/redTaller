@@ -23,7 +23,7 @@ namespace redTaller.Controlador
 
         public void mostrar(Form parent)
         {
-            VistaListaProvincia vistaListaProvincia = new VistaListaProvincia(provinciaDB.extraeDT());
+            VistaListaProvincia vistaListaProvincia = new VistaListaProvincia(provinciaDB.Load(),provinciaDB.dc);
             vistaListaProvincia.MdiParent = parent;
             vistaListaProvincia.Show();
         }
@@ -34,9 +34,9 @@ namespace redTaller.Controlador
             vistaFormProvincia.ShowDialog();
         }
 
-        public void modificar(VistaListaProvincia vistaListaProvincia, string key)
+        public void modificar(VistaListaProvincia vistaListaProvincia, int id)
         {
-            Provincia provincia = provinciaDB.CargaElemento(key);
+            Provincia provincia = provinciaDB.CargaElemento(id);
             if (provincia != null)
             {
                 VistaFormProvincia vistaFormProvincia = new VistaFormProvincia(vistaListaProvincia, 2, provincia);
@@ -44,11 +44,11 @@ namespace redTaller.Controlador
             }
         }
 
-        public void borrar(VistaListaProvincia vistaListaProvincia, List<string> keys)
+        public void borrar(VistaListaProvincia vistaListaProvincia, List<int> ids)
         {
-            if (provinciaDB.delete(keys) > 0)
+            if (provinciaDB.delete(ids) > 0)
             {
-                VistaUtil.MsgInfo("Se ha borrado " + keys.Count.ToString() + " registro(s)", "Información");
+                VistaUtil.MsgInfo("Se ha borrado " + ids.Count.ToString() + " registro(s)", "Información");
             }
             else
             {
@@ -58,7 +58,10 @@ namespace redTaller.Controlador
 
         public void buscar(VistaListaProvincia vistaListaProvincia, string filtro, string campo)
         {
-            vistaListaProvincia.recargaGrid(provinciaDB.extraeDTFiltro(filtro, campo), null);
+
+            Dictionary<string, object> filtros = new Dictionary<string, object>();
+            filtros.Add(vistaListaProvincia.comboSearch.SelectedValue.ToString(), vistaListaProvincia.textSearch.Text);  // Filtro
+            vistaListaProvincia.recargaGrid(provinciaDB.Load(filtros));
         }
 
 
@@ -72,10 +75,16 @@ namespace redTaller.Controlador
             {
                 provinciaDB.update(provincia);
             }
-            if( string.IsNullOrEmpty(vistaListaProvincia.textSearch.Text) )
-               vistaListaProvincia.recargaGrid(provinciaDB.extraeDT(), provincia.codigo);
+            if (string.IsNullOrEmpty(vistaListaProvincia.textSearch.Text))
+            {
+                vistaListaProvincia.recargaGrid(provinciaDB.Load(null), provincia.id);
+            }
             else
-               vistaListaProvincia.recargaGrid(provinciaDB.extraeDTFiltro(vistaListaProvincia.textSearch.Text,vistaListaProvincia.comboSearch.SelectedValue.ToString()), provincia.codigo);
+            {
+                Dictionary<string, object> filtros = new Dictionary<string, object>();
+                filtros.Add(vistaListaProvincia.comboSearch.SelectedValue.ToString(), vistaListaProvincia.textSearch.Text);  // Filtro
+                vistaListaProvincia.recargaGrid(provinciaDB.Load(filtros), provincia.id);
+            }
         }
 
         public List<Provincia> listar()

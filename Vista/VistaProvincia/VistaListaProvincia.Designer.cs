@@ -47,6 +47,7 @@
             // 
             // btnSalir
             // 
+            this.btnSalir.TabIndex = 1;
             this.toolBotones.SetToolTip(this.btnSalir, "Añade un Registro (Ins)");
             this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
             // 
@@ -65,13 +66,18 @@
             this.toolBotones.SetToolTip(this.btnAdd, "Añade un Registro (Ins)");
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
+            // panelTop
+            // 
+            this.panelTop.TabIndex = 1;
+            // 
             // panelCenter
             // 
             this.panelCenter.Controls.Add(this.gridPrincipal);
+            this.panelCenter.TabIndex = 0;
             // 
             // textSearch
             // 
-            this.textSearch.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
+            this.textSearch.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             // 
             // gridPrincipal
             // 
@@ -80,21 +86,20 @@
             this.gridPrincipal.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gridPrincipal.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gridPrincipal.Location = new System.Drawing.Point(0, 0);
-            this.gridPrincipal.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.gridPrincipal.Name = "gridPrincipal";
             this.gridPrincipal.ReadOnly = true;
             this.gridPrincipal.RowHeadersWidth = 62;
             this.gridPrincipal.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.gridPrincipal.Size = new System.Drawing.Size(1200, 567);
-            this.gridPrincipal.TabIndex = 3;
+            this.gridPrincipal.Size = new System.Drawing.Size(800, 369);
+            this.gridPrincipal.TabIndex = 0;
             this.gridPrincipal.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.gridPrincipal_CellMouseDoubleClick);
             this.gridPrincipal.KeyDown += new System.Windows.Forms.KeyEventHandler(this.gridPrincipal_KeyDown);
             // 
             // VistaListaProvincia
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
-            this.ClientSize = new System.Drawing.Size(1200, 692);
-            this.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "VistaListaProvincia";
             this.panelTop.ResumeLayout(false);
             this.panelSearch.ResumeLayout(false);

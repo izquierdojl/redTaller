@@ -1,8 +1,10 @@
 ﻿using redTaller.Controlador;
+using redTaller.Database;
 using redTaller.Modelo;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Common;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -13,104 +15,77 @@ namespace redTaller.Vista.VistaCodigoPostal
     {
 
         ControladorCodigoPostal controlador = new ControladorCodigoPostal();
+        Dictionary<string, CampoInfo> dc;
 
-        public VistaListaCodigoPostal(List<CodigoPostal> data)
+        public VistaListaCodigoPostal(DataTable data, Dictionary<string, CampoInfo> dc)
         {
+
             InitializeComponent();
 
-            gridPrincipal.AutoGenerateColumns = false;
-            gridPrincipal.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill; // Ajusta automáticamente las columnas
-
-
-            var listaColumnas = new List<object>();
-
-            gridPrincipal.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                DataPropertyName = "codigo", HeaderText = "Código"
-            }); 
-            listaColumnas.Add(new { Nombre ="Codigo", Codigo = "codigo" });
-
-            gridPrincipal.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                DataPropertyName = "nombre",
-                HeaderText = "Nombre"
-            });
-            listaColumnas.Add(new { Nombre = "Nombre", Codigo = "nombre" });
-
-                gridPrincipal.Columns.Add(new DataGridViewTextBoxColumn
-                {
-                    Name = "provincia.nombre",
-                    DataPropertyName = "provincia.nombre",
-                    Visible = true,  
-                    HeaderText = "Provinciax",
-                    Width = 50      
-                });
-
-            listaColumnas.Add(new { Nombre = "Provincia", Codigo = "nombre_provincia" });
-
-            gridPrincipal.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                Name = "id",
-                DataPropertyName = "id",
-                HeaderText = "Id"
-            });
-
-            comboSearch.DataSource = listaColumnas;
-            comboSearch.DisplayMember = "Nombre";
-            comboSearch.ValueMember = "Codigo";
-
-            gridPrincipal.CellFormatting += (s, e) =>
-            {
-                if (e.ColumnIndex == gridPrincipal.Columns["provincia.nombre"].Index)
-                {
-                    var codigoPostal = (CodigoPostal)gridPrincipal.Rows[e.RowIndex].DataBoundItem;
-                    e.Value = codigoPostal.provincia?.nombre ?? "Sin Provincia"; // Muestra un texto alternativo si es nulo
-                }
-            };
+            gridPrincipal.AutoGenerateColumns = true;
+            this.dc = dc;
 
             recargaGrid(data);
 
+            gridPrincipal.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill; 
+
+            var listaColumnas = new List<object>();
+            comboSearch.DisplayMember = "Nombre";
+            comboSearch.ValueMember = "Codigo";
+
+            foreach (string key in dc.Keys)
+            {
+                if (dc[key].VisibleFiltro)
+                    listaColumnas.Add(new { Nombre = dc[key].Header, Codigo = dc[key].SelectCampo });
+            }
+
+            comboSearch.DataSource = listaColumnas;
+
         }
 
-        public void recargaGrid(List<CodigoPostal> data, int idPosiciona = 0 )
+        public void recargaGrid(DataTable data, int idPosiciona = 0)
         {
 
-
-            gridPrincipal.DataSource = null; 
+            gridPrincipal.DataSource = null;
             gridPrincipal.DataSource = data;
-            gridPrincipal.Refresh();
 
-
-            if (idPosiciona != 0 )
+            if (idPosiciona != 0)
             {
-                
                 int index = gridPrincipal.Rows
                     .Cast<DataGridViewRow>()
-                    .FirstOrDefault(row => (int)row.Cells[3].Value == idPosiciona)?.Index ?? -1;
+                    .FirstOrDefault(row => (int)row.Cells["id"].Value == idPosiciona)?.Index ?? -1;
                 if (index != -1)
                 {
                     gridPrincipal.ClearSelection();
                     gridPrincipal.Rows[index].Selected = true;
                     gridPrincipal.CurrentCell = gridPrincipal.Rows[index].Cells[0];
                 }
-                
             }
-            
+
+            foreach (string key in dc.Keys)
+            {
+                gridPrincipal.Columns[key].HeaderText = dc[key].Header;
+                if( dc[key].VisibleTabla == false )
+                {
+                    gridPrincipal.Columns[key].Visible = false;
+                }
+            }
+
         }
 
         private void vistaBorrar()
         {
             if (gridPrincipal.SelectedRows.Count > 0)
             {
-                if (MessageBox.Show("¿ Seguro de borrar las CodigoPostals seleccionadas ?", "Eliminar Registros", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                if (MessageBox.Show("¿ Seguro de borrar los registros seleccionadas ?", "Eliminar Registros", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    List<string> recs = new List<string>();
+                    List<int> ids = new List<int>();
                     foreach (DataGridViewRow row in gridPrincipal.SelectedRows)
                     {
-                        recs.Add((string)row.Cells["id"].Value);
+                        ids.Add((int)row.Cells["id"].Value);
                         gridPrincipal.Rows.Remove(row);
                     }
-                    controlador.borrar(this, recs);
+                    controlador.borrar(this, ids);
                 }
             }
         }

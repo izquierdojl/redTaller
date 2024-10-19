@@ -61,13 +61,12 @@ namespace redTaller.Database
 
         public MySqlConnection DbConn { get => dbConn; set => dbConn = value; }
 
-        static public string selectColumns(Dictionary<string, CampoInfo> dc, bool all)
+        static public string selectColumns(Dictionary<string, CampoInfo> dc)
         {
             string select = "";
             foreach (string key in dc.Keys)
             {
-                if (dc[key].VisibleTabla || all)
-                    select += " " + dc[key].SelectCampo + " as " + key + ",";
+                select += " " + dc[key].SelectCampo + " as " + key + ",";
             }
             if (dc.Count > 0)
             {
@@ -82,5 +81,7 @@ namespace redTaller.Database
     {
         public string SelectCampo { get; set; }
         public bool VisibleTabla { get; set; }
+        public bool VisibleFiltro { get; set; }
+        public string Header { get; set; }
     }
 }
