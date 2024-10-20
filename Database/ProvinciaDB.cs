@@ -10,7 +10,7 @@ using System.Linq;
 namespace redTaller.Database
 {
     internal class ProvinciaDB : GeneralDB
-    { 
+    {
 
         public ProvinciaDB()
         {
@@ -122,45 +122,6 @@ namespace redTaller.Database
             }
             return modificadas;
         }
-        public DataTable Load(Dictionary<string, object> filtros = null)
-        {
-            DataTable dataTable = new DataTable();
-
-            try
-            {
-                db.Conectar();
-                string query = $"SELECT {DatabaseUtil.selectColumns(dc)} FROM {tabla} ";
-                if (filtros != null && filtros.Count > 0)
-                {
-                    List<string> whereFiltros = new List<string>();
-                    foreach (var filtro in filtros)
-                    {
-                        whereFiltros.Add($"{filtro.Key} LIKE @{filtro.Key}");
-                    }
-                    query += " WHERE " + string.Join(" AND ", whereFiltros);
-                }
-
-                using (MySqlDataAdapter adapter = new MySqlDataAdapter(query, db.DbConn))
-                {
-                    if (filtros != null && filtros.Count > 0)
-                    {
-                        foreach (var filtro in filtros)
-                          adapter.SelectCommand.Parameters.AddWithValue($"@{filtro.Key}", "%" + filtro.Value.ToString() + "%");
-                    }
-                    adapter.Fill(dataTable);
-                }
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine($"Error al obtener {tabla}: {ex.Message}");
-            }
-            finally
-            {
-                db.Desconectar();
-            }
-
-            return dataTable;
-        }
 
         public List<Provincia> lista()
         {
@@ -195,37 +156,6 @@ namespace redTaller.Database
             }
 
             return list;
-        }
-
-        public bool validaKey(string key)
-        {
-            try
-            {
-                db.Conectar();
-
-                string query = $"SELECT {this.key} FROM {tabla} WHERE {this.key}=@key ";
-                using (MySqlCommand cmd = new MySqlCommand(query, db.DbConn))
-                {
-                    cmd.Parameters.AddWithValue("@key", key);
-                    using (MySqlDataReader reader = cmd.ExecuteReader())
-                    {
-                        if (reader.Read())
-                        {
-                            return false;
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine($"Error al Validar Provincia: {ex.Message}");
-            }
-            finally
-            {
-                db.Desconectar(); // Cerrar la conexión
-            }
-
-            return true; // correcto, podemos continuar
         }
 
     }

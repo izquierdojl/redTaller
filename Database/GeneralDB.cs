@@ -1,6 +1,7 @@
 ﻿using MySqlConnector;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -41,6 +42,46 @@ namespace redTaller.Database
                 db.Desconectar();
             }
             return borradas;
+        }
+
+        public DataTable Load(Dictionary<string, object> filtros = null)
+        {
+            DataTable dataTable = new DataTable();
+
+            try
+            {
+                db.Conectar();
+                string query = $"SELECT {DatabaseUtil.selectColumns(dc)} FROM {tabla} ";
+                if (filtros != null && filtros.Count > 0)
+                {
+                    List<string> whereFiltros = new List<string>();
+                    foreach (var filtro in filtros)
+                    {
+                        whereFiltros.Add($"{filtro.Key} LIKE @{filtro.Key}");
+                    }
+                    query += " WHERE " + string.Join(" AND ", whereFiltros);
+                }
+
+                using (MySqlDataAdapter adapter = new MySqlDataAdapter(query, db.DbConn))
+                {
+                    if (filtros != null && filtros.Count > 0)
+                    {
+                        foreach (var filtro in filtros)
+                            adapter.SelectCommand.Parameters.AddWithValue($"@{filtro.Key}", "%" + filtro.Value.ToString() + "%");
+                    }
+                    adapter.Fill(dataTable);
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error al obtener {tabla}: {ex.Message}");
+            }
+            finally
+            {
+                db.Desconectar();
+            }
+
+            return dataTable;
         }
 
         public bool ValidaKey(string key)

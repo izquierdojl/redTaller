@@ -94,7 +94,7 @@ namespace redTaller.Controlador
 
         public bool valida(string key)
         {
-            return provinciaDB.validaKey(key);
+            return provinciaDB.ValidaKey(key);
         }
 
     }

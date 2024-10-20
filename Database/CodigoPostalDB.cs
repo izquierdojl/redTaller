@@ -126,7 +126,7 @@ namespace redTaller.Database
             return modificadas;
         }
 
-        public DataTable Load(Dictionary<string, object> filtros = null)
+        public new DataTable Load(Dictionary<string, object> filtros = null)
         {
             DataTable dataTable = new DataTable();
 
@@ -212,4 +212,5 @@ namespace redTaller.Database
         }
 
     }
+
 }
