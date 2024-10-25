@@ -26,7 +26,7 @@ namespace redTaller.Vista.VistaProvincia
             recargaGrid(data);
 
             gridPrincipal.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-
+            this.Text = "Provincias" ;
             var listaColumnas = new List<object>();
             comboSearch.DisplayMember = "Nombre";
             comboSearch.ValueMember = "Codigo";
