@@ -27,8 +27,8 @@ namespace redTaller.Vista.VistaCodigoPostal
 
             recargaGrid(data);
 
-            gridPrincipal.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill; 
-
+            gridPrincipal.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            this.Text = "Códigos Postales";
             var listaColumnas = new List<object>();
             comboSearch.DisplayMember = "Nombre";
             comboSearch.ValueMember = "Codigo";
