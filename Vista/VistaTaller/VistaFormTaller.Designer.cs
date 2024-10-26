@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.textNombre = new System.Windows.Forms.TextBox();
             this.labelNombre = new System.Windows.Forms.Label();
             this.textNif = new System.Windows.Forms.TextBox();
@@ -47,6 +48,8 @@
             this.checkBloqueado = new System.Windows.Forms.CheckBox();
             this.textTelefono = new System.Windows.Forms.MaskedTextBox();
             this.textMovil = new System.Windows.Forms.MaskedTextBox();
+            this.btnSearchCp = new System.Windows.Forms.Button();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panelButton.SuspendLayout();
             this.panelPrincipal.SuspendLayout();
             this.SuspendLayout();
@@ -78,6 +81,7 @@
             // 
             // panelPrincipal
             // 
+            this.panelPrincipal.Controls.Add(this.btnSearchCp);
             this.panelPrincipal.Controls.Add(this.textMovil);
             this.panelPrincipal.Controls.Add(this.textTelefono);
             this.panelPrincipal.Controls.Add(this.checkBloqueado);
@@ -159,6 +163,7 @@
             this.textCp.Name = "textCp";
             this.textCp.Size = new System.Drawing.Size(75, 20);
             this.textCp.TabIndex = 4;
+            this.textCp.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textCp_KeyDown);
             this.textCp.Validating += new System.ComponentModel.CancelEventHandler(this.textCp_Validating);
             // 
             // labPoblacion
@@ -172,10 +177,10 @@
             // 
             // textPoblacion
             // 
-            this.textPoblacion.Location = new System.Drawing.Point(170, 89);
+            this.textPoblacion.Location = new System.Drawing.Point(202, 89);
             this.textPoblacion.MaxLength = 80;
             this.textPoblacion.Name = "textPoblacion";
-            this.textPoblacion.Size = new System.Drawing.Size(343, 20);
+            this.textPoblacion.Size = new System.Drawing.Size(311, 20);
             this.textPoblacion.TabIndex = 5;
             // 
             // textProvincia
@@ -207,7 +212,7 @@
             // labelMovil
             // 
             this.labelMovil.AutoSize = true;
-            this.labelMovil.Location = new System.Drawing.Point(233, 138);
+            this.labelMovil.Location = new System.Drawing.Point(315, 138);
             this.labelMovil.Name = "labelMovil";
             this.labelMovil.Size = new System.Drawing.Size(35, 13);
             this.labelMovil.TabIndex = 29;
@@ -262,11 +267,25 @@
             // 
             // textMovil
             // 
-            this.textMovil.Location = new System.Drawing.Point(301, 135);
+            this.textMovil.Location = new System.Drawing.Point(383, 135);
             this.textMovil.Mask = "000 00 00 00";
             this.textMovil.Name = "textMovil";
             this.textMovil.Size = new System.Drawing.Size(129, 20);
             this.textMovil.TabIndex = 8;
+            // 
+            // btnSearchCp
+            // 
+            this.btnSearchCp.BackgroundImage = global::redTaller.Properties.Resources.buscar;
+            this.btnSearchCp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnSearchCp.FlatAppearance.BorderSize = 0;
+            this.btnSearchCp.Location = new System.Drawing.Point(169, 87);
+            this.btnSearchCp.Name = "btnSearchCp";
+            this.btnSearchCp.Size = new System.Drawing.Size(23, 20);
+            this.btnSearchCp.TabIndex = 34;
+            this.btnSearchCp.TabStop = false;
+            this.toolTip1.SetToolTip(this.btnSearchCp, "Buscar (Ctrl+B)");
+            this.btnSearchCp.UseVisualStyleBackColor = true;
+            this.btnSearchCp.Click += new System.EventHandler(this.btnSearchCp_Click);
             // 
             // VistaFormTaller
             // 
@@ -301,5 +320,7 @@
         public System.Windows.Forms.TextBox textCp;
         public System.Windows.Forms.TextBox textProvincia;
         public System.Windows.Forms.TextBox textPoblacion;
+        private System.Windows.Forms.Button btnSearchCp;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

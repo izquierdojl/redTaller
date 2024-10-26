@@ -89,6 +89,12 @@ namespace redTaller.Controlador
         {
             return codigoPostalDB.ValidaKey(key);
         }
+
+        public CodigoPostal Id(int id)
+        {
+            return codigoPostalDB.CargaElemento(id);
+        }
+
     }
 
 }

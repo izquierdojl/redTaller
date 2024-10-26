@@ -108,7 +108,9 @@
     <Compile Include="Controlador\ControladorCodigoPostal.cs" />
     <Compile Include="Controlador\ControladorLogin.cs" />
     <Compile Include="Controlador\ControladorProvincia.cs" />
+    <Compile Include="Controlador\ControladorSearch.cs" />
     <Compile Include="Controlador\ControladorTaller.cs" />
+    <Compile Include="Database\SearchDB.cs" />
     <Compile Include="Database\TallerDB.cs" />
     <Compile Include="Database\CodigoPostalDB.cs" />
     <Compile Include="Database\GeneralDB.cs" />
@@ -167,6 +169,12 @@
     <Compile Include="Vista\VistaProvincia\VistaListaProvincia.Designer.cs">
       <DependentUpon>VistaListaProvincia.cs</DependentUpon>
     </Compile>
+    <Compile Include="Vista\VistaSearch\VistaListaSearch.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Vista\VistaSearch\VistaListaSearch.Designer.cs">
+      <DependentUpon>VistaListaSearch.cs</DependentUpon>
+    </Compile>
     <Compile Include="Vista\VistaTaller\VistaFormTaller.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -214,6 +222,9 @@
     <EmbeddedResource Include="Vista\VistaProvincia\VistaListaProvincia.resx">
       <DependentUpon>VistaListaProvincia.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Vista\VistaSearch\VistaListaSearch.resx">
+      <DependentUpon>VistaListaSearch.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Vista\VistaTaller\VistaFormTaller.resx">
       <DependentUpon>VistaFormTaller.cs</DependentUpon>
     </EmbeddedResource>
@@ -258,6 +269,8 @@
   <ItemGroup>
     <None Include="img\iniciar.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="img\aceptar.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

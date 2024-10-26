@@ -2,6 +2,7 @@
 using redTaller.Database;
 using redTaller.Modelo;
 using redTaller.Vista.VistaUtil;
+using System.Windows.Controls;
 using System.Windows.Forms;
 
 namespace redTaller.Vista.VistaTaller
@@ -83,6 +84,37 @@ namespace redTaller.Vista.VistaTaller
         private void textCp_Validating(object sender, System.ComponentModel.CancelEventArgs e)
         {
             controlador.asignaCodigoPostal(this);
+        }
+
+        private void busca_Cp()
+        {
+            ControladorSearch controladorSearch = new ControladorSearch("CodigoPostal", "codigopostal");
+            int id = controladorSearch.Load();
+            if( id != 0)
+            {
+                ControladorCodigoPostal controladorCodigoPostal = new ControladorCodigoPostal();
+                CodigoPostal codigoPostal = controladorCodigoPostal.Id(id);
+                if (codigoPostal != null)
+                {
+                    textCp.Text = codigoPostal.codigo;
+                    textPoblacion.Text = codigoPostal.nombre;
+                    textProvincia.Text = codigoPostal.provincia.nombre;
+                    textCp.Focus();
+                }
+            }
+        }
+
+        private void btnSearchCp_Click(object sender, System.EventArgs e)
+        {
+            busca_Cp();
+        }
+
+        private void textCp_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Control && e.KeyCode == Keys.B)
+            {
+                busca_Cp();
+            }
         }
     }
 
