@@ -17,7 +17,7 @@ namespace redTaller.Vista.VistaSearch
     {
 
         ControladorSearch controlador;
-        public Dictionary<string, CampoInfo> dc;
+        Dictionary<string, CampoInfo> dc;
         public int SelectedId { get; private set; }
 
         public VistaListaSearch(DataTable data, Dictionary<string, CampoInfo> dc, ControladorSearch controlador)

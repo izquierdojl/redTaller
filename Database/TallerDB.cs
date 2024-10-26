@@ -63,9 +63,12 @@ namespace redTaller.Database
                             taller.tel = reader.GetString("tel");
                             taller.email = reader.GetString("email");
                             taller.movil = reader.GetString("movil");
-                            taller.password = reader.GetString("password");
-                            taller.activo = reader.GetBoolean("activo");
-                            taller.bloqueado = reader.GetBoolean("bloqueado");
+                            if (!reader.IsDBNull(reader.GetOrdinal("password")))
+                            {
+                                taller.password = (byte[])reader["password"];
+                            }
+                            taller.activo = Convert.ToBoolean(reader.GetInt32("activo"));
+                            taller.bloqueado = Convert.ToBoolean(reader.GetInt32("bloqueado"));
                         }
                     }
                 }
@@ -185,7 +188,10 @@ namespace redTaller.Database
                             taller.tel = reader.GetString("tel");
                             taller.email = reader.GetString("email");
                             taller.movil = reader.GetString("movil");
-                            taller.password = reader.GetString("password");
+                            if (!reader.IsDBNull(reader.GetOrdinal("password")))
+                            {
+                                taller.password = (byte[])reader["password"];
+                            }
                             taller.activo = reader.GetBoolean("activo");
                             taller.bloqueado = reader.GetBoolean("bloqueado");
                             list.Add(taller);
