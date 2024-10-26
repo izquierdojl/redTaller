@@ -48,6 +48,7 @@
             // btnSalir
             // 
             this.toolBotones.SetToolTip(this.btnSalir, "Añade un Registro (Ins)");
+            this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
             // 
             // btnDelete
             // 
