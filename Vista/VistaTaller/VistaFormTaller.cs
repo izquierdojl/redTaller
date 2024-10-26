@@ -1,6 +1,7 @@
 ﻿using redTaller.Controlador;
 using redTaller.Database;
 using redTaller.Modelo;
+using redTaller.Vista.VistaUtil;
 using System.Windows.Forms;
 
 namespace redTaller.Vista.VistaTaller
@@ -64,10 +65,18 @@ namespace redTaller.Vista.VistaTaller
 
         private void textNif_Validating(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (!controlador.valida(textNif.Text))
+            if (!VistaUtil.VistaUtil.ValidaNIF(textNif.Text))
             {
-                MessageBox.Show("El nif ya existe o es inválido.");
+                MessageBox.Show("Error de formato de NIF.");
                 textNif.Select();
+            }
+            else
+            { 
+                if (!controlador.valida(textNif.Text))
+                {
+                    MessageBox.Show("El nif ya existe o es inválido.");
+                    textNif.Select();
+                }
             }
         }
     }

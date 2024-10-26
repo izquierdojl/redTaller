@@ -46,7 +46,7 @@
             this.checkActivo = new System.Windows.Forms.CheckBox();
             this.checkBloqueado = new System.Windows.Forms.CheckBox();
             this.textTelefono = new System.Windows.Forms.MaskedTextBox();
-            this.TextMovil = new System.Windows.Forms.MaskedTextBox();
+            this.textMovil = new System.Windows.Forms.MaskedTextBox();
             this.panelButton.SuspendLayout();
             this.panelPrincipal.SuspendLayout();
             this.SuspendLayout();
@@ -64,6 +64,7 @@
             this.btnAceptar.Margin = new System.Windows.Forms.Padding(2);
             this.btnAceptar.Padding = new System.Windows.Forms.Padding(3);
             this.btnAceptar.Size = new System.Drawing.Size(105, 55);
+            this.btnAceptar.TabIndex = 0;
             this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
             // 
             // btnCancelar
@@ -72,11 +73,12 @@
             this.btnCancelar.Margin = new System.Windows.Forms.Padding(2);
             this.btnCancelar.Padding = new System.Windows.Forms.Padding(3);
             this.btnCancelar.Size = new System.Drawing.Size(105, 55);
+            this.btnCancelar.TabIndex = 1;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
             // panelPrincipal
             // 
-            this.panelPrincipal.Controls.Add(this.TextMovil);
+            this.panelPrincipal.Controls.Add(this.textMovil);
             this.panelPrincipal.Controls.Add(this.textTelefono);
             this.panelPrincipal.Controls.Add(this.checkBloqueado);
             this.panelPrincipal.Controls.Add(this.checkActivo);
@@ -104,7 +106,7 @@
             this.textNombre.MaxLength = 150;
             this.textNombre.Name = "textNombre";
             this.textNombre.Size = new System.Drawing.Size(421, 20);
-            this.textNombre.TabIndex = 16;
+            this.textNombre.TabIndex = 2;
             // 
             // labelNombre
             // 
@@ -121,7 +123,7 @@
             this.textNif.MaxLength = 15;
             this.textNif.Name = "textNif";
             this.textNif.Size = new System.Drawing.Size(129, 20);
-            this.textNif.TabIndex = 15;
+            this.textNif.TabIndex = 1;
             this.textNif.Validating += new System.ComponentModel.CancelEventHandler(this.textNif_Validating);
             // 
             // labNif
@@ -139,7 +141,7 @@
             this.textDomicilio.MaxLength = 150;
             this.textDomicilio.Name = "textDomicilio";
             this.textDomicilio.Size = new System.Drawing.Size(421, 20);
-            this.textDomicilio.TabIndex = 19;
+            this.textDomicilio.TabIndex = 3;
             // 
             // labDomicilio
             // 
@@ -156,7 +158,7 @@
             this.textCp.MaxLength = 7;
             this.textCp.Name = "textCp";
             this.textCp.Size = new System.Drawing.Size(75, 20);
-            this.textCp.TabIndex = 21;
+            this.textCp.TabIndex = 4;
             // 
             // labPoblacion
             // 
@@ -173,7 +175,7 @@
             this.textPoblacion.MaxLength = 80;
             this.textPoblacion.Name = "textPoblacion";
             this.textPoblacion.Size = new System.Drawing.Size(343, 20);
-            this.textPoblacion.TabIndex = 23;
+            this.textPoblacion.TabIndex = 5;
             // 
             // textProvincia
             // 
@@ -181,7 +183,7 @@
             this.textProvincia.MaxLength = 80;
             this.textProvincia.Name = "textProvincia";
             this.textProvincia.Size = new System.Drawing.Size(421, 20);
-            this.textProvincia.TabIndex = 24;
+            this.textProvincia.TabIndex = 6;
             // 
             // labProvincia
             // 
@@ -198,7 +200,7 @@
             this.labTelefono.Location = new System.Drawing.Point(23, 138);
             this.labTelefono.Name = "labTelefono";
             this.labTelefono.Size = new System.Drawing.Size(52, 13);
-            this.labTelefono.TabIndex = 27;
+            this.labTelefono.TabIndex = 0;
             this.labTelefono.Text = "Teléfono:";
             // 
             // labelMovil
@@ -216,7 +218,7 @@
             this.textEmail.MaxLength = 100;
             this.textEmail.Name = "textEmail";
             this.textEmail.Size = new System.Drawing.Size(339, 20);
-            this.textEmail.TabIndex = 30;
+            this.textEmail.TabIndex = 9;
             // 
             // labelEmail
             // 
@@ -255,15 +257,15 @@
             this.textTelefono.Mask = "000 00 00 00";
             this.textTelefono.Name = "textTelefono";
             this.textTelefono.Size = new System.Drawing.Size(129, 20);
-            this.textTelefono.TabIndex = 34;
+            this.textTelefono.TabIndex = 7;
             // 
-            // TextMovil
+            // textMovil
             // 
-            this.TextMovil.Location = new System.Drawing.Point(301, 135);
-            this.TextMovil.Mask = "000 00 00 00";
-            this.TextMovil.Name = "TextMovil";
-            this.TextMovil.Size = new System.Drawing.Size(129, 20);
-            this.TextMovil.TabIndex = 35;
+            this.textMovil.Location = new System.Drawing.Point(301, 135);
+            this.textMovil.Mask = "000 00 00 00";
+            this.textMovil.Name = "textMovil";
+            this.textMovil.Size = new System.Drawing.Size(129, 20);
+            this.textMovil.TabIndex = 8;
             // 
             // VistaFormTaller
             // 
@@ -298,6 +300,6 @@
         private System.Windows.Forms.CheckBox checkBloqueado;
         private System.Windows.Forms.CheckBox checkActivo;
         private System.Windows.Forms.MaskedTextBox textTelefono;
-        private System.Windows.Forms.MaskedTextBox TextMovil;
+        private System.Windows.Forms.MaskedTextBox textMovil;
     }
 }
