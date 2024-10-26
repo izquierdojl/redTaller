@@ -159,6 +159,7 @@
             this.textCp.Name = "textCp";
             this.textCp.Size = new System.Drawing.Size(75, 20);
             this.textCp.TabIndex = 4;
+            this.textCp.Validating += new System.ComponentModel.CancelEventHandler(this.textCp_Validating);
             // 
             // labPoblacion
             // 
@@ -281,8 +282,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.TextBox textCp;
         private System.Windows.Forms.Label labPoblacion;
         private System.Windows.Forms.TextBox textDomicilio;
         private System.Windows.Forms.Label labDomicilio;
@@ -292,14 +291,15 @@
         private System.Windows.Forms.Label labNif;
         private System.Windows.Forms.Label labelMovil;
         private System.Windows.Forms.Label labTelefono;
-        private System.Windows.Forms.TextBox textProvincia;
         private System.Windows.Forms.Label labProvincia;
-        private System.Windows.Forms.TextBox textPoblacion;
         private System.Windows.Forms.TextBox textEmail;
         private System.Windows.Forms.Label labelEmail;
         private System.Windows.Forms.CheckBox checkBloqueado;
         private System.Windows.Forms.CheckBox checkActivo;
         private System.Windows.Forms.MaskedTextBox textTelefono;
         private System.Windows.Forms.MaskedTextBox textMovil;
+        public System.Windows.Forms.TextBox textCp;
+        public System.Windows.Forms.TextBox textProvincia;
+        public System.Windows.Forms.TextBox textPoblacion;
     }
 }

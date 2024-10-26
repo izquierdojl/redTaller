@@ -25,22 +25,40 @@ namespace redTaller.Database
             };
         }
 
-        public CodigoPostal CargaElemento(int id)
+        public CodigoPostal CargaElemento(int id, string codigo=null )
         {
             CodigoPostal codigoPostal = new Modelo.CodigoPostal();
+            string query;
             try
             {
                 db.Conectar();
 
-                string query = $@"
-                               SELECT {DatabaseUtil.selectColumns(dc)}
-                               FROM {tabla}
-                               LEFT JOIN provincia ON provincia.codigo=codigopostal.cod_provincia 
-                               WHERE {tabla}.id=@key
-                                ";
+                if (codigo == null)
+                {
+                    query = $@"
+                            SELECT {DatabaseUtil.selectColumns(dc)}
+                            FROM {tabla}
+                            LEFT JOIN provincia ON provincia.codigo=codigopostal.cod_provincia 
+                            WHERE {tabla}.id=@key
+                            ";
+                }
+                else
+                {
+                    query = $@"
+                            SELECT {DatabaseUtil.selectColumns(dc)}
+                            FROM {tabla}
+                            LEFT JOIN provincia ON provincia.codigo=codigopostal.cod_provincia 
+                            WHERE {tabla}.codigo=@key
+                            ";
+                }
                 using (MySqlCommand cmd = new MySqlCommand(query, db.DbConn))
                 {
-                    cmd.Parameters.AddWithValue("@key", id);
+
+                    if (codigo == null)
+                        cmd.Parameters.AddWithValue("@key", id);
+                    else
+                        cmd.Parameters.AddWithValue("@key", codigo);
+
                     using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
                         if (reader.Read())

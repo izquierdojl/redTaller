@@ -79,6 +79,11 @@ namespace redTaller.Vista.VistaTaller
                 }
             }
         }
+
+        private void textCp_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            controlador.asignaCodigoPostal(this);
+        }
     }
 
 }

@@ -88,6 +88,20 @@ namespace redTaller.Controlador
             return tallerDB.ValidaKey(key);
         }
 
+        public void asignaCodigoPostal(VistaFormTaller vistaFormTaller)
+        {
+            CodigoPostalDB db = new CodigoPostalDB();
+            CodigoPostal codigoPostal = db.CargaElemento(0, vistaFormTaller.textCp.Text);
+            if (codigoPostal != null)
+            {
+                if( string.IsNullOrEmpty( vistaFormTaller.textPoblacion.Text ) )
+                    vistaFormTaller.textPoblacion.Text = codigoPostal.nombre;
+                if (string.IsNullOrEmpty(vistaFormTaller.textProvincia.Text))
+                    vistaFormTaller.textProvincia.Text = codigoPostal.provincia.nombre;
+            }
+
+        }
+
     }
 
 }
