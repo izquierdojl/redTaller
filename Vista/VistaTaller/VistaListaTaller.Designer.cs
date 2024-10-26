@@ -67,6 +67,7 @@
             // panelCenter
             // 
             this.panelCenter.Controls.Add(this.gridPrincipal);
+            this.panelCenter.TabIndex = 0;
             // 
             // gridPrincipal
             // 
