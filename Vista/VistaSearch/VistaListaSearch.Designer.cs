@@ -56,9 +56,9 @@
             // 
             // textSearch
             // 
-            this.textSearch.Location = new System.Drawing.Point(62, 12);
+            this.textSearch.Location = new System.Drawing.Point(99, 12);
             this.textSearch.Name = "textSearch";
-            this.textSearch.Size = new System.Drawing.Size(537, 20);
+            this.textSearch.Size = new System.Drawing.Size(500, 20);
             this.textSearch.TabIndex = 1;
             this.textSearch.TextChanged += new System.EventHandler(this.textSearch_TextChanged);
             this.textSearch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textSearch_KeyDown);
@@ -69,9 +69,9 @@
             this.labSearch.AutoSize = true;
             this.labSearch.Location = new System.Drawing.Point(13, 15);
             this.labSearch.Name = "labSearch";
-            this.labSearch.Size = new System.Drawing.Size(43, 13);
+            this.labSearch.Size = new System.Drawing.Size(80, 13);
             this.labSearch.TabIndex = 0;
-            this.labSearch.Text = "Buscar:";
+            this.labSearch.Text = "Buscar (Ctrl+B):";
             // 
             // panelBottom
             // 
