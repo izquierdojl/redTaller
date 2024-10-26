@@ -1,13 +1,8 @@
 ﻿using redTaller.Database;
 using redTaller.Modelo;
-using redTaller.Vista.VistaCodigoPostal;
 using redTaller.Vista.VistaProvincia;
 using redTaller.Vista.VistaUtil;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace redTaller.Controlador

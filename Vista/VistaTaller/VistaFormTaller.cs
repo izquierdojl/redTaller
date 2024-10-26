@@ -20,13 +20,23 @@ namespace redTaller.Vista.VistaTaller
 
             this.lista = lista;
             this.modo = modo;
-            taller = this.taller;
+            this.taller = taller;
             this.Text = "Detalle Taller";
+
+            checkActivo.Enabled = false;
 
             if (modo == 2)
             {
                 textNif.Enabled = false;
+                textNif.Text = taller.nif;
                 textNombre.Text = taller.nombre;
+                textDomicilio.Text = taller.domicilio;
+                textCp.Text = taller.cp;    
+                textPoblacion.Text = taller.pob;
+                textProvincia.Text = taller.pro;
+                textTelefono.Text = taller.tel;
+                textMovil.Text = taller.movil;
+                textEmail.Text = taller.email;  
             }
 
         }
@@ -35,6 +45,14 @@ namespace redTaller.Vista.VistaTaller
         {
             taller.nif = textNif.Text;
             taller.nombre = textNombre.Text;
+            taller.domicilio = textDomicilio.Text;
+            taller.cp = textCp.Text;
+            taller.pob = textPoblacion.Text;
+            taller.pro = textProvincia.Text;
+            taller.tel = textTelefono.Text;
+            taller.movil = textMovil.Text;  
+            taller.email = textEmail.Text;
+            taller.bloqueado = checkBloqueado.Checked;            
             this.Close();
             controlador.guardar(taller, modo, lista);
         }
@@ -44,7 +62,7 @@ namespace redTaller.Vista.VistaTaller
             this.Close();
         }
 
-        private void textCodigo_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        private void textNif_Validating(object sender, System.ComponentModel.CancelEventArgs e)
         {
             if (!controlador.valida(textNif.Text))
             {
@@ -52,7 +70,6 @@ namespace redTaller.Vista.VistaTaller
                 textNif.Select();
             }
         }
-
     }
 
 }
