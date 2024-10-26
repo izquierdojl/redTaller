@@ -90,14 +90,17 @@ namespace redTaller.Vista.VistaTaller
         {
             ControladorSearch controladorSearch = new ControladorSearch("CodigoPostal", "codigopostal");
             int id = controladorSearch.Load();
-            ControladorCodigoPostal controladorCodigoPostal = new ControladorCodigoPostal();
-            CodigoPostal codigoPostal = controladorCodigoPostal.Id(id);
-            if (codigoPostal != null)
+            if( id != 0)
             {
-                textCp.Text = codigoPostal.codigo;
-                textPoblacion.Text = codigoPostal.nombre;
-                textProvincia.Text = codigoPostal.provincia.nombre;
-                textCp.Focus();
+                ControladorCodigoPostal controladorCodigoPostal = new ControladorCodigoPostal();
+                CodigoPostal codigoPostal = controladorCodigoPostal.Id(id);
+                if (codigoPostal != null)
+                {
+                    textCp.Text = codigoPostal.codigo;
+                    textPoblacion.Text = codigoPostal.nombre;
+                    textProvincia.Text = codigoPostal.provincia.nombre;
+                    textCp.Focus();
+                }
             }
         }
 
