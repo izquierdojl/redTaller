@@ -108,6 +108,7 @@
     <Compile Include="Controlador\ControladorCodigoPostal.cs" />
     <Compile Include="Controlador\ControladorLogin.cs" />
     <Compile Include="Controlador\ControladorProvincia.cs" />
+    <Compile Include="Controlador\ControladorTaller.cs" />
     <Compile Include="Database\TallerDB.cs" />
     <Compile Include="Database\CodigoPostalDB.cs" />
     <Compile Include="Database\GeneralDB.cs" />
@@ -166,6 +167,18 @@
     <Compile Include="Vista\VistaProvincia\VistaListaProvincia.Designer.cs">
       <DependentUpon>VistaListaProvincia.cs</DependentUpon>
     </Compile>
+    <Compile Include="Vista\VistaTaller\VistaFormTaller.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Vista\VistaTaller\VistaFormTaller.Designer.cs">
+      <DependentUpon>VistaFormTaller.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Vista\VistaTaller\VistaListaTaller.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Vista\VistaTaller\VistaListaTaller.Designer.cs">
+      <DependentUpon>VistaListaTaller.cs</DependentUpon>
+    </Compile>
     <Compile Include="Vista\VistaUtil\VistaUtil.cs" />
     <EmbeddedResource Include="Vista\Principal.resx">
       <DependentUpon>Principal.cs</DependentUpon>
@@ -200,6 +213,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Vista\VistaProvincia\VistaListaProvincia.resx">
       <DependentUpon>VistaListaProvincia.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Vista\VistaTaller\VistaFormTaller.resx">
+      <DependentUpon>VistaFormTaller.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Vista\VistaTaller\VistaListaTaller.resx">
+      <DependentUpon>VistaListaTaller.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

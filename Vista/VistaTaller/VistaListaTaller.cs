@@ -2,23 +2,22 @@
 using redTaller.Database;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
-namespace redTaller.Vista.VistaProvincia
+namespace redTaller.Vista.VistaTaller
 {
-    public partial class VistaListaProvincia : redTaller.Vista.VistaBase.VistaListaBase
+    public partial class VistaListaTaller : redTaller.Vista.VistaBase.VistaListaBase
     {
-        ControladorProvincia controlador = new ControladorProvincia();
+
+        ControladorTaller controlador = new ControladorTaller();
         Dictionary<string, CampoInfo> dc;
 
-        public VistaListaProvincia(DataTable data, Dictionary<string, CampoInfo> dc)
+        public VistaListaTaller(DataTable data, Dictionary<string, CampoInfo> dc)
         {
             InitializeComponent();
+
 
             gridPrincipal.AutoGenerateColumns = true;
             this.dc = dc;
@@ -26,7 +25,7 @@ namespace redTaller.Vista.VistaProvincia
             recargaGrid(data);
 
             gridPrincipal.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            this.Text = "Provincias" ;
+            this.Text = "Talleres";
             var listaColumnas = new List<object>();
             comboSearch.DisplayMember = "Nombre";
             comboSearch.ValueMember = "Codigo";
@@ -75,7 +74,7 @@ namespace redTaller.Vista.VistaProvincia
         {
             if (gridPrincipal.SelectedRows.Count > 0)
             {
-                if (MessageBox.Show("¿ Seguro de borrar las Provincias seleccionadas ?", "Eliminar Registros", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                if (MessageBox.Show("¿ Seguro de borrar los Talleres seleccionados ?", "Eliminar Registros", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     List<int> ids = new List<int>();
                     foreach (DataGridViewRow row in gridPrincipal.SelectedRows)
@@ -171,4 +170,6 @@ namespace redTaller.Vista.VistaProvincia
         }
 
     }
+
 }
+

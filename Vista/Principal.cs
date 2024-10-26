@@ -33,8 +33,14 @@ namespace redTaller
         {
             ControladorCodigoPostal controladorCodigoPostal = new ControladorCodigoPostal();    
             controladorCodigoPostal.mostrar(this);
-           
         }
+
+        private void menuFicherosTalleres_Click(object sender, EventArgs e)
+        {
+            ControladorTaller controladorTaller = new ControladorTaller();
+            controladorTaller.mostrar(this);
+        }
+
         private void Login()
         {
             controladorLogin.mostrar();
