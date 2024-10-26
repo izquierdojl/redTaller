@@ -13,6 +13,7 @@ namespace redTaller.Vista.VistaProvincia
 {
     public partial class VistaListaProvincia : redTaller.Vista.VistaBase.VistaListaBase
     {
+        
         ControladorProvincia controlador = new ControladorProvincia();
         Dictionary<string, CampoInfo> dc;
 
