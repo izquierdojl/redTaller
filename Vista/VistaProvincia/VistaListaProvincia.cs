@@ -95,8 +95,11 @@ namespace redTaller.Vista.VistaProvincia
 
         private void vistaEditar()
         {
-            int id = (int)gridPrincipal.Rows[gridPrincipal.CurrentRow.Index].Cells["id"].Value;
-            controlador.modificar(this, id);
+            if (gridPrincipal.SelectedRows.Count > 0)
+            {
+                int id = (int)gridPrincipal.Rows[gridPrincipal.CurrentRow.Index].Cells["id"].Value;
+                controlador.modificar(this, id);
+            }
         }
 
         private void vistaBuscar()
