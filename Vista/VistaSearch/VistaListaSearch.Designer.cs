@@ -29,19 +29,19 @@
         private void InitializeComponent()
         {
             this.panelTop = new System.Windows.Forms.Panel();
-            this.panelBottom = new System.Windows.Forms.Panel();
-            this.panelCenter = new System.Windows.Forms.Panel();
-            this.gridPrincipal = new System.Windows.Forms.DataGridView();
-            this.labSearch = new System.Windows.Forms.Label();
             this.textSearch = new System.Windows.Forms.TextBox();
+            this.labSearch = new System.Windows.Forms.Label();
+            this.panelBottom = new System.Windows.Forms.Panel();
             this.panelBtnRight = new System.Windows.Forms.Panel();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.btnAceptar = new System.Windows.Forms.Button();
+            this.panelCenter = new System.Windows.Forms.Panel();
+            this.gridPrincipal = new System.Windows.Forms.DataGridView();
             this.panelTop.SuspendLayout();
             this.panelBottom.SuspendLayout();
+            this.panelBtnRight.SuspendLayout();
             this.panelCenter.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridPrincipal)).BeginInit();
-            this.panelBtnRight.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelTop
@@ -54,37 +54,15 @@
             this.panelTop.Size = new System.Drawing.Size(611, 43);
             this.panelTop.TabIndex = 1;
             // 
-            // panelBottom
+            // textSearch
             // 
-            this.panelBottom.Controls.Add(this.panelBtnRight);
-            this.panelBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelBottom.Location = new System.Drawing.Point(0, 482);
-            this.panelBottom.Name = "panelBottom";
-            this.panelBottom.Size = new System.Drawing.Size(611, 62);
-            this.panelBottom.TabIndex = 2;
-            // 
-            // panelCenter
-            // 
-            this.panelCenter.Controls.Add(this.gridPrincipal);
-            this.panelCenter.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelCenter.Location = new System.Drawing.Point(0, 43);
-            this.panelCenter.Name = "panelCenter";
-            this.panelCenter.Size = new System.Drawing.Size(611, 439);
-            this.panelCenter.TabIndex = 0;
-            // 
-            // gridPrincipal
-            // 
-            this.gridPrincipal.AllowUserToAddRows = false;
-            this.gridPrincipal.AllowUserToDeleteRows = false;
-            this.gridPrincipal.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gridPrincipal.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gridPrincipal.Location = new System.Drawing.Point(0, 0);
-            this.gridPrincipal.Name = "gridPrincipal";
-            this.gridPrincipal.ReadOnly = true;
-            this.gridPrincipal.RowHeadersWidth = 62;
-            this.gridPrincipal.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.gridPrincipal.Size = new System.Drawing.Size(611, 439);
-            this.gridPrincipal.TabIndex = 0;
+            this.textSearch.Location = new System.Drawing.Point(62, 12);
+            this.textSearch.Name = "textSearch";
+            this.textSearch.Size = new System.Drawing.Size(537, 20);
+            this.textSearch.TabIndex = 1;
+            this.textSearch.TextChanged += new System.EventHandler(this.textSearch_TextChanged);
+            this.textSearch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textSearch_KeyDown);
+            this.textSearch.Leave += new System.EventHandler(this.textSearch_Leave);
             // 
             // labSearch
             // 
@@ -95,12 +73,14 @@
             this.labSearch.TabIndex = 0;
             this.labSearch.Text = "Buscar:";
             // 
-            // textSearch
+            // panelBottom
             // 
-            this.textSearch.Location = new System.Drawing.Point(62, 12);
-            this.textSearch.Name = "textSearch";
-            this.textSearch.Size = new System.Drawing.Size(537, 20);
-            this.textSearch.TabIndex = 1;
+            this.panelBottom.Controls.Add(this.panelBtnRight);
+            this.panelBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panelBottom.Location = new System.Drawing.Point(0, 482);
+            this.panelBottom.Name = "panelBottom";
+            this.panelBottom.Size = new System.Drawing.Size(611, 62);
+            this.panelBottom.TabIndex = 2;
             // 
             // panelBtnRight
             // 
@@ -141,6 +121,30 @@
             this.btnAceptar.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnAceptar.UseVisualStyleBackColor = true;
             // 
+            // panelCenter
+            // 
+            this.panelCenter.Controls.Add(this.gridPrincipal);
+            this.panelCenter.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelCenter.Location = new System.Drawing.Point(0, 43);
+            this.panelCenter.Name = "panelCenter";
+            this.panelCenter.Size = new System.Drawing.Size(611, 439);
+            this.panelCenter.TabIndex = 0;
+            // 
+            // gridPrincipal
+            // 
+            this.gridPrincipal.AllowUserToAddRows = false;
+            this.gridPrincipal.AllowUserToDeleteRows = false;
+            this.gridPrincipal.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gridPrincipal.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gridPrincipal.Location = new System.Drawing.Point(0, 0);
+            this.gridPrincipal.Name = "gridPrincipal";
+            this.gridPrincipal.ReadOnly = true;
+            this.gridPrincipal.RowHeadersWidth = 62;
+            this.gridPrincipal.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.gridPrincipal.Size = new System.Drawing.Size(611, 439);
+            this.gridPrincipal.TabIndex = 0;
+            this.gridPrincipal.KeyDown += new System.Windows.Forms.KeyEventHandler(this.gridPrincipal_KeyDown);
+            // 
             // VistaListaSearch
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -156,9 +160,9 @@
             this.panelTop.ResumeLayout(false);
             this.panelTop.PerformLayout();
             this.panelBottom.ResumeLayout(false);
+            this.panelBtnRight.ResumeLayout(false);
             this.panelCenter.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gridPrincipal)).EndInit();
-            this.panelBtnRight.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
