@@ -16,14 +16,14 @@ namespace redTaller.Modelo
         public string tel { get; set; }
         public string email { get; set; }
         public string movil { get; set; }
-        public string password { get; set; }
+        public byte[] password { get; set; }
         public bool activo { get; set; }
         public bool bloqueado { get; set; }
         public int id { get; set; }
 
         public Taller() { }
 
-        public Taller(string nif, string nombre, string domicilio, string cp, string pob, string pro, string tel, string email, string movil, string password, bool activo, bool bloqueado, int id)
+        public Taller(string nif, string nombre, string domicilio, string cp, string pob, string pro, string tel, string email, string movil, byte[] password, bool activo, bool bloqueado, int id)
         {
             this.nif = nif;
             this.nombre = nombre;

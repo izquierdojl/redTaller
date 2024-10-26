@@ -23,7 +23,7 @@ namespace redTaller.Vista.VistaTaller
             this.lista = lista;
             this.modo = modo;
             this.taller = taller;
-            this.Text = "Detalle Taller";
+            Text = "Detalle Taller";
 
             checkActivo.Enabled = false;
 
@@ -39,6 +39,8 @@ namespace redTaller.Vista.VistaTaller
                 textTelefono.Text = taller.tel;
                 textMovil.Text = taller.movil;
                 textEmail.Text = taller.email;  
+                checkBloqueado.Checked = taller.bloqueado;
+                checkActivo.Checked = taller.activo;
             }
 
         }
