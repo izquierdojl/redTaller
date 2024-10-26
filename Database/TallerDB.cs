@@ -21,7 +21,7 @@ namespace redTaller.Database
             {
                 { "nif", new CampoInfo { SelectCampo = tabla + ".nif", VisibleTabla = true, VisibleFiltro = true , Header = "NIF"  } },
                 { "nombre", new CampoInfo { SelectCampo = tabla + ".nombre", VisibleTabla = true, VisibleFiltro = true , Header = "Nombre"  } },
-                { "domicilio", new CampoInfo { SelectCampo = tabla + ".domicilio", VisibleTabla = true, VisibleFiltro = false , Header = "Domicilio"  } },
+                { "domicilio", new CampoInfo { SelectCampo = tabla + ".domicilio", VisibleTabla = false, VisibleFiltro = false , Header = "Domicilio"  } },
                 { "cp", new CampoInfo { SelectCampo = tabla + ".cp", VisibleTabla = true, VisibleFiltro = true , Header = "Código Postal"  } },
                 { "pob", new CampoInfo { SelectCampo = tabla + ".pob", VisibleTabla = true, VisibleFiltro = true , Header = "Población"  } },
                 { "pro", new CampoInfo { SelectCampo = tabla + ".pro", VisibleTabla = true, VisibleFiltro = true , Header = "Provincia"  } },
@@ -29,8 +29,8 @@ namespace redTaller.Database
                 { "email", new CampoInfo { SelectCampo = tabla + ".email", VisibleTabla = true, VisibleFiltro = true , Header = "Correo Electrónico"  } },
                 { "movil", new CampoInfo { SelectCampo = tabla + ".movil", VisibleTabla = true, VisibleFiltro = false , Header = "Número de Móvil"  } },
                 { "password", new CampoInfo { SelectCampo = tabla + ".password", VisibleTabla = false, VisibleFiltro = false } },
-                { "activo", new CampoInfo { SelectCampo = tabla + ".activo", VisibleTabla = true, VisibleFiltro = true , Header = "Cuenta Activa"  } },
-                { "bloqueado", new CampoInfo { SelectCampo = tabla + ".bloqueado", VisibleTabla = true, VisibleFiltro = true , Header = "Cuenta Bloqueada"  } },
+                { "activo", new CampoInfo { SelectCampo = tabla + ".activo", VisibleTabla = true, VisibleFiltro = false , Header = "Cuenta Activa"  } },
+                { "bloqueado", new CampoInfo { SelectCampo = tabla + ".bloqueado", VisibleTabla = true, VisibleFiltro = false , Header = "Cuenta Bloqueada"  } },
                 { "id", new CampoInfo { SelectCampo = tabla + ".id", VisibleTabla = false } }
             };
 
