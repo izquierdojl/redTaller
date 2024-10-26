@@ -104,7 +104,6 @@ namespace redTaller.Vista.VistaTaller
             }
         }
 
-
         private void btnSearchCp_Click(object sender, System.EventArgs e)
         {
             busca_Cp();

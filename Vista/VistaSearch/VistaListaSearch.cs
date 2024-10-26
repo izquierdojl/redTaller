@@ -108,5 +108,9 @@ namespace redTaller.Vista.VistaSearch
             }
         }
 
+        private void gridPrincipal_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            seleccionar();
+        }
     }
 }

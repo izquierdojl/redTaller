@@ -143,6 +143,7 @@
             this.gridPrincipal.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.gridPrincipal.Size = new System.Drawing.Size(611, 439);
             this.gridPrincipal.TabIndex = 0;
+            this.gridPrincipal.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.gridPrincipal_CellMouseDoubleClick);
             this.gridPrincipal.KeyDown += new System.Windows.Forms.KeyEventHandler(this.gridPrincipal_KeyDown);
             // 
             // VistaListaSearch
