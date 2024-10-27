@@ -118,6 +118,7 @@
     <Compile Include="Database\Util\DatabaseUtil.cs" />
     <Compile Include="Modelo\CodigoPostal.cs" />
     <Compile Include="Modelo\Provincia.cs" />
+    <Compile Include="Modelo\Cliente.cs" />
     <Compile Include="Modelo\Taller.cs" />
     <Compile Include="Vista\VistaBase\VistaFormBase.cs">
       <SubType>Form</SubType>
