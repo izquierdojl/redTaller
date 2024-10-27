@@ -38,26 +38,32 @@
             // btnInitSearch
             // 
             this.toolBotones.SetToolTip(this.btnInitSearch, "Inicializa la búsqueda");
+            this.btnInitSearch.Click += new System.EventHandler(this.btnInitSearch_Click);
             // 
             // btnSearch
             // 
             this.toolBotones.SetToolTip(this.btnSearch, "Busca por el texto indicado");
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
             // btnSalir
             // 
             this.toolBotones.SetToolTip(this.btnSalir, "Añade un Registro (Ins)");
+            this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
             // 
             // btnDelete
             // 
             this.toolBotones.SetToolTip(this.btnDelete, "Elimina los registros seleccionados (Supr)");
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // btnEdit
             // 
             this.toolBotones.SetToolTip(this.btnEdit, "Edita un Registro (ENTER)");
+            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
             // btnAdd
             // 
             this.toolBotones.SetToolTip(this.btnAdd, "Añade un Registro (Ins)");
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // panelCenter
             // 
@@ -77,6 +83,8 @@
             this.gridPrincipal.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.gridPrincipal.Size = new System.Drawing.Size(1200, 567);
             this.gridPrincipal.TabIndex = 2;
+            this.gridPrincipal.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.gridPrincipal_CellMouseDoubleClick);
+            this.gridPrincipal.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textSearch_KeyPress);
             // 
             // VistaListaCliente
             // 

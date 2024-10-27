@@ -134,6 +134,12 @@
     <Compile Include="Vista\VistaBase\VistaListaBase.Designer.cs">
       <DependentUpon>VistaListaBase.cs</DependentUpon>
     </Compile>
+    <Compile Include="Vista\VistaCliente\VistaFormCliente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Vista\VistaCliente\VistaFormCliente.Designer.cs">
+      <DependentUpon>VistaFormCliente.cs</DependentUpon>
+    </Compile>
     <Compile Include="Vista\VistaCliente\VistaListaCliente.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -215,6 +221,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Vista\VistaBase\VistaListaBase.resx">
       <DependentUpon>VistaListaBase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Vista\VistaCliente\VistaFormCliente.resx">
+      <DependentUpon>VistaFormCliente.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Vista\VistaCliente\VistaListaCliente.resx">
       <DependentUpon>VistaListaCliente.cs</DependentUpon>

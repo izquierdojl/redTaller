@@ -72,6 +72,104 @@ namespace redTaller.Vista.VistaCliente
 
         }
 
+        private void vistaBorrar()
+        {
+            if (gridPrincipal.SelectedRows.Count > 0)
+            {
+                if (MessageBox.Show("¿ Seguro de borrar los Talleres seleccionados ?", "Eliminar Registros", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    List<int> ids = new List<int>();
+                    foreach (DataGridViewRow row in gridPrincipal.SelectedRows)
+                    {
+                        ids.Add((int)row.Cells["id"].Value);
+                        gridPrincipal.Rows.Remove(row);
+                    }
+                    controlador.borrar(this, ids);
+                }
+            }
+        }
+
+        private void vistaAnadir()
+        {
+            controlador.nuevo(this);
+        }
+
+        private void vistaEditar()
+        {
+            if (gridPrincipal.SelectedRows.Count > 0)
+            {
+                int id = (int)gridPrincipal.Rows[gridPrincipal.CurrentRow.Index].Cells["id"].Value;
+                controlador.modificar(this, id);
+            }
+        }
+
+        private void vistaBuscar()
+        {
+            int selected = comboSearch.SelectedIndex;
+            string campo = gridPrincipal.Columns[selected].Name;
+            controlador.buscar(this, textSearch.Text, campo);
+        }
+
+        private void btnDelete_Click(object sender, System.EventArgs e)
+        {
+            vistaBorrar();
+        }
+
+        private void gridPrincipal_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Delete)
+            {
+                vistaBorrar();
+            }
+            else if (e.KeyCode == Keys.Insert)
+            {
+                vistaAnadir();
+            }
+            else if (e.KeyCode == Keys.Enter)
+            {
+                vistaEditar();
+            }
+        }
+
+        private void btnAdd_Click(object sender, System.EventArgs e)
+        {
+            vistaAnadir();
+        }
+
+        private void btnEdit_Click(object sender, System.EventArgs e)
+        {
+            vistaEditar();
+        }
+
+        private void gridPrincipal_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            vistaEditar();
+        }
+
+        private void btnSalir_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void textSearch_KeyPress(object sender, KeyPressEventArgs e)
+        {
+
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                vistaBuscar();
+            }
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            vistaBuscar();
+        }
+
+        private void btnInitSearch_Click(object sender, EventArgs e)
+        {
+            textSearch.Text = "";
+            vistaBuscar();
+        }
 
     }
 }

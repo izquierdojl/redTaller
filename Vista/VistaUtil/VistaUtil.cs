@@ -14,7 +14,7 @@ namespace redTaller.Vista.VistaUtil
 
         static public void MsgInfo(string msg, string caption)
         {
-            MessageBox.Show(msg, caption);
+            System.Windows.MessageBox.Show(msg, caption);
         }
 
         static public void MakeFormReadOnly(Control control)
@@ -24,6 +24,10 @@ namespace redTaller.Vista.VistaUtil
                 if (c is TextBox)
                 {
                     ((TextBox)c).ReadOnly = true;
+                }
+                if (c is MaskedTextBox)
+                {
+                    ((MaskedTextBox)c).ReadOnly = true;
                 }
                 else if (c is ComboBox)
                 {
@@ -37,10 +41,13 @@ namespace redTaller.Vista.VistaUtil
                 {
                     ((Button)c).Enabled = false;
                 }
+                else if (c.HasChildren)
+                {
+                    MakeFormReadOnly(c);
+                }
             }
 
         }
-
 
         static public Boolean ValidaNIF( string nif )
         {
