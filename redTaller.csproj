@@ -105,12 +105,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controlador\ControladorCliente.cs" />
     <Compile Include="Controlador\ControladorCodigoPostal.cs" />
     <Compile Include="Controlador\ControladorLogin.cs" />
     <Compile Include="Controlador\ControladorProvincia.cs" />
     <Compile Include="Controlador\ControladorSearch.cs" />
     <Compile Include="Controlador\ControladorTaller.cs" />
     <Compile Include="Database\SearchDB.cs" />
+    <Compile Include="Database\ClienteDB.cs" />
     <Compile Include="Database\TallerDB.cs" />
     <Compile Include="Database\CodigoPostalDB.cs" />
     <Compile Include="Database\GeneralDB.cs" />
@@ -118,6 +120,7 @@
     <Compile Include="Database\Util\DatabaseUtil.cs" />
     <Compile Include="Modelo\CodigoPostal.cs" />
     <Compile Include="Modelo\Provincia.cs" />
+    <Compile Include="Modelo\Cliente.cs" />
     <Compile Include="Modelo\Taller.cs" />
     <Compile Include="Vista\VistaBase\VistaFormBase.cs">
       <SubType>Form</SubType>
@@ -130,6 +133,18 @@
     </Compile>
     <Compile Include="Vista\VistaBase\VistaListaBase.Designer.cs">
       <DependentUpon>VistaListaBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Vista\VistaCliente\VistaFormCliente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Vista\VistaCliente\VistaFormCliente.Designer.cs">
+      <DependentUpon>VistaFormCliente.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Vista\VistaCliente\VistaListaCliente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Vista\VistaCliente\VistaListaCliente.Designer.cs">
+      <DependentUpon>VistaListaCliente.cs</DependentUpon>
     </Compile>
     <Compile Include="Vista\VistaCodigoPostal\VistaFormCodigoPostal.cs">
       <SubType>Form</SubType>
@@ -206,6 +221,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Vista\VistaBase\VistaListaBase.resx">
       <DependentUpon>VistaListaBase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Vista\VistaCliente\VistaFormCliente.resx">
+      <DependentUpon>VistaFormCliente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Vista\VistaCliente\VistaListaCliente.resx">
+      <DependentUpon>VistaListaCliente.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Vista\VistaCodigoPostal\VistaFormCodigoPostal.resx">
       <DependentUpon>VistaFormCodigoPostal.cs</DependentUpon>

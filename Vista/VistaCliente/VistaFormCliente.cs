@@ -1,62 +1,64 @@
-﻿using redTaller.Controlador;
+﻿using redCliente.Modelo;
+using redTaller.Controlador;
 using redTaller.Modelo;
-using redTaller.Vista.VistaCliente;
 using System.Windows.Forms;
 
-namespace redTaller.Vista.VistaTaller
+namespace redTaller.Vista.VistaCliente
 {
-    public partial class VistaFormTaller : redTaller.Vista.VistaBase.VistaFormBase
+    public partial class VistaFormCliente : redTaller.Vista.VistaBase.VistaFormBase
     {
 
         int modo; // modo de edición 1 - Añadir  2 - Editar  3 - Consultar
 
-        VistaListaTaller lista;
-        Taller taller;
-        ControladorTaller controlador = new ControladorTaller();
+        VistaListaCliente lista;
+        Cliente cliente;
+        ControladorCliente controlador = new ControladorCliente();
 
-        public VistaFormTaller(VistaListaTaller lista, int modo, Taller taller)
+        public VistaFormCliente(VistaListaCliente lista, int modo, Cliente cliente)
         {
             InitializeComponent();
-
             this.lista = lista;
             this.modo = modo;
-            this.taller = taller;
-            Text = "Detalle Taller";
+            this.cliente = cliente;
+            Text = "Detalle Cliente";
+            
 
             checkActivo.Enabled = false;
 
             if (modo == 2)
             {
                 textNif.Enabled = false;
-                textNif.Text = taller.nif;
-                textNombre.Text = taller.nombre;
-                textDomicilio.Text = taller.domicilio;
-                textCp.Text = taller.cp;    
-                textPoblacion.Text = taller.pob;
-                textProvincia.Text = taller.pro;
-                textTelefono.Text = taller.tel;
-                textMovil.Text = taller.movil;
-                textEmail.Text = taller.email;  
-                checkBloqueado.Checked = taller.bloqueado;
-                checkActivo.Checked = taller.activo;
+                textNif.Text = cliente.nif;
+                textNombre.Text = cliente.nombre;
+                textDomicilio.Text = cliente.domicilio;
+                textCp.Text = cliente.cp;
+                textPoblacion.Text = cliente.pob;
+                textProvincia.Text = cliente.pro;
+                textTelefono.Text = cliente.tel;
+                textMovil.Text = cliente.movil;
+                textEmail.Text = cliente.email;
+                checkBloqueado.Checked = cliente.bloqueado;
+                checkActivo.Checked = cliente.activo;
+                VistaUtil.VistaUtil.MakeFormReadOnly(this);   
             }
 
         }
 
         private void btnAceptar_Click(object sender, System.EventArgs e)
         {
-            taller.nif = textNif.Text;
-            taller.nombre = textNombre.Text;
-            taller.domicilio = textDomicilio.Text;
-            taller.cp = textCp.Text;
-            taller.pob = textPoblacion.Text;
-            taller.pro = textProvincia.Text;
-            taller.tel = textTelefono.Text;
-            taller.movil = textMovil.Text;  
-            taller.email = textEmail.Text;
-            taller.bloqueado = checkBloqueado.Checked;            
+            cliente.nif = textNif.Text;
+            cliente.nombre = textNombre.Text;
+            cliente.domicilio = textDomicilio.Text;
+            cliente.cp = textCp.Text;
+            cliente.pob = textPoblacion.Text;
+            cliente.pro = textProvincia.Text;
+            cliente.tel = textTelefono.Text;
+            cliente.movil = textMovil.Text;
+            cliente.email = textEmail.Text;
+            cliente.bloqueado = checkBloqueado.Checked;
+            cliente.nif_taller_alta = new Taller();
             this.Close();
-            controlador.guardar(taller, modo, lista);
+            controlador.guardar(cliente, modo, lista);
         }
 
         private void btnCancelar_Click(object sender, System.EventArgs e)
@@ -72,7 +74,7 @@ namespace redTaller.Vista.VistaTaller
                 textNif.Select();
             }
             else
-            { 
+            {
                 if (!controlador.valida(textNif.Text))
                 {
                     MessageBox.Show("El nif ya existe o es inválido.");
@@ -90,7 +92,7 @@ namespace redTaller.Vista.VistaTaller
         {
             ControladorSearch controladorSearch = new ControladorSearch("CodigoPostal", "codigopostal");
             int id = controladorSearch.Load();
-            if( id != 0)
+            if (id != 0)
             {
                 ControladorCodigoPostal controladorCodigoPostal = new ControladorCodigoPostal();
                 CodigoPostal codigoPostal = controladorCodigoPostal.Id(id);
@@ -116,6 +118,6 @@ namespace redTaller.Vista.VistaTaller
                 busca_Cp();
             }
         }
-    }
 
+    }
 }
