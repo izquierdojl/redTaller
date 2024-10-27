@@ -5,6 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Forms;
 
 namespace redTaller.Vista.VistaUtil
 {
@@ -15,6 +16,31 @@ namespace redTaller.Vista.VistaUtil
         {
             MessageBox.Show(msg, caption);
         }
+
+        static public void MakeFormReadOnly(Control control)
+        {
+            foreach (Control c in control.Controls)
+            {
+                if (c is TextBox)
+                {
+                    ((TextBox)c).ReadOnly = true;
+                }
+                else if (c is ComboBox)
+                {
+                    ((ComboBox)c).Enabled = false;
+                }
+                else if (c is CheckBox)
+                {
+                    ((CheckBox)c).Enabled = false;
+                }
+                else if (c is Button)
+                {
+                    ((Button)c).Enabled = false;
+                }
+            }
+
+        }
+
 
         static public Boolean ValidaNIF( string nif )
         {
