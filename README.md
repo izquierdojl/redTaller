@@ -1,2 +1,2 @@
 # redTaller
-Aplicación para el proyecto DAM red taller.
+Aplicación para el proyecto DAM red redTaller.
