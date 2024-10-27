@@ -1,8 +1,6 @@
 ﻿using redTaller.Controlador;
-using redTaller.Database;
 using redTaller.Modelo;
-using redTaller.Vista.VistaUtil;
-using System.Windows.Controls;
+using redTaller.Vista.VistaCliente;
 using System.Windows.Forms;
 
 namespace redTaller.Vista.VistaTaller

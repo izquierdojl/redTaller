@@ -30,11 +30,12 @@
         {
             this.menuFicheros = new System.Windows.Forms.MenuStrip();
             this.ficherosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuFicherosTalleres = new System.Windows.Forms.ToolStripMenuItem();
             this.menuFicherosProvincias = new System.Windows.Forms.ToolStripMenuItem();
             this.menuFicherosCodigosPostales = new System.Windows.Forms.ToolStripMenuItem();
             this.barStatus = new System.Windows.Forms.StatusStrip();
             this.barLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.menuFicherosTalleres = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuFicherosClientes = new System.Windows.Forms.ToolStripMenuItem();
             this.menuFicheros.SuspendLayout();
             this.barStatus.SuspendLayout();
             this.SuspendLayout();
@@ -54,12 +55,20 @@
             // 
             this.ficherosToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuFicherosTalleres,
+            this.menuFicherosClientes,
             this.menuFicherosProvincias,
             this.menuFicherosCodigosPostales});
             this.ficherosToolStripMenuItem.Name = "ficherosToolStripMenuItem";
             this.ficherosToolStripMenuItem.ShowShortcutKeys = false;
             this.ficherosToolStripMenuItem.Size = new System.Drawing.Size(63, 19);
             this.ficherosToolStripMenuItem.Text = "Ficheros";
+            // 
+            // menuFicherosTalleres
+            // 
+            this.menuFicherosTalleres.Name = "menuFicherosTalleres";
+            this.menuFicherosTalleres.Size = new System.Drawing.Size(222, 22);
+            this.menuFicherosTalleres.Text = "Fichero de Talleres";
+            this.menuFicherosTalleres.Click += new System.EventHandler(this.menuFicherosTalleres_Click);
             // 
             // menuFicherosProvincias
             // 
@@ -93,12 +102,12 @@
             this.barLabel1.Text = "redTaller";
             this.barLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // menuFicherosTalleres
+            // menuFicherosClientes
             // 
-            this.menuFicherosTalleres.Name = "menuFicherosTalleres";
-            this.menuFicherosTalleres.Size = new System.Drawing.Size(222, 22);
-            this.menuFicherosTalleres.Text = "Fichero de Talleres";
-            this.menuFicherosTalleres.Click += new System.EventHandler(this.menuFicherosTalleres_Click);
+            this.menuFicherosClientes.Name = "menuFicherosClientes";
+            this.menuFicherosClientes.Size = new System.Drawing.Size(222, 22);
+            this.menuFicherosClientes.Text = "Fichero de &Clientes";
+            this.menuFicherosClientes.Click += new System.EventHandler(this.menuFicherosClientes_Click);
             // 
             // Principal
             // 
@@ -131,6 +140,7 @@
         private System.Windows.Forms.StatusStrip barStatus;
         private System.Windows.Forms.ToolStripStatusLabel barLabel1;
         private System.Windows.Forms.ToolStripMenuItem menuFicherosTalleres;
+        private System.Windows.Forms.ToolStripMenuItem menuFicherosClientes;
     }
 }
 

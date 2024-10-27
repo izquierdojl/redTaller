@@ -105,6 +105,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controlador\ControladorCliente.cs" />
     <Compile Include="Controlador\ControladorCodigoPostal.cs" />
     <Compile Include="Controlador\ControladorLogin.cs" />
     <Compile Include="Controlador\ControladorProvincia.cs" />
@@ -132,6 +133,12 @@
     </Compile>
     <Compile Include="Vista\VistaBase\VistaListaBase.Designer.cs">
       <DependentUpon>VistaListaBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Vista\VistaCliente\VistaListaCliente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Vista\VistaCliente\VistaListaCliente.Designer.cs">
+      <DependentUpon>VistaListaCliente.cs</DependentUpon>
     </Compile>
     <Compile Include="Vista\VistaCodigoPostal\VistaFormCodigoPostal.cs">
       <SubType>Form</SubType>
@@ -208,6 +215,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Vista\VistaBase\VistaListaBase.resx">
       <DependentUpon>VistaListaBase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Vista\VistaCliente\VistaListaCliente.resx">
+      <DependentUpon>VistaListaCliente.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Vista\VistaCodigoPostal\VistaFormCodigoPostal.resx">
       <DependentUpon>VistaFormCodigoPostal.cs</DependentUpon>

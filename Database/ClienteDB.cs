@@ -12,9 +12,9 @@ using System.Windows.Documents;
 
 namespace redTaller.Database
 {
-    internal class ClienteDb : GeneralDB
+    internal class ClienteDB : GeneralDB
     {
-        public ClienteDb()
+        public ClienteDB()
         {
             tabla = "cliente";
             key = "nif";
