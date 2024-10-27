@@ -111,6 +111,7 @@
     <Compile Include="Controlador\ControladorSearch.cs" />
     <Compile Include="Controlador\ControladorTaller.cs" />
     <Compile Include="Database\SearchDB.cs" />
+    <Compile Include="Database\ClienteDB.cs" />
     <Compile Include="Database\TallerDB.cs" />
     <Compile Include="Database\CodigoPostalDB.cs" />
     <Compile Include="Database\GeneralDB.cs" />
