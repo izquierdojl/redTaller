@@ -36,16 +36,24 @@ namespace redTaller.Database
 
         }
 
-        public Taller CargaElemento(int id)
+        public Taller CargaElemento( int id , string queryEsp = null )
         {
             Taller taller = new Taller();
             try
             {
                 db.Conectar();
-                string query = $@"
-                        SELECT {DatabaseUtil.selectColumns(dc)}
-                        FROM {tabla}
-                        WHERE id=@key";
+                string query;
+                if (queryEsp != null)
+                {
+                    query = queryEsp;
+                }
+                else
+                {
+                    query = $@"
+                            SELECT {DatabaseUtil.selectColumns(dc)}
+                            FROM {tabla}
+                            WHERE id=@key";
+                }
                 using (MySqlCommand cmd = new MySqlCommand(query, db.DbConn))
                 {
                     cmd.Parameters.AddWithValue("@key", id);
