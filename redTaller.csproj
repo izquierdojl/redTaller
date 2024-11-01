@@ -119,6 +119,7 @@
     <Compile Include="Database\ProvinciaDB.cs" />
     <Compile Include="Database\Util\DatabaseUtil.cs" />
     <Compile Include="Modelo\CodigoPostal.cs" />
+    <Compile Include="Modelo\Matricula.cs" />
     <Compile Include="Modelo\Provincia.cs" />
     <Compile Include="Modelo\Cliente.cs" />
     <Compile Include="Modelo\Taller.cs" />
