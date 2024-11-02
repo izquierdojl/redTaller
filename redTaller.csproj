@@ -129,13 +129,16 @@
     <Compile Include="Database\CodigoPostalDB.cs" />
     <Compile Include="Database\GeneralDB.cs" />
     <Compile Include="Database\ProvinciaDB.cs" />
+    <Compile Include="Database\Util\DatabaseLogin.cs" />
     <Compile Include="Database\Util\DatabaseUtil.cs" />
+    <Compile Include="Database\Util\PasswordGenera.cs" />
     <Compile Include="Modelo\CodigoPostal.cs" />
     <Compile Include="Modelo\Config.cs" />
     <Compile Include="Modelo\Matricula.cs" />
     <Compile Include="Modelo\Provincia.cs" />
     <Compile Include="Modelo\Cliente.cs" />
     <Compile Include="Modelo\Taller.cs" />
+    <Compile Include="Util\Email.cs" />
     <Compile Include="Util\ServicioCifrado.cs" />
     <Compile Include="Vista\VistaBase\VistaFormBase.cs">
       <SubType>Form</SubType>
@@ -316,6 +319,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="img\aceptar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="img\email.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

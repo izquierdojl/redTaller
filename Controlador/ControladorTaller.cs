@@ -1,8 +1,11 @@
 ﻿using redTaller.Database;
+using redTaller.Database.Util;
 using redTaller.Modelo;
+using redTaller.Util;
 using redTaller.Vista.VistaTaller;
 using redTaller.Vista.VistaUtil;
 using System.Collections.Generic;
+using System.Text;
 using System.Windows.Forms;
 
 namespace redTaller.Controlador
@@ -98,6 +101,36 @@ namespace redTaller.Controlador
                     vistaFormTaller.textPoblacion.Text = codigoPostal.nombre;
                 if (string.IsNullOrEmpty(vistaFormTaller.textProvincia.Text))
                     vistaFormTaller.textProvincia.Text = codigoPostal.provincia.nombre;
+            }
+
+        }
+
+        public void enviaCorreoActivacion(Taller taller)
+        {
+            TallerDB db = new TallerDB();
+            string randomPassword = PasswordGenera.RandomPassword(8);
+            taller.password = Encoding.UTF8.GetBytes(randomPassword);
+            if (db.updateActivacion(taller) > 0)
+            {
+                Email email = new Email();
+                string body = $@"
+                                Taller : {taller.nombre} 
+                                A continuación, se le envía la contraseña para poder acceder a la aplicación REDTALLER
+                                Contraseña:
+                                {randomPassword}
+                                La primera vez que acceda, se le solicitará que la cambie por una privada.
+                                Atentamente,
+                                ";
+
+                if (email.EnviarEmail(taller.email, "REDTALLER - Activación de Cuenta", body))
+                {
+                    VistaUtil.MsgInfo("Mensaje enviado correctamente", "Envío correcto");
+                }
+                else
+                {
+                    VistaUtil.MsgInfo("No se ha podido realizar el envío del correo electrónico, inténtelo en unos instantes.", "Envio incorrecto");
+                }
+
             }
 
         }

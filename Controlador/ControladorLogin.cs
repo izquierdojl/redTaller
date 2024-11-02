@@ -1,6 +1,8 @@
 ﻿using redTaller.Database;
+using redTaller.Database.Util;
 using redTaller.Vista.VistaCodigoPostal;
 using redTaller.Vista.VistaLogin;
+using redTaller.Vista.VistaUtil;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,9 +15,9 @@ namespace redTaller.Controlador
     public class ControladorLogin
     {
 
-        Form principal;
+        Principal principal;
 
-        public ControladorLogin(Form principal)
+        public ControladorLogin(Principal principal)
         {
             this.principal = principal;
         }
@@ -28,8 +30,14 @@ namespace redTaller.Controlador
 
         public void aceptar(VistaLogin vistaLogin)
         {
-            vistaLogin.Close();
-            // hacer aquí la lógica de logeo
+            DatabaseLogin databaseLogin = new DatabaseLogin(vistaLogin.textUser.Text,vistaLogin.textPassword.Text);
+            if (databaseLogin.checkLogin())
+            {
+                principal.ActualizaStatusBarUser("Usuario : " + vistaLogin.textUser.Text);
+                vistaLogin.Close();
+            }
+            else
+                VistaUtil.MsgInfo("Usuario o password incorrecto", "Incorrecto");
         }
 
         public void cancelar(VistaLogin vistaLogin)

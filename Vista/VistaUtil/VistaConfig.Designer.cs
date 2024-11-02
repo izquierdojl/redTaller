@@ -95,6 +95,7 @@
             this.textEmail_password.Name = "textEmail_password";
             this.textEmail_password.Size = new System.Drawing.Size(323, 26);
             this.textEmail_password.TabIndex = 24;
+            this.textEmail_password.UseSystemPasswordChar = true;
             // 
             // labEmailPass
             // 
@@ -190,6 +191,7 @@
             this.textMasterPassword.Name = "textMasterPassword";
             this.textMasterPassword.Size = new System.Drawing.Size(329, 26);
             this.textMasterPassword.TabIndex = 26;
+            this.textMasterPassword.UseSystemPasswordChar = true;
             // 
             // labelPasswordMaster
             // 
