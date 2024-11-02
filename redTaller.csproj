@@ -87,10 +87,19 @@
     <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
+    <Reference Include="System.Text.Encodings.Web, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Text.Encodings.Web.8.0.0\lib\net462\System.Text.Encodings.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Json, Version=8.0.0.5, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Text.Json.8.0.5\lib\net462\System.Text.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="System.Transactions" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -107,10 +116,13 @@
   <ItemGroup>
     <Compile Include="Controlador\ControladorCliente.cs" />
     <Compile Include="Controlador\ControladorCodigoPostal.cs" />
+    <Compile Include="Controlador\ControladorConfig.cs" />
     <Compile Include="Controlador\ControladorLogin.cs" />
     <Compile Include="Controlador\ControladorProvincia.cs" />
     <Compile Include="Controlador\ControladorSearch.cs" />
     <Compile Include="Controlador\ControladorTaller.cs" />
+    <Compile Include="Database\ConfigDB.cs" />
+    <Compile Include="Database\MatriculaDB.cs" />
     <Compile Include="Database\SearchDB.cs" />
     <Compile Include="Database\ClienteDB.cs" />
     <Compile Include="Database\TallerDB.cs" />
@@ -119,9 +131,12 @@
     <Compile Include="Database\ProvinciaDB.cs" />
     <Compile Include="Database\Util\DatabaseUtil.cs" />
     <Compile Include="Modelo\CodigoPostal.cs" />
+    <Compile Include="Modelo\Config.cs" />
+    <Compile Include="Modelo\Matricula.cs" />
     <Compile Include="Modelo\Provincia.cs" />
     <Compile Include="Modelo\Cliente.cs" />
     <Compile Include="Modelo\Taller.cs" />
+    <Compile Include="Util\ServicioCifrado.cs" />
     <Compile Include="Vista\VistaBase\VistaFormBase.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -202,6 +217,12 @@
     <Compile Include="Vista\VistaTaller\VistaListaTaller.Designer.cs">
       <DependentUpon>VistaListaTaller.cs</DependentUpon>
     </Compile>
+    <Compile Include="Vista\VistaUtil\VistaConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Vista\VistaUtil\VistaConfig.Designer.cs">
+      <DependentUpon>VistaConfig.cs</DependentUpon>
+    </Compile>
     <Compile Include="Vista\VistaUtil\VistaUtil.cs" />
     <EmbeddedResource Include="Vista\Principal.resx">
       <DependentUpon>Principal.cs</DependentUpon>
@@ -251,6 +272,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Vista\VistaTaller\VistaListaTaller.resx">
       <DependentUpon>VistaListaTaller.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Vista\VistaUtil\VistaConfig.resx">
+      <DependentUpon>VistaConfig.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
