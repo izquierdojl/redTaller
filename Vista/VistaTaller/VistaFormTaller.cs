@@ -1,4 +1,5 @@
-﻿using redTaller.Controlador;
+﻿using Google.Protobuf.WellKnownTypes;
+using redTaller.Controlador;
 using redTaller.Modelo;
 using redTaller.Vista.VistaCliente;
 using System.Windows.Forms;
@@ -31,12 +32,12 @@ namespace redTaller.Vista.VistaTaller
                 textNif.Text = taller.nif;
                 textNombre.Text = taller.nombre;
                 textDomicilio.Text = taller.domicilio;
-                textCp.Text = taller.cp;    
+                textCp.Text = taller.cp;
                 textPoblacion.Text = taller.pob;
                 textProvincia.Text = taller.pro;
                 textTelefono.Text = taller.tel;
                 textMovil.Text = taller.movil;
-                textEmail.Text = taller.email;  
+                textEmail.Text = taller.email;
                 checkBloqueado.Checked = taller.bloqueado;
                 checkActivo.Checked = taller.activo;
             }
@@ -52,9 +53,9 @@ namespace redTaller.Vista.VistaTaller
             taller.pob = textPoblacion.Text;
             taller.pro = textProvincia.Text;
             taller.tel = textTelefono.Text;
-            taller.movil = textMovil.Text;  
+            taller.movil = textMovil.Text;
             taller.email = textEmail.Text;
-            taller.bloqueado = checkBloqueado.Checked;            
+            taller.bloqueado = checkBloqueado.Checked;
             this.Close();
             controlador.guardar(taller, modo, lista);
         }
@@ -72,7 +73,7 @@ namespace redTaller.Vista.VistaTaller
                 textNif.Select();
             }
             else
-            { 
+            {
                 if (!controlador.valida(textNif.Text))
                 {
                     MessageBox.Show("El nif ya existe o es inválido.");
@@ -90,7 +91,7 @@ namespace redTaller.Vista.VistaTaller
         {
             ControladorSearch controladorSearch = new ControladorSearch("CodigoPostal", "codigopostal");
             int id = controladorSearch.Load();
-            if( id != 0)
+            if (id != 0)
             {
                 ControladorCodigoPostal controladorCodigoPostal = new ControladorCodigoPostal();
                 CodigoPostal codigoPostal = controladorCodigoPostal.Id(id);
@@ -115,6 +116,24 @@ namespace redTaller.Vista.VistaTaller
             {
                 busca_Cp();
             }
+        }
+
+        private void correoActivacion()
+        {
+            if (string.IsNullOrEmpty(taller.email))
+            { 
+                taller.email = this.textEmail.Text;
+                if (MessageBox.Show("¿ Seguro de enviar correo de activación a " + taller.email + " ?", "Activación", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    controlador.enviaCorreoActivacion(taller);
+                }
+            }
+
+        }
+
+        private void btnActivación_Click(object sender, System.EventArgs e)
+        {
+            correoActivacion();
         }
     }
 

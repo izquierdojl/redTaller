@@ -32,13 +32,14 @@
             this.ficherosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuFicherosTalleres = new System.Windows.Forms.ToolStripMenuItem();
             this.menuFicherosClientes = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.menuFicherosProvincias = new System.Windows.Forms.ToolStripMenuItem();
             this.menuFicherosCodigosPostales = new System.Windows.Forms.ToolStripMenuItem();
-            this.barStatus = new System.Windows.Forms.StatusStrip();
-            this.barLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuHerramientas = new System.Windows.Forms.ToolStripMenuItem();
             this.menuConfiguración = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.barStatus = new System.Windows.Forms.StatusStrip();
+            this.statusProgram = new System.Windows.Forms.ToolStripStatusLabel();
+            this.statusUser = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuFicheros.SuspendLayout();
             this.barStatus.SuspendLayout();
             this.SuspendLayout();
@@ -82,6 +83,11 @@
             this.menuFicherosClientes.Text = "Fichero de &Clientes";
             this.menuFicherosClientes.Click += new System.EventHandler(this.menuFicherosClientes_Click);
             // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(219, 6);
+            // 
             // menuFicherosProvincias
             // 
             this.menuFicherosProvincias.Name = "menuFicherosProvincias";
@@ -96,24 +102,6 @@
             this.menuFicherosCodigosPostales.Text = "Fichero de Códigos &Postales";
             this.menuFicherosCodigosPostales.Click += new System.EventHandler(this.menuFicherosCodigosPostales_Click);
             // 
-            // barStatus
-            // 
-            this.barStatus.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.barLabel1});
-            this.barStatus.Location = new System.Drawing.Point(0, 960);
-            this.barStatus.Name = "barStatus";
-            this.barStatus.Padding = new System.Windows.Forms.Padding(2, 0, 21, 0);
-            this.barStatus.Size = new System.Drawing.Size(1924, 22);
-            this.barStatus.TabIndex = 3;
-            this.barStatus.Text = "statusStrip1";
-            // 
-            // barLabel1
-            // 
-            this.barLabel1.Name = "barLabel1";
-            this.barLabel1.Size = new System.Drawing.Size(51, 17);
-            this.barLabel1.Text = "redTaller";
-            this.barLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
             // menuHerramientas
             // 
             this.menuHerramientas.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -125,14 +113,35 @@
             // menuConfiguración
             // 
             this.menuConfiguración.Name = "menuConfiguración";
-            this.menuConfiguración.Size = new System.Drawing.Size(180, 22);
+            this.menuConfiguración.Size = new System.Drawing.Size(150, 22);
             this.menuConfiguración.Text = "Configuración";
             this.menuConfiguración.Click += new System.EventHandler(this.menuConfiguración_Click);
             // 
-            // toolStripSeparator1
+            // barStatus
             // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(219, 6);
+            this.barStatus.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.statusProgram,
+            this.statusUser});
+            this.barStatus.Location = new System.Drawing.Point(0, 960);
+            this.barStatus.Name = "barStatus";
+            this.barStatus.Padding = new System.Windows.Forms.Padding(2, 0, 21, 0);
+            this.barStatus.Size = new System.Drawing.Size(1924, 22);
+            this.barStatus.TabIndex = 3;
+            this.barStatus.Text = "statusStrip1";
+            // 
+            // statusProgram
+            // 
+            this.statusProgram.AutoSize = false;
+            this.statusProgram.Name = "statusProgram";
+            this.statusProgram.Size = new System.Drawing.Size(150, 17);
+            this.statusProgram.Text = "redTaller";
+            this.statusProgram.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // statusUser
+            // 
+            this.statusUser.Name = "statusUser";
+            this.statusUser.Size = new System.Drawing.Size(50, 17);
+            this.statusUser.Text = "Usuario:";
             // 
             // Principal
             // 
@@ -162,13 +171,14 @@
         private System.Windows.Forms.ToolStripMenuItem ficherosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem menuFicherosProvincias;
         private System.Windows.Forms.ToolStripMenuItem menuFicherosCodigosPostales;
-        private System.Windows.Forms.StatusStrip barStatus;
-        private System.Windows.Forms.ToolStripStatusLabel barLabel1;
+        private System.Windows.Forms.ToolStripStatusLabel statusProgram;
         private System.Windows.Forms.ToolStripMenuItem menuFicherosTalleres;
         private System.Windows.Forms.ToolStripMenuItem menuFicherosClientes;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem menuHerramientas;
         private System.Windows.Forms.ToolStripMenuItem menuConfiguración;
+        public System.Windows.Forms.StatusStrip barStatus;
+        public System.Windows.Forms.ToolStripStatusLabel statusUser;
     }
 }
 

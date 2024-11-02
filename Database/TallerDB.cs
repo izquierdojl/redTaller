@@ -2,19 +2,19 @@
 using redTaller.Modelo;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Diagnostics;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Documents;
 
 namespace redTaller.Database
 {
     internal class TallerDB : GeneralDB
     {
+
+        private readonly ServicioCifrado servicioCifrado;
+
         public TallerDB()
         {
+            servicioCifrado = new ServicioCifrado();
             tabla = "taller";
             key = "nif";
             dc = new Dictionary<string, CampoInfo>()
@@ -71,10 +71,7 @@ namespace redTaller.Database
                             taller.tel = reader.GetString("tel");
                             taller.email = reader.GetString("email");
                             taller.movil = reader.GetString("movil");
-                            if (!reader.IsDBNull(reader.GetOrdinal("password")))
-                            {
-                                taller.password = (byte[])reader["password"];
-                            }
+                            taller.password = Encoding.UTF8.GetBytes(reader.GetString("password"));
                             taller.activo = Convert.ToBoolean(reader.GetInt32("activo"));
                             taller.bloqueado = Convert.ToBoolean(reader.GetInt32("bloqueado"));
                         }
@@ -111,7 +108,6 @@ namespace redTaller.Database
                     cmd.Parameters.AddWithValue("@tel", taller.tel);
                     cmd.Parameters.AddWithValue("@correo", taller.email);
                     cmd.Parameters.AddWithValue("@movil", taller.movil);
-                    cmd.Parameters.AddWithValue("@password", taller.password);
                     cmd.Parameters.AddWithValue("@activo", taller.activo);
                     cmd.Parameters.AddWithValue("@bloqueado", taller.bloqueado);
                     nuevas = cmd.ExecuteNonQuery();
@@ -140,7 +136,7 @@ namespace redTaller.Database
             try
             {
                 db.Conectar();
-                string query = $"UPDATE {tabla} SET nif=@nif, nombre=@nombre, domicilio=@domicilio, cp=@cp, pob=@pob, pro=@pro, tel=@tel, email=@correo, movil=@movil, password=@password, activo=@activo, bloqueado=@bloqueado WHERE id=@id";
+                string query = $"UPDATE {tabla} SET nif=@nif, nombre=@nombre, domicilio=@domicilio, cp=@cp, pob=@pob, pro=@pro, tel=@tel, email=@correo, movil=@movil, activo=@activo, bloqueado=@bloqueado WHERE id=@id";
                 using (MySqlCommand cmd = new MySqlCommand(query, db.DbConn))
                 {
                     cmd.Parameters.AddWithValue("@id", taller.id);
@@ -153,7 +149,6 @@ namespace redTaller.Database
                     cmd.Parameters.AddWithValue("@tel", taller.tel);
                     cmd.Parameters.AddWithValue("@correo", taller.email);
                     cmd.Parameters.AddWithValue("@movil", taller.movil);
-                    cmd.Parameters.AddWithValue("@password", taller.password);
                     cmd.Parameters.AddWithValue("@activo", taller.activo);
                     cmd.Parameters.AddWithValue("@bloqueado", taller.bloqueado);
                     modificadas = cmd.ExecuteNonQuery();
@@ -169,6 +164,32 @@ namespace redTaller.Database
             }
             return modificadas;
         }
+
+        public int updateActivacion(Taller taller)
+        {
+            int modificadas = 0;
+            try
+            {
+                db.Conectar();
+                string query = $"UPDATE {tabla} SET activo=0,bloqueado=0,password=SHA2(@password,256) WHERE id=@id";
+                using (MySqlCommand cmd = new MySqlCommand(query, db.DbConn))
+                {
+                    cmd.Parameters.AddWithValue("@id", taller.id);
+                    cmd.Parameters.AddWithValue("@password", Encoding.UTF8.GetString(taller.password));
+                    modificadas = cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error al modificar {tabla}: {ex.Message}");
+            }
+            finally
+            {
+                db.Desconectar();
+            }
+            return modificadas;
+        }
+
 
         public List<Taller> lista()
         {

@@ -15,9 +15,9 @@ namespace redTaller.Controlador
     public class ControladorLogin
     {
 
-        Form principal;
+        Principal principal;
 
-        public ControladorLogin(Form principal)
+        public ControladorLogin(Principal principal)
         {
             this.principal = principal;
         }
@@ -32,9 +32,12 @@ namespace redTaller.Controlador
         {
             DatabaseLogin databaseLogin = new DatabaseLogin(vistaLogin.textUser.Text,vistaLogin.textPassword.Text);
             if (databaseLogin.checkLogin())
+            {
+                principal.ActualizaStatusBarUser("Usuario : " + vistaLogin.textUser.Text);
                 vistaLogin.Close();
+            }
             else
-                VistaUtil.MsgInfo("Usuario o password incorrecto","Incorrecto");
+                VistaUtil.MsgInfo("Usuario o password incorrecto", "Incorrecto");
         }
 
         public void cancelar(VistaLogin vistaLogin)

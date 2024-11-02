@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls.Primitives;
 using System.Windows.Forms;
 
 namespace redTaller
@@ -57,5 +58,13 @@ namespace redTaller
             ControladorConfig controladorConfig = new ControladorConfig(this);
             controladorConfig.mostrar();
         }
+
+        public void ActualizaStatusBarUser(string text)
+        {
+            this.statusUser.Text = text;
+        }
+
+
     }
+
 }
