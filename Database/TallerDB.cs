@@ -1,5 +1,6 @@
 ﻿using MySqlConnector;
 using redTaller.Modelo;
+using redTaller.Util;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -14,7 +15,7 @@ namespace redTaller.Database
 
         public TallerDB()
         {
-            servicioCifrado = new ServicioCifrado();
+            servicioCifrado = new ServicioCifrado(Session.Instance.User, Session.Instance.Password);
             tabla = "taller";
             key = "nif";
             dc = new Dictionary<string, CampoInfo>()

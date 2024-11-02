@@ -1,5 +1,6 @@
 ﻿using MySqlConnector;
 using redTaller.Modelo;
+using redTaller.Util;
 using System;
 using System.Diagnostics;
 
@@ -13,7 +14,7 @@ namespace redTaller.Database
         public ConfigDB()
         {
             tabla = "config";
-            servicioCifrado = new ServicioCifrado();
+            servicioCifrado = new ServicioCifrado(Session.Instance.User,Session.Instance.Password);
         }
 
         public Config Carga()

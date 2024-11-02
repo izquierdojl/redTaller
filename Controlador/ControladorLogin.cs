@@ -1,5 +1,6 @@
 ﻿using redTaller.Database;
 using redTaller.Database.Util;
+using redTaller.Util;
 using redTaller.Vista.VistaCodigoPostal;
 using redTaller.Vista.VistaLogin;
 using redTaller.Vista.VistaUtil;
@@ -31,6 +32,7 @@ namespace redTaller.Controlador
         public void aceptar(VistaLogin vistaLogin)
         {
             DatabaseLogin databaseLogin = new DatabaseLogin(vistaLogin.textUser.Text,vistaLogin.textPassword.Text);
+            Session.Instance.SetSession(vistaLogin.textUser.Text, vistaLogin.textPassword.Text);
             if (databaseLogin.checkLogin())
             {
                 principal.ActualizaStatusBarUser("Usuario : " + vistaLogin.textUser.Text);

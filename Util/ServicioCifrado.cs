@@ -11,13 +11,20 @@ public class ServicioCifrado
     private readonly byte[] Key;
     private readonly byte[] Vector;
 
-    public ServicioCifrado()
+    private string user;
+    private string password;
+
+    public ServicioCifrado(string user, string password)
     {
+
+        this.user = user;
+        this.password = password;
+
         // Obtener el JWT para el bearer
         var jwt = ObtenerTokenDesdeServicio();
 
         // Luego, usar el JWT para obtener la clave y el Vector
-        var config = ObtenerConfigDesdeServicio(jwt);
+        var config = ObtenerConfigDesdeServicio(jwt,user,password);
         Key = Convert.FromBase64String(config.Key);
         Vector = Convert.FromBase64String(config.IV);
     }
@@ -47,14 +54,14 @@ public class ServicioCifrado
         }
     }
 
-    private ConfigService ObtenerConfigDesdeServicio(string token)
+    private ConfigService ObtenerConfigDesdeServicio(string token, string user, string password)
     {
 
         using (var httpClient = new HttpClient())
         {
             httpClient.Timeout = TimeSpan.FromSeconds(5);
 
-            var byteArray = new System.Text.UTF8Encoding().GetBytes("master:master");
+            var byteArray = new System.Text.UTF8Encoding().GetBytes($"{user}:{password}");
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(byteArray));
             httpClient.DefaultRequestHeaders.Add("Token", token); // bearer
 
