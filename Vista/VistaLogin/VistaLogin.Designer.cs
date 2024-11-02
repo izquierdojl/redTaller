@@ -139,10 +139,10 @@
 
         private System.Windows.Forms.Panel panelLeft;
         private System.Windows.Forms.Label labUsuario;
-        private System.Windows.Forms.TextBox textUser;
-        private System.Windows.Forms.TextBox textPassword;
         private System.Windows.Forms.Label labPassword;
         private System.Windows.Forms.Button btnAceptar;
         private System.Windows.Forms.Button btnSalir;
+        public System.Windows.Forms.TextBox textUser;
+        public System.Windows.Forms.TextBox textPassword;
     }
 }

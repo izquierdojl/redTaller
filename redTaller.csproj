@@ -129,6 +129,7 @@
     <Compile Include="Database\CodigoPostalDB.cs" />
     <Compile Include="Database\GeneralDB.cs" />
     <Compile Include="Database\ProvinciaDB.cs" />
+    <Compile Include="Database\Util\DatabaseLogin.cs" />
     <Compile Include="Database\Util\DatabaseUtil.cs" />
     <Compile Include="Modelo\CodigoPostal.cs" />
     <Compile Include="Modelo\Config.cs" />
