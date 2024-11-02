@@ -64,7 +64,6 @@ namespace redTaller
             this.statusUser.Text = text;
         }
 
-
     }
 
 }
