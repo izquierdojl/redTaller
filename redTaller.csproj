@@ -140,6 +140,7 @@
     <Compile Include="Modelo\Taller.cs" />
     <Compile Include="Util\Email.cs" />
     <Compile Include="Util\ServicioCifrado.cs" />
+    <Compile Include="Util\Session.cs" />
     <Compile Include="Vista\VistaBase\VistaFormBase.cs">
       <SubType>Form</SubType>
     </Compile>
