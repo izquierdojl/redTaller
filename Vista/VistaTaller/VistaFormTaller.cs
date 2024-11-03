@@ -120,7 +120,7 @@ namespace redTaller.Vista.VistaTaller
 
         private void correoActivacion()
         {
-            if (string.IsNullOrEmpty(taller.email))
+            if (!string.IsNullOrEmpty(taller.email))
             { 
                 taller.email = this.textEmail.Text;
                 if (MessageBox.Show("¿ Seguro de enviar correo de activación a " + taller.email + " ?", "Activación", MessageBoxButtons.YesNo) == DialogResult.Yes)
