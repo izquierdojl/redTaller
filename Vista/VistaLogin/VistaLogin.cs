@@ -15,16 +15,19 @@ namespace redTaller.Vista.VistaLogin
     {
 
         ControladorLogin conroladorLogin;
-        public VistaLogin(ControladorLogin controladorLogin)
+        public VistaLogin()
         {
             InitializeComponent();
-            this.conroladorLogin = controladorLogin;
+            this.conroladorLogin = new ControladorLogin();
             this.textPassword.UseSystemPasswordChar = true;
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            conroladorLogin.aceptar(this);
+            if( conroladorLogin.aceptar(this) )
+            {
+                this.Hide();
+            }
         }
 
         private void btnSalir_Click(object sender, EventArgs e)

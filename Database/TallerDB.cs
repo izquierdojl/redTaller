@@ -1,10 +1,12 @@
 ﻿using MySqlConnector;
+using redTaller.Database.Util;
 using redTaller.Modelo;
 using redTaller.Util;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
+using System.Windows.Documents;
 
 namespace redTaller.Database
 {
@@ -37,7 +39,7 @@ namespace redTaller.Database
 
         }
 
-        public Taller CargaElemento( int id , string queryEsp = null )
+        public Taller CargaElemento(int id, string queryEsp = null)
         {
             Taller taller = new Taller();
             try
@@ -191,6 +193,30 @@ namespace redTaller.Database
             return modificadas;
         }
 
+        public int updateActivacionPassword(string nif, string password)
+        {
+            int modificadas = 0;
+            try
+            {
+                db.Conectar();
+                string query = $"UPDATE {tabla} SET activo=1,bloqueado=0,password=SHA2(@password,256) WHERE nif=@nif";
+                using (MySqlCommand cmd = new MySqlCommand(query, db.DbConn))
+                {
+                    cmd.Parameters.AddWithValue("@nif", nif );
+                    cmd.Parameters.AddWithValue("@password", password );
+                    modificadas = cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error al modificar {tabla}: {ex.Message}");
+            }
+            finally
+            {
+                db.Desconectar();
+            }
+            return modificadas;
+        }
 
         public List<Taller> lista()
         {
@@ -207,7 +233,7 @@ namespace redTaller.Database
                     {
                         while (reader.Read())
                         {
-                            Taller taller = new Taller();   
+                            Taller taller = new Taller();
                             taller.id = reader.GetInt32("id");
                             taller.nif = reader.GetString("nif");
                             taller.nombre = reader.GetString("nombre");
@@ -242,6 +268,38 @@ namespace redTaller.Database
             return list;
         }
 
-    }
+        public bool checkLogin(string nif, string password)
+        {
 
+            try
+            {
+                db.Conectar();
+                string query = $@"
+                                SELECT id
+                                FROM {tabla}
+                                WHERE nif=@nif and password=@password";
+                using (MySqlCommand cmd = new MySqlCommand(query, db.DbConn))
+                {
+                    cmd.Parameters.AddWithValue("@nif", nif);
+                    cmd.Parameters.AddWithValue("@password", Password.HashPassword(password) );
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                            return true;
+                    }
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error al obtener provincias: {ex.Message}");
+                return false;
+            }
+            finally
+            {
+                db.Desconectar(); // Cerrar la conexión
+            }
+        }
+
+    }
 }

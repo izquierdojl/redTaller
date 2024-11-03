@@ -1,4 +1,6 @@
-﻿using System;
+﻿using redTaller.Controlador;
+using redTaller.Vista.VistaLogin;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,7 +18,7 @@ namespace redTaller
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Principal());
+            Application.Run(new VistaLogin());
         }
     }
 }
