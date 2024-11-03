@@ -1,9 +1,5 @@
 ﻿using redTaller.Modelo;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using redTaller.Util;
 
 namespace redTaller.Database.Util
 {
@@ -24,18 +20,27 @@ namespace redTaller.Database.Util
 
             bool accesso = false;
 
-            if( username == "master" )
+            if( username == "master" ) // usuario master
             {
                 ConfigDB configDB = new ConfigDB();
                 Config config = configDB.Carga();
                 if (password.Equals( config.MasterPassword ) )
                 {
                     accesso = true;
+                    Session.Instance.Profile = "master";
                 }
 
             }
+            else // verificamos si el usuario está en un taller
+            {
+                TallerDB tallerDB = new TallerDB();
+                if( tallerDB.checkLogin( username , password ) )
+                {
+                    accesso = true;
+                    Session.Instance.Profile = "taller";
+                }
 
-            /// falta la verificación de usuario
+            }
 
             return accesso;
 

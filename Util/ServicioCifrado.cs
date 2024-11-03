@@ -20,13 +20,23 @@ public class ServicioCifrado
         this.user = user;
         this.password = password;
 
-        // Obtener el JWT para el bearer
-        var jwt = ObtenerTokenDesdeServicio();
+        try
+        {
+            // Obtener el JWT para el bearer
+            var jwt = ObtenerTokenDesdeServicio();
+            // Luego, usar el JWT para obtener la clave y el Vector
+            var config = ObtenerConfigDesdeServicio(jwt, user, password);
+            if (config != null)
+            {
+                Key = Convert.FromBase64String(config.Key);
+                Vector = Convert.FromBase64String(config.IV);
+            }
+        }
+        catch  (Exception e)
+        {
+            Console.WriteLine($"Error inesperado: {e.Message}");
+        }
 
-        // Luego, usar el JWT para obtener la clave y el Vector
-        var config = ObtenerConfigDesdeServicio(jwt,user,password);
-        Key = Convert.FromBase64String(config.Key);
-        Vector = Convert.FromBase64String(config.IV);
     }
 
     private string ObtenerTokenDesdeServicio()

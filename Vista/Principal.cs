@@ -1,4 +1,5 @@
 ﻿using redTaller.Controlador;
+using redTaller.Util;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,13 +16,11 @@ namespace redTaller
     public partial class Principal : Form
     {
 
-        ControladorLogin controladorLogin;
-
         public Principal()
         {
             InitializeComponent();
-            controladorLogin = new ControladorLogin(this);
-            Login();
+            this.FormClosing += new FormClosingEventHandler(PrincipalForm_FormClosing);
+            this.Load += new EventHandler(PrincipalForm_Load);
         }
 
         private void menuFicherosProvincias_Click(object sender, EventArgs e)
@@ -42,11 +41,6 @@ namespace redTaller
             controladorTaller.mostrar(this);
         }
 
-        private void Login()
-        {
-            controladorLogin.mostrar();
-        }
-
         private void menuFicherosClientes_Click(object sender, EventArgs e)
         {
             ControladorCliente controlladorCliente = new ControladorCliente();
@@ -62,6 +56,26 @@ namespace redTaller
         public void ActualizaStatusBarUser(string text)
         {
             this.statusUser.Text = text;
+        }
+
+        private void PrincipalForm_Load(object sender, EventArgs e)
+        {
+            this.statusUser.Text = "Usuario : " + Session.Instance.User;
+
+            if( Session.Instance.Profile == "taller" )
+            {
+                this.menuConfiguración.Visible = false;
+                this.menuFicherosTalleres.Visible = false;
+                this.menuFicherosCodigosPostales.Visible = false;
+                this.menuFicherosProvincias.Visible = false;
+            }
+
+        }
+
+
+        private void PrincipalForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
         }
 
     }

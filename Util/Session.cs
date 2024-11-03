@@ -9,6 +9,7 @@ namespace redTaller.Util
 
         public string User { get; set; }
         public string Password { get; set; }
+        public string Profile { get; set; }
 
         private Session() { }
 
@@ -37,6 +38,7 @@ namespace redTaller.Util
         {
             this.User = null;
             this.Password = null;
+            this.Profile = null;
         }
 
     }

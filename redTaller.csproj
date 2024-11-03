@@ -131,7 +131,7 @@
     <Compile Include="Database\ProvinciaDB.cs" />
     <Compile Include="Database\Util\DatabaseLogin.cs" />
     <Compile Include="Database\Util\DatabaseUtil.cs" />
-    <Compile Include="Database\Util\PasswordGenera.cs" />
+    <Compile Include="Util\Password.cs" />
     <Compile Include="Modelo\CodigoPostal.cs" />
     <Compile Include="Modelo\Config.cs" />
     <Compile Include="Modelo\Matricula.cs" />
@@ -190,6 +190,12 @@
     </Compile>
     <Compile Include="Vista\VistaLogin\VistaLogin.Designer.cs">
       <DependentUpon>VistaLogin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Vista\VistaLogin\VistaLoginConfirma.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Vista\VistaLogin\VistaLoginConfirma.Designer.cs">
+      <DependentUpon>VistaLoginConfirma.cs</DependentUpon>
     </Compile>
     <Compile Include="Vista\VistaProvincia\VistaFormProvincia.cs">
       <SubType>Form</SubType>
@@ -261,6 +267,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Vista\VistaLogin\VistaLogin.resx">
       <DependentUpon>VistaLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Vista\VistaLogin\VistaLoginConfirma.resx">
+      <DependentUpon>VistaLoginConfirma.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Vista\VistaProvincia\VistaFormProvincia.resx">
       <DependentUpon>VistaFormProvincia.cs</DependentUpon>

@@ -75,9 +75,9 @@
             this.labPassword.AutoSize = true;
             this.labPassword.Location = new System.Drawing.Point(262, 122);
             this.labPassword.Name = "labPassword";
-            this.labPassword.Size = new System.Drawing.Size(73, 20);
+            this.labPassword.Size = new System.Drawing.Size(86, 20);
             this.labPassword.TabIndex = 3;
-            this.labPassword.Text = "Password:";
+            this.labPassword.Text = "Contraseña:";
             // 
             // btnAceptar
             // 

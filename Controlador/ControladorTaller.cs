@@ -108,7 +108,7 @@ namespace redTaller.Controlador
         public void enviaCorreoActivacion(Taller taller)
         {
             TallerDB db = new TallerDB();
-            string randomPassword = PasswordGenera.RandomPassword(8);
+            string randomPassword = Password.RandomPassword(8);
             taller.password = Encoding.UTF8.GetBytes(randomPassword);
             if (db.updateActivacion(taller) > 0)
             {
@@ -132,6 +132,11 @@ namespace redTaller.Controlador
                 }
 
             }
+
+        }
+
+        public void activa(Taller taller)
+        {
 
         }
 
