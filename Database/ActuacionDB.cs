@@ -28,7 +28,7 @@ namespace redTaller.Database
 
         public Actuacion CargaElemento(int id)
         {
-            
+
             Actuacion actuacion = new Actuacion();
 
             string query;
@@ -53,9 +53,9 @@ namespace redTaller.Database
                         if (reader.Read())
                         {
                             actuacion.id = id;
-                            actuacion.taller = new TallerDB().CargaElemento(0,"SELECT nif FROM taller WHERE nif='"+ reader.GetString("nif_taller") + "'");
+                            actuacion.taller = new TallerDB().CargaElemento(0, "SELECT nif FROM taller WHERE nif='" + reader.GetString("nif_taller") + "'");
                             actuacion.cliente = new ClienteDB().CargaElemento(0, "SELECT nif FROM cliente WHERE nif='" + reader.GetString("nif_cliente") + "'");
-                            actuacion.fecha = reader.GetDateTime("fecha") ;
+                            actuacion.fecha = reader.GetDateTime("fecha");
                             actuacion.km = reader.GetInt32("km");
                         }
                     }
@@ -378,4 +378,5 @@ namespace redTaller.Database
         }
 
     }
+
 }

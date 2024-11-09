@@ -114,6 +114,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controlador\ControladorActuacion.cs" />
     <Compile Include="Controlador\ControladorCliente.cs" />
     <Compile Include="Controlador\ControladorCodigoPostal.cs" />
     <Compile Include="Controlador\ControladorConfig.cs" />
@@ -144,6 +145,18 @@
     <Compile Include="Util\Email.cs" />
     <Compile Include="Util\ServicioCifrado.cs" />
     <Compile Include="Util\Session.cs" />
+    <Compile Include="Vista\VistaActuacion\VistaFormActuacion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Vista\VistaActuacion\VistaFormActuacion.Designer.cs">
+      <DependentUpon>VistaFormActuacion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Vista\VistaActuacion\VistaListaActuacion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Vista\VistaActuacion\VistaListaActuacion.Designer.cs">
+      <DependentUpon>VistaListaActuacion.cs</DependentUpon>
+    </Compile>
     <Compile Include="Vista\VistaBase\VistaFormBase.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -250,6 +263,12 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Vista\VistaActuacion\VistaFormActuacion.resx">
+      <DependentUpon>VistaFormActuacion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Vista\VistaActuacion\VistaListaActuacion.resx">
+      <DependentUpon>VistaListaActuacion.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Vista\VistaBase\VistaFormBase.resx">
       <DependentUpon>VistaFormBase.cs</DependentUpon>
     </EmbeddedResource>

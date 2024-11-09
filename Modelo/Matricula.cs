@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace redTaller.Modelo
 {
-    internal class Matricula
+    public class Matricula
     {
         public string matricula { get; set; }
         public string marca { get; set; }

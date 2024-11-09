@@ -1,7 +1,7 @@
 ﻿
 namespace redTaller.Modelo
 {
-    internal class ActuacionDetalle
+    public class ActuacionDetalle
     {
         public int id { get; set; }
         public int id_actuacion { get; set; }
