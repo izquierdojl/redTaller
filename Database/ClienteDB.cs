@@ -1,5 +1,4 @@
 ﻿using MySqlConnector;
-using redCliente.Modelo;
 using redTaller.Modelo;
 using System;
 using System.Collections.Generic;
@@ -38,16 +37,24 @@ namespace redTaller.Database
 
         }
 
-        public Cliente CargaElemento(int id)
+        public Cliente CargaElemento(int id, string queryEsp = null)
         {
             Cliente cliente = new Cliente();
             try
             {
                 db.Conectar();
-                string query = $@"
-                        SELECT {DatabaseUtil.selectColumns(dc)}
-                        FROM {tabla}
-                        WHERE id=@key";
+                string query;
+                if (queryEsp != null)
+                {
+                    query = queryEsp;
+                }
+                else
+                {
+                    query = $@"
+                            SELECT {DatabaseUtil.selectColumns(dc)}
+                            FROM {tabla}
+                            WHERE id=@key";
+                }
                 using (MySqlCommand cmd = new MySqlCommand(query, db.DbConn))
                 {
                     cmd.Parameters.AddWithValue("@key", id);

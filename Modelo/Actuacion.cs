@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace redTaller.Modelo
 {
@@ -11,6 +12,7 @@ namespace redTaller.Modelo
         public Matricula matricula { get; set; }
         public DateTime fecha { get; set; }
         public int km { get; set; }
+        public List<ActuacionDetalle> actuacionDetalle { get; set; }
 
         public Actuacion()
         {
