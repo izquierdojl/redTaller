@@ -8,28 +8,26 @@ namespace redTaller.Modelo
 {
     internal class Matricula
     {
-        public string codigo { get; set; }
+        public string matricula { get; set; }
         public string marca { get; set; }
         public string modelo { get; set; }
-        public byte[] imagen { get; set; }
         public int id { get; set; }
 
         public Matricula()
         {
-            this.codigo = codigo;
+            this.matricula = matricula;
         }
 
-        public Matricula(string codigo)
+        public Matricula(string matricula)
         {
-            this.codigo = codigo;
+            this.matricula = matricula;
         }
 
-        public Matricula(string codigo, string marca, string modelo, byte[] imagen, int id)
+        public Matricula(string matricula, string marca, string modelo, int id)
         {
-            this.codigo = codigo;
+            this.matricula = matricula;
             this.marca = marca;
             this.modelo = modelo;
-            this.imagen = imagen;
             this.id = id;
         }
 
