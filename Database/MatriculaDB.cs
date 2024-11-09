@@ -12,10 +12,10 @@ namespace redTaller.Database
         public MatriculaDB()
         {
             tabla = "matricula";
-            key = "codigo";
+            key = "matricula";
             dc = new Dictionary<string, CampoInfo>()
             {
-                { "codigo", new CampoInfo { SelectCampo = tabla + ".codigo", VisibleTabla = true, VisibleFiltro = true , Header = "Código"  } },
+                { "matricula", new CampoInfo { SelectCampo = tabla + ".matricula", VisibleTabla = true, VisibleFiltro = true , Header = "Matrícula"  } },
                 { "modelo", new CampoInfo { SelectCampo = tabla + ".modelo", VisibleTabla = true, VisibleFiltro = true , Header = "Modelo"  } },
                 { "marca", new CampoInfo { SelectCampo = tabla + ".marca", VisibleTabla = true, VisibleFiltro = true , Header = "Marca"  } },
                 { "imagen", new CampoInfo { SelectCampo = tabla + ".d", VisibleTabla = false } },
@@ -50,13 +50,9 @@ namespace redTaller.Database
                         if (reader.Read())
                         {
                             matricula.id = id;
-                            matricula.codigo = reader.GetString("codigo");
+                            matricula.matricula = reader.GetString("codigo");
                             matricula.marca = reader.GetString("marca");
                             matricula.modelo = reader.GetString("modelo");
-                            if (!reader.IsDBNull(reader.GetOrdinal("imagen")))
-                            {
-                                matricula.imagen = (byte[])reader["imagen"];
-                            }
                         }
                     }
                 }
@@ -79,13 +75,12 @@ namespace redTaller.Database
             try
             {
                 db.Conectar();
-                string query = $"INSERT INTO {tabla} SET codigo=@codigo, marca=@marca, modelo=@modelo, imagen=@imagen";
+                string query = $"INSERT INTO {tabla} SET matricula=@matricula, marca=@marca, modelo=@modelo";
                 using (MySqlCommand cmd = new MySqlCommand(query, db.DbConn))
                 {
-                    cmd.Parameters.AddWithValue("@codigo", matricula.codigo);
+                    cmd.Parameters.AddWithValue("@matricula", matricula.matricula);
                     cmd.Parameters.AddWithValue("@marca", matricula.marca);
                     cmd.Parameters.AddWithValue("@modelo", matricula.modelo);
-                    cmd.Parameters.AddWithValue("@imagen", matricula.imagen);
                     nuevas = cmd.ExecuteNonQuery();
                     if (nuevas > 0)
                     {
@@ -112,13 +107,12 @@ namespace redTaller.Database
             try
             {
                 db.Conectar();
-                string query = $"UPDATE {tabla} SET  codigo=@codigo, marca=@marca, modelo=@modelo, imagen=@imagen WHERE id=@id";
+                string query = $"UPDATE {tabla} SET  matricula=@matricula, marca=@marca, imagen=@imagen WHERE id=@id";
                 using (MySqlCommand cmd = new MySqlCommand(query, db.DbConn))
                 {
                     cmd.Parameters.AddWithValue("@id", matricula.id);
                     cmd.Parameters.AddWithValue("@marca", matricula.marca);
                     cmd.Parameters.AddWithValue("@modelo", matricula.modelo);
-                    cmd.Parameters.AddWithValue("@imagen", matricula.imagen);
                     modificadas = cmd.ExecuteNonQuery();
                 }
             }
@@ -149,13 +143,9 @@ namespace redTaller.Database
                         {
                             Matricula matricula = new Matricula();
                             matricula.id = reader.GetInt32("id"); ;
-                            matricula.codigo = reader.GetString("codigo");
+                            matricula.matricula = reader.GetString("matricula");
                             matricula.marca = reader.GetString("marca");
                             matricula.modelo = reader.GetString("modelo");
-                            if (!reader.IsDBNull(reader.GetOrdinal("imagen")))
-                            {
-                                matricula.imagen = (byte[])reader["imagen"];
-                            }
                             list.Add(matricula);
                         }
                     }

@@ -1,7 +1,5 @@
-﻿using redTaller.Modelo;
-using System;
-
-namespace redCliente.Modelo
+﻿
+namespace redTaller.Modelo
 {
     /// <summary>
     /// Clase Taller
