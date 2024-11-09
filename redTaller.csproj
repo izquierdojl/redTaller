@@ -131,6 +131,8 @@
     <Compile Include="Database\ProvinciaDB.cs" />
     <Compile Include="Database\Util\DatabaseLogin.cs" />
     <Compile Include="Database\Util\DatabaseUtil.cs" />
+    <Compile Include="Modelo\Actuacion.cs" />
+    <Compile Include="Modelo\ActuacionDetalle.cs" />
     <Compile Include="Util\Password.cs" />
     <Compile Include="Modelo\CodigoPostal.cs" />
     <Compile Include="Modelo\Config.cs" />
