@@ -1,14 +1,8 @@
-﻿using redCliente.Modelo;
-using redTaller.Database;
+﻿using redTaller.Database;
 using redTaller.Modelo;
 using redTaller.Vista.VistaCliente;
-using redTaller.Vista.VistaTaller;
 using redTaller.Vista.VistaUtil;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace redTaller.Controlador
@@ -107,6 +101,10 @@ namespace redTaller.Controlador
                     vistaFormCliente.textProvincia.Text = codigoPostal.provincia.nombre;
             }
 
+        }
+        public Cliente Id(int id)
+        {
+            return clienteDB.CargaElemento(id);
         }
 
     }

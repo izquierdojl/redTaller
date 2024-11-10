@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.menuFicheros = new System.Windows.Forms.MenuStrip();
             this.ficherosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuFicherosTalleres = new System.Windows.Forms.ToolStripMenuItem();
@@ -40,6 +41,10 @@
             this.barStatus = new System.Windows.Forms.StatusStrip();
             this.statusProgram = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusUser = new System.Windows.Forms.ToolStripStatusLabel();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.menuActuaciones = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuRegistroActuaciones = new System.Windows.Forms.ToolStripMenuItem();
             this.menuFicheros.SuspendLayout();
             this.barStatus.SuspendLayout();
             this.SuspendLayout();
@@ -48,11 +53,11 @@
             // 
             this.menuFicheros.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ficherosToolStripMenuItem,
+            this.menuActuaciones,
             this.menuHerramientas});
             this.menuFicheros.Location = new System.Drawing.Point(0, 0);
             this.menuFicheros.Name = "menuFicheros";
-            this.menuFicheros.Padding = new System.Windows.Forms.Padding(9, 3, 0, 3);
-            this.menuFicheros.Size = new System.Drawing.Size(1924, 25);
+            this.menuFicheros.Size = new System.Drawing.Size(1283, 24);
             this.menuFicheros.TabIndex = 1;
             this.menuFicheros.Text = "menuStrip1";
             // 
@@ -66,7 +71,7 @@
             this.menuFicherosCodigosPostales});
             this.ficherosToolStripMenuItem.Name = "ficherosToolStripMenuItem";
             this.ficherosToolStripMenuItem.ShowShortcutKeys = false;
-            this.ficherosToolStripMenuItem.Size = new System.Drawing.Size(63, 19);
+            this.ficherosToolStripMenuItem.Size = new System.Drawing.Size(63, 20);
             this.ficherosToolStripMenuItem.Text = "Ficheros";
             // 
             // menuFicherosTalleres
@@ -107,13 +112,13 @@
             this.menuHerramientas.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuConfiguración});
             this.menuHerramientas.Name = "menuHerramientas";
-            this.menuHerramientas.Size = new System.Drawing.Size(90, 19);
-            this.menuHerramientas.Text = "Herramientas";
+            this.menuHerramientas.Size = new System.Drawing.Size(90, 20);
+            this.menuHerramientas.Text = "&Herramientas";
             // 
             // menuConfiguración
             // 
             this.menuConfiguración.Name = "menuConfiguración";
-            this.menuConfiguración.Size = new System.Drawing.Size(150, 22);
+            this.menuConfiguración.Size = new System.Drawing.Size(180, 22);
             this.menuConfiguración.Text = "Configuración";
             this.menuConfiguración.Click += new System.EventHandler(this.menuConfiguración_Click);
             // 
@@ -122,10 +127,9 @@
             this.barStatus.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.statusProgram,
             this.statusUser});
-            this.barStatus.Location = new System.Drawing.Point(0, 960);
+            this.barStatus.Location = new System.Drawing.Point(0, 616);
             this.barStatus.Name = "barStatus";
-            this.barStatus.Padding = new System.Windows.Forms.Padding(2, 0, 21, 0);
-            this.barStatus.Size = new System.Drawing.Size(1924, 22);
+            this.barStatus.Size = new System.Drawing.Size(1283, 22);
             this.barStatus.TabIndex = 3;
             this.barStatus.Text = "statusStrip1";
             // 
@@ -143,16 +147,40 @@
             this.statusUser.Size = new System.Drawing.Size(50, 17);
             this.statusUser.Text = "Usuario:";
             // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
+            // 
+            // contextMenuStrip2
+            // 
+            this.contextMenuStrip2.Name = "contextMenuStrip2";
+            this.contextMenuStrip2.Size = new System.Drawing.Size(61, 4);
+            // 
+            // menuActuaciones
+            // 
+            this.menuActuaciones.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuRegistroActuaciones});
+            this.menuActuaciones.Name = "menuActuaciones";
+            this.menuActuaciones.Size = new System.Drawing.Size(84, 20);
+            this.menuActuaciones.Text = "&Actuaciones";
+            // 
+            // menuRegistroActuaciones
+            // 
+            this.menuRegistroActuaciones.Name = "menuRegistroActuaciones";
+            this.menuRegistroActuaciones.Size = new System.Drawing.Size(201, 22);
+            this.menuRegistroActuaciones.Text = "&Registro de Actuaciones";
+            this.menuRegistroActuaciones.Click += new System.EventHandler(this.menuRegistroActuaciones_Click);
+            // 
             // Principal
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1924, 982);
+            this.ClientSize = new System.Drawing.Size(1283, 638);
             this.Controls.Add(this.barStatus);
             this.Controls.Add(this.menuFicheros);
             this.IsMdiContainer = true;
             this.MainMenuStrip = this.menuFicheros;
-            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "Principal";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "redTaller";
@@ -179,6 +207,10 @@
         private System.Windows.Forms.ToolStripMenuItem menuConfiguración;
         public System.Windows.Forms.StatusStrip barStatus;
         public System.Windows.Forms.ToolStripStatusLabel statusUser;
+        private System.Windows.Forms.ToolStripMenuItem menuActuaciones;
+        private System.Windows.Forms.ToolStripMenuItem menuRegistroActuaciones;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip2;
     }
 }
 

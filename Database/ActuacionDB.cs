@@ -22,13 +22,15 @@ namespace redTaller.Database
                 { "cliente", new CampoInfo { SelectCampo = "cliente.nif", VisibleTabla = true , VisibleFiltro = true , Header = "NIF Cliente" } },
                 { "nombre_cliente", new CampoInfo { SelectCampo = "cliente.nombre", VisibleTabla = true , VisibleFiltro = true , Header = "Nombre Cliente" } },
                 { "matricula", new CampoInfo { SelectCampo = "actuacion.matricula", VisibleTabla = true , VisibleFiltro = true , Header = "Matrícula" } },
+                { "km", new CampoInfo { SelectCampo = "actuacion.km", VisibleTabla = false , VisibleFiltro = false , Header = "Kilómetros" } },
+                { "tipo", new CampoInfo { SelectCampo = "actuacion.tipo", VisibleTabla = true , VisibleFiltro = true , Header = "Tipo" } },
                 { "fecha", new CampoInfo { SelectCampo = "actuacion.fecha", VisibleTabla = true , VisibleFiltro = true , Header = "Fecha" } },
             };
         }
 
         public Actuacion CargaElemento(int id)
         {
-            
+
             Actuacion actuacion = new Actuacion();
 
             string query;
@@ -53,10 +55,12 @@ namespace redTaller.Database
                         if (reader.Read())
                         {
                             actuacion.id = id;
-                            actuacion.taller = new TallerDB().CargaElemento(0,"SELECT nif FROM taller WHERE nif='"+ reader.GetString("nif_taller") + "'");
-                            actuacion.cliente = new ClienteDB().CargaElemento(0, "SELECT nif FROM cliente WHERE nif='" + reader.GetString("nif_cliente") + "'");
-                            actuacion.fecha = reader.GetDateTime("fecha") ;
+                            actuacion.taller = new TallerDB().CargaElemento(0, "SELECT * FROM taller WHERE nif='" + reader.GetString("taller") + "'");
+                            actuacion.cliente = new ClienteDB().CargaElemento(0, "SELECT * FROM cliente WHERE nif='" + reader.GetString("cliente") + "'");
+                            actuacion.matricula = new MatriculaDB().CargaElemento(0, "SELECT * FROM matricula WHERE matricula='" + reader.GetString("matricula") + "'");
+                            actuacion.fecha = reader.GetDateTime("fecha");
                             actuacion.km = reader.GetInt32("km");
+                            actuacion.tipo = reader.GetString(reader.GetOrdinal("tipo"));
                         }
                     }
                 }
@@ -116,7 +120,7 @@ namespace redTaller.Database
                     try
                     {
                         // Insertar en la tabla actuacion
-                        string query = $"INSERT INTO {tabla} SET nif_taller=@nif_taller, nif_cliente=@nif_cliente, matricula=@matricula, fecha=@fecha, km=@km";
+                        string query = $"INSERT INTO {tabla} SET nif_taller=@nif_taller, nif_cliente=@nif_cliente, matricula=@matricula, fecha=@fecha, km=@km, tipo=@tipo";
 
                         using (MySqlCommand cmd = new MySqlCommand(query, db.DbConn, transaction))
                         {
@@ -125,6 +129,7 @@ namespace redTaller.Database
                             cmd.Parameters.AddWithValue("@matricula", actuacion.matricula.matricula);
                             cmd.Parameters.AddWithValue("@fecha", actuacion.fecha);
                             cmd.Parameters.AddWithValue("@km", actuacion.km);
+                            cmd.Parameters.AddWithValue("@tipo", actuacion.tipo);
                             nuevas = cmd.ExecuteNonQuery();
                             if (nuevas > 0)
                             {
@@ -134,21 +139,22 @@ namespace redTaller.Database
                             }
                         }
 
-                        // Insertar en la tabla actuacion_detalle
-                        foreach (ActuacionDetalle actuacionDetalle in actuacion.actuacionDetalle)
+                        if (actuacion.actuacionDetalle != null)
                         {
-                            query = $"INSERT INTO actuacion_detalle SET id_actuacion=@id_actuacion, orden=@orden, descripcion=@descripcion, imagen=@imagen";
-                            using (MySqlCommand cmd = new MySqlCommand(query, db.DbConn, transaction))
+                            foreach (ActuacionDetalle actuacionDetalle in actuacion.actuacionDetalle)
                             {
-                                cmd.Parameters.AddWithValue("@id_actuacion", actuacion.id);
-                                cmd.Parameters.AddWithValue("@orden", actuacionDetalle.orden);
-                                cmd.Parameters.AddWithValue("@descripcion", actuacionDetalle.descripcion);
-                                cmd.Parameters.AddWithValue("@imagen", actuacionDetalle.imagen);
-                                nuevas += cmd.ExecuteNonQuery();
+                                query = $"INSERT INTO actuacion_detalle SET id_actuacion=@id_actuacion, orden=@orden, descripcion=@descripcion, imagen=@imagen";
+                                using (MySqlCommand cmd = new MySqlCommand(query, db.DbConn, transaction))
+                                {
+                                    cmd.Parameters.AddWithValue("@id_actuacion", actuacion.id);
+                                    cmd.Parameters.AddWithValue("@orden", actuacionDetalle.orden);
+                                    cmd.Parameters.AddWithValue("@descripcion", actuacionDetalle.descripcion);
+                                    cmd.Parameters.AddWithValue("@imagen", actuacionDetalle.imagen);
+                                    nuevas += cmd.ExecuteNonQuery();
+                                }
                             }
                         }
 
-                        // Confirmar la transacción
                         transaction.Commit();
                     }
                     catch (Exception ex)
@@ -183,7 +189,7 @@ namespace redTaller.Database
                     try
                     {
                         // Actualizar la tabla actuacion
-                        string query = $"UPDATE {tabla} SET nif_taller=@nif_taller, nif_cliente=@nif_cliente, matricula=@matricula, fecha=@fecha, km=@km WHERE {key}=@id";
+                        string query = $"UPDATE {tabla} SET nif_taller=@nif_taller, nif_cliente=@nif_cliente, matricula=@matricula, fecha=@fecha, km=@km, tipo=@tipo WHERE {key}=@id";
 
                         using (MySqlCommand cmd = new MySqlCommand(query, db.DbConn, transaction))
                         {
@@ -193,6 +199,7 @@ namespace redTaller.Database
                             cmd.Parameters.AddWithValue("@matricula", actuacion.matricula.matricula);
                             cmd.Parameters.AddWithValue("@fecha", actuacion.fecha);
                             cmd.Parameters.AddWithValue("@km", actuacion.km);
+                            cmd.Parameters.AddWithValue("@tipo", actuacion.tipo);
                             modificadas = cmd.ExecuteNonQuery();
                         }
 
@@ -203,17 +210,19 @@ namespace redTaller.Database
                             modificadas += cmd.ExecuteNonQuery();
                         }
 
-                        // Insertar las nuevas líneas de actuacion_detalle
-                        foreach (ActuacionDetalle actuacionDetalle in actuacion.actuacionDetalle)
+                        if (actuacion.actuacionDetalle != null)
                         {
-                            query = $"INSERT INTO actuacion_detalle (id_actuacion, orden, descripcion, imagen) VALUES (@id_actuacion, @orden, @descripcion, @imagen)";
-                            using (MySqlCommand cmd = new MySqlCommand(query, db.DbConn, transaction))
+                            foreach (ActuacionDetalle actuacionDetalle in actuacion.actuacionDetalle)
                             {
-                                cmd.Parameters.AddWithValue("@id_actuacion", actuacion.id);
-                                cmd.Parameters.AddWithValue("@orden", actuacionDetalle.orden);
-                                cmd.Parameters.AddWithValue("@descripcion", actuacionDetalle.descripcion);
-                                cmd.Parameters.AddWithValue("@imagen", actuacionDetalle.imagen);
-                                modificadas += cmd.ExecuteNonQuery();
+                                query = $"INSERT INTO actuacion_detalle (id_actuacion, orden, descripcion, imagen) VALUES (@id_actuacion, @orden, @descripcion, @imagen)";
+                                using (MySqlCommand cmd = new MySqlCommand(query, db.DbConn, transaction))
+                                {
+                                    cmd.Parameters.AddWithValue("@id_actuacion", actuacion.id);
+                                    cmd.Parameters.AddWithValue("@orden", actuacionDetalle.orden);
+                                    cmd.Parameters.AddWithValue("@descripcion", actuacionDetalle.descripcion);
+                                    cmd.Parameters.AddWithValue("@imagen", actuacionDetalle.imagen);
+                                    modificadas += cmd.ExecuteNonQuery();
+                                }
                             }
                         }
 
@@ -312,6 +321,7 @@ namespace redTaller.Database
                             actuacion.cliente = new ClienteDB().CargaElemento(0, "SELECT nif FROM cliente WHERE nif='" + reader.GetString("nif_cliente") + "'");
                             actuacion.fecha = reader.GetDateTime("fecha");
                             actuacion.km = reader.GetInt32("km");
+                            actuacion.tipo = reader.GetString(reader.GetOrdinal("tipo"));
                             list.Add(actuacion);
                         }
                     }
@@ -378,4 +388,5 @@ namespace redTaller.Database
         }
 
     }
+
 }

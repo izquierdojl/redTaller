@@ -47,6 +47,12 @@ namespace redTaller
             controlladorCliente.mostrar(this);
         }
 
+        private void menuRegistroActuaciones_Click(object sender, EventArgs e)
+        {
+            ControladorActuacion controladorActuacion = new ControladorActuacion(); 
+            controladorActuacion.mostrar(this);
+        }
+
         private void menuConfiguración_Click(object sender, EventArgs e)
         {
             ControladorConfig controladorConfig = new ControladorConfig(this);

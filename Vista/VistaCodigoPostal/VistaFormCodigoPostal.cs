@@ -38,7 +38,6 @@ namespace redTaller.Vista.VistaCodigoPostal
 
         }
 
-
         private void btnAceptar_Click(object sender, System.EventArgs e)
         {
             codigoPostal.codigo = textCodigo.Text;
@@ -63,5 +62,6 @@ namespace redTaller.Vista.VistaCodigoPostal
 
         }
     }
+
 }
 

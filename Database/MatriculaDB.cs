@@ -18,13 +18,12 @@ namespace redTaller.Database
                 { "matricula", new CampoInfo { SelectCampo = tabla + ".matricula", VisibleTabla = true, VisibleFiltro = true , Header = "Matrícula"  } },
                 { "modelo", new CampoInfo { SelectCampo = tabla + ".modelo", VisibleTabla = true, VisibleFiltro = true , Header = "Modelo"  } },
                 { "marca", new CampoInfo { SelectCampo = tabla + ".marca", VisibleTabla = true, VisibleFiltro = true , Header = "Marca"  } },
-                { "imagen", new CampoInfo { SelectCampo = tabla + ".d", VisibleTabla = false } },
                 { "id", new CampoInfo { SelectCampo = tabla + ".id", VisibleTabla = false } },
             };
 
         }
 
-        public Matricula CargaElemento(int id, string queryEsp = null)
+        public Matricula CargaElemento(int id, string queryEsp = null, string codigo = null)
         {
             Matricula matricula = new Matricula();  
             try
@@ -37,20 +36,33 @@ namespace redTaller.Database
                 }
                 else
                 {
-                    query = $@"
-                            SELECT {DatabaseUtil.selectColumns(dc)}
-                            FROM {tabla}
-                            WHERE id=@key";
+                    if (codigo == null)
+                    {
+                        query = $@"
+                                SELECT {DatabaseUtil.selectColumns(dc)}
+                                FROM {tabla}
+                                WHERE id=@key";
+                    }
+                    else
+                    {
+                        query = $@"
+                                SELECT {DatabaseUtil.selectColumns(dc)}
+                                FROM {tabla}
+                                WHERE matricula=@key";
+                    }
                 }
                 using (MySqlCommand cmd = new MySqlCommand(query, db.DbConn))
                 {
-                    cmd.Parameters.AddWithValue("@key", id);
+                    if ( codigo == null)
+                        cmd.Parameters.AddWithValue("@key", id);
+                    else
+                        cmd.Parameters.AddWithValue("@key", codigo);
                     using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
                         if (reader.Read())
                         {
                             matricula.id = id;
-                            matricula.matricula = reader.GetString("codigo");
+                            matricula.matricula = reader.GetString("matricula");
                             matricula.marca = reader.GetString("marca");
                             matricula.modelo = reader.GetString("modelo");
                         }

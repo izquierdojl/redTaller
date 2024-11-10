@@ -1,5 +1,4 @@
-﻿using redCliente.Modelo;
-using redTaller.Controlador;
+﻿using redTaller.Controlador;
 using redTaller.Modelo;
 using System.Windows.Forms;
 
@@ -39,7 +38,7 @@ namespace redTaller.Vista.VistaCliente
                 textEmail.Text = cliente.email;
                 checkBloqueado.Checked = cliente.bloqueado;
                 checkActivo.Checked = cliente.activo;
-                VistaUtil.VistaUtil.MakeFormReadOnly(this);   
+                //VistaUtil.VistaUtil.MakeFormReadOnly(this);   
             }
 
         }
