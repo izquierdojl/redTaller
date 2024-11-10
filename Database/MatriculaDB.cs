@@ -18,7 +18,6 @@ namespace redTaller.Database
                 { "matricula", new CampoInfo { SelectCampo = tabla + ".matricula", VisibleTabla = true, VisibleFiltro = true , Header = "Matrícula"  } },
                 { "modelo", new CampoInfo { SelectCampo = tabla + ".modelo", VisibleTabla = true, VisibleFiltro = true , Header = "Modelo"  } },
                 { "marca", new CampoInfo { SelectCampo = tabla + ".marca", VisibleTabla = true, VisibleFiltro = true , Header = "Marca"  } },
-                { "imagen", new CampoInfo { SelectCampo = tabla + ".d", VisibleTabla = false } },
                 { "id", new CampoInfo { SelectCampo = tabla + ".id", VisibleTabla = false } },
             };
 
@@ -50,7 +49,7 @@ namespace redTaller.Database
                         if (reader.Read())
                         {
                             matricula.id = id;
-                            matricula.matricula = reader.GetString("codigo");
+                            matricula.matricula = reader.GetString("matricula");
                             matricula.marca = reader.GetString("marca");
                             matricula.modelo = reader.GetString("modelo");
                         }

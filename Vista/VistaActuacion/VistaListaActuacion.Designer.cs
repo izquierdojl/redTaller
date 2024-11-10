@@ -81,9 +81,7 @@
             this.gridPrincipal.RowHeadersWidth = 62;
             this.gridPrincipal.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.gridPrincipal.Size = new System.Drawing.Size(800, 369);
-            this.gridPrincipal.TabIndex = 3;
-            this.gridPrincipal.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.gridPrincipal_CellMouseDoubleClick);
-            this.gridPrincipal.KeyDown += new System.Windows.Forms.KeyEventHandler(this.gridPrincipal_KeyDown);
+            this.gridPrincipal.TabIndex = 1;
             // 
             // VistaListaActuacion
             // 

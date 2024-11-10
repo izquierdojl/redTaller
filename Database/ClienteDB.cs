@@ -72,14 +72,14 @@ namespace redTaller.Database
                             cliente.tel = reader.GetString("tel");
                             cliente.email = reader.GetString("email");
                             cliente.movil = reader.GetString("movil");
-                            if (!reader.IsDBNull(reader.GetOrdinal("password")))
-                            {
-                                cliente.password = (byte[])reader["password"];
-                            }
+                            cliente.password = Encoding.UTF8.GetBytes(reader.GetString("password"));
                             cliente.activo = Convert.ToBoolean(reader.GetInt32("activo"));
                             cliente.bloqueado = Convert.ToBoolean(reader.GetInt32("bloqueado"));
-                            TallerDB tallerDB = new TallerDB();
-                            cliente.nif_taller_alta = tallerDB.CargaElemento(0, $"SELECT * FROM taller WHERE taller.nif={reader.GetString("nif_taller_alta")}");
+                            if (!reader.IsDBNull(reader.GetOrdinal("nif_taller_alta")))
+                            {
+                                TallerDB tallerDB = new TallerDB();
+                                cliente.nif_taller_alta = tallerDB.CargaElemento(0, $"SELECT * FROM taller WHERE taller.nif='{reader.GetString(reader.GetOrdinal("nif_taller_alta"))}'");
+                            }
                         }
                     }
                 }
@@ -201,10 +201,7 @@ namespace redTaller.Database
                             cliente.tel = reader.GetString("tel");
                             cliente.email = reader.GetString("email");
                             cliente.movil = reader.GetString("movil");
-                            if (!reader.IsDBNull(reader.GetOrdinal("password")))
-                            {
-                                cliente.password = (byte[])reader["password"];
-                            }
+                            cliente.password = Encoding.UTF8.GetBytes(reader.GetString("password"));
                             cliente.activo = reader.GetBoolean("activo");
                             cliente.bloqueado = reader.GetBoolean("bloqueado");
                             TallerDB tallerDB = new TallerDB();

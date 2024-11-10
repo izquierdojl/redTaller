@@ -232,13 +232,13 @@
             // textKm
             // 
             this.textKm.Location = new System.Drawing.Point(90, 165);
-            this.textKm.Mask = "000.000.000";
             this.textKm.Name = "textKm";
             this.textKm.PromptChar = ' ';
             this.textKm.Size = new System.Drawing.Size(100, 20);
             this.textKm.TabIndex = 71;
             this.textKm.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.textKm.ValidatingType = typeof(int);
+            this.textKm.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals;
+            this.textKm.TextChanged += new System.EventHandler(this.textKm_TextChanged);
             // 
             // panelBottom
             // 

@@ -47,10 +47,10 @@ namespace redTaller.Vista.VistaActuacion
                 textNif_Taller.Text = actuacion.taller.nif;
                 labelNomTaller.Text = actuacion.taller.nombre;
                 textNif_Cliente.Text = actuacion.cliente.nif;
-                labelNomCliente.Text = actuacion.taller.nombre;
+                labelNomCliente.Text = actuacion.cliente.nombre;
                 textMatricula.Text = actuacion.matricula.matricula;
                 labelNombreMatricula.Text = actuacion.matricula.marca + " " + actuacion.matricula.modelo;
-                dateFecha.Text = actuacion.fecha.ToString();
+                dateFecha.Value = actuacion.fecha;
                 textKm.Text = actuacion.km.ToString();
                 comboTipo.SelectedValue = actuacion.tipo;
             }
@@ -70,7 +70,7 @@ namespace redTaller.Vista.VistaActuacion
             actuacion.matricula = new Matricula();
             actuacion.matricula.matricula = textMatricula.Text;
             actuacion.fecha = DateTime.Parse(dateFecha.Text);
-            actuacion.km = int.Parse(textKm.Text);
+            actuacion.km = int.Parse(textKm.Text.Replace(".", ""));
             actuacion.tipo = (char)comboTipo.SelectedValue;
             this.Close();
             //controlador.guardar(cliente, modo, lista);
@@ -81,6 +81,23 @@ namespace redTaller.Vista.VistaActuacion
             this.Close();
         }
 
+        private void textKm_TextChanged(object sender, EventArgs e)
+        {
+            // Guarda la posición actual del cursor para restaurarlo después
+            int cursorPosition = textKm.SelectionStart;
+
+            // Elimina cualquier formato actual (puntos o comas)
+            string text = textKm.Text.Replace(".", "").Replace(",", "");
+
+            if (double.TryParse(text, out double value))
+            {
+                // Aplica el formato de número con puntos de miles
+                textKm.Text = value.ToString("N0");
+
+                // Restaura la posición del cursor
+                textKm.SelectionStart = Math.Min(cursorPosition, textKm.Text.Length);
+            }
+        }
     }
 
 }

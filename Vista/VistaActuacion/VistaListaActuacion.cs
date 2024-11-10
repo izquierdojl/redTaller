@@ -19,7 +19,6 @@ namespace redTaller.Vista.VistaActuacion
 
         public VistaListaActuacion(DataTable data, Dictionary<string, CampoInfo> dc)
         {
-            InitializeComponent();
 
             InitializeComponent();
             gridPrincipal.AutoGenerateColumns = true;

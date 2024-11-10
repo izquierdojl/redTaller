@@ -22,6 +22,8 @@ namespace redTaller.Database
                 { "cliente", new CampoInfo { SelectCampo = "cliente.nif", VisibleTabla = true , VisibleFiltro = true , Header = "NIF Cliente" } },
                 { "nombre_cliente", new CampoInfo { SelectCampo = "cliente.nombre", VisibleTabla = true , VisibleFiltro = true , Header = "Nombre Cliente" } },
                 { "matricula", new CampoInfo { SelectCampo = "actuacion.matricula", VisibleTabla = true , VisibleFiltro = true , Header = "Matrícula" } },
+                { "km", new CampoInfo { SelectCampo = "actuacion.km", VisibleTabla = false , VisibleFiltro = false , Header = "Kilómetros" } },
+                { "tipo", new CampoInfo { SelectCampo = "actuacion.tipo", VisibleTabla = true , VisibleFiltro = true , Header = "Tipo" } },
                 { "fecha", new CampoInfo { SelectCampo = "actuacion.fecha", VisibleTabla = true , VisibleFiltro = true , Header = "Fecha" } },
             };
         }
@@ -53,8 +55,9 @@ namespace redTaller.Database
                         if (reader.Read())
                         {
                             actuacion.id = id;
-                            actuacion.taller = new TallerDB().CargaElemento(0, "SELECT nif FROM taller WHERE nif='" + reader.GetString("nif_taller") + "'");
-                            actuacion.cliente = new ClienteDB().CargaElemento(0, "SELECT nif FROM cliente WHERE nif='" + reader.GetString("nif_cliente") + "'");
+                            actuacion.taller = new TallerDB().CargaElemento(0, "SELECT * FROM taller WHERE nif='" + reader.GetString("taller") + "'");
+                            actuacion.cliente = new ClienteDB().CargaElemento(0, "SELECT * FROM cliente WHERE nif='" + reader.GetString("cliente") + "'");
+                            actuacion.matricula = new MatriculaDB().CargaElemento(0, "SELECT * FROM matricula WHERE matricula='" + reader.GetString("matricula") + "'");
                             actuacion.fecha = reader.GetDateTime("fecha");
                             actuacion.km = reader.GetInt32("km");
                         }
