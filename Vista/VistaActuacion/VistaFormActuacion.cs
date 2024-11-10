@@ -36,10 +36,17 @@ namespace redTaller.Vista.VistaActuacion
             else
               Text = "Detalle Actuación " + actuacion.id;
 
-            comboTipo.Items.Add(new KeyValuePair<string, string>("R", "Reparación"));
-            comboTipo.Items.Add(new KeyValuePair<string, string>("M", "Mantenimiento"));
-            comboTipo.Items.Add(new KeyValuePair<string, string>("G", "Garantía"));
-            comboTipo.Items.Add(new KeyValuePair<string, string>("S", "Seguro"));
+            DataTable dataTable = new DataTable();
+            dataTable.Columns.Add("codigo", typeof(string));
+            dataTable.Columns.Add("nombre", typeof(string));
+            dataTable.Rows.Add("R", "Reparación");
+            dataTable.Rows.Add("M", "Mantenimiento");
+            dataTable.Rows.Add("G", "Garantía");
+            dataTable.Rows.Add("S", "Seguro");
+
+            comboTipo.DataSource = dataTable;
+            comboTipo.DisplayMember = "nombre";  
+            comboTipo.ValueMember = "codigo";  
             comboTipo.SelectedIndex = 0;
 
             if (modo > 1)
@@ -71,7 +78,7 @@ namespace redTaller.Vista.VistaActuacion
             actuacion.matricula.matricula = textMatricula.Text;
             actuacion.fecha = DateTime.Parse(dateFecha.Text);
             actuacion.km = int.Parse(textKm.Text.Replace(".", ""));
-            actuacion.tipo = (char)comboTipo.SelectedValue;
+            actuacion.tipo = comboTipo.SelectedValue.ToString();
             this.Close();
             //controlador.guardar(cliente, modo, lista);
         }

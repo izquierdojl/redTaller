@@ -60,6 +60,7 @@ namespace redTaller.Database
                             actuacion.matricula = new MatriculaDB().CargaElemento(0, "SELECT * FROM matricula WHERE matricula='" + reader.GetString("matricula") + "'");
                             actuacion.fecha = reader.GetDateTime("fecha");
                             actuacion.km = reader.GetInt32("km");
+                            actuacion.tipo = reader.GetString(reader.GetOrdinal("tipo"));
                         }
                     }
                 }
@@ -119,7 +120,7 @@ namespace redTaller.Database
                     try
                     {
                         // Insertar en la tabla actuacion
-                        string query = $"INSERT INTO {tabla} SET nif_taller=@nif_taller, nif_cliente=@nif_cliente, matricula=@matricula, fecha=@fecha, km=@km";
+                        string query = $"INSERT INTO {tabla} SET nif_taller=@nif_taller, nif_cliente=@nif_cliente, matricula=@matricula, fecha=@fecha, km=@km, tipo=@tipo";
 
                         using (MySqlCommand cmd = new MySqlCommand(query, db.DbConn, transaction))
                         {
@@ -128,6 +129,7 @@ namespace redTaller.Database
                             cmd.Parameters.AddWithValue("@matricula", actuacion.matricula.matricula);
                             cmd.Parameters.AddWithValue("@fecha", actuacion.fecha);
                             cmd.Parameters.AddWithValue("@km", actuacion.km);
+                            cmd.Parameters.AddWithValue("@tipo", actuacion.tipo);
                             nuevas = cmd.ExecuteNonQuery();
                             if (nuevas > 0)
                             {
@@ -186,7 +188,7 @@ namespace redTaller.Database
                     try
                     {
                         // Actualizar la tabla actuacion
-                        string query = $"UPDATE {tabla} SET nif_taller=@nif_taller, nif_cliente=@nif_cliente, matricula=@matricula, fecha=@fecha, km=@km WHERE {key}=@id";
+                        string query = $"UPDATE {tabla} SET nif_taller=@nif_taller, nif_cliente=@nif_cliente, matricula=@matricula, fecha=@fecha, km=@km, tipo=@tipo WHERE {key}=@id";
 
                         using (MySqlCommand cmd = new MySqlCommand(query, db.DbConn, transaction))
                         {
@@ -196,6 +198,7 @@ namespace redTaller.Database
                             cmd.Parameters.AddWithValue("@matricula", actuacion.matricula.matricula);
                             cmd.Parameters.AddWithValue("@fecha", actuacion.fecha);
                             cmd.Parameters.AddWithValue("@km", actuacion.km);
+                            cmd.Parameters.AddWithValue("@tipo", actuacion.tipo);
                             modificadas = cmd.ExecuteNonQuery();
                         }
 
@@ -315,6 +318,7 @@ namespace redTaller.Database
                             actuacion.cliente = new ClienteDB().CargaElemento(0, "SELECT nif FROM cliente WHERE nif='" + reader.GetString("nif_cliente") + "'");
                             actuacion.fecha = reader.GetDateTime("fecha");
                             actuacion.km = reader.GetInt32("km");
+                            actuacion.tipo = reader.GetString(reader.GetOrdinal("tipo"));
                             list.Add(actuacion);
                         }
                     }

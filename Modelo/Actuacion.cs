@@ -12,14 +12,14 @@ namespace redTaller.Modelo
         public Matricula matricula { get; set; }
         public DateTime fecha { get; set; }
         public int km { get; set; }
-        public char tipo { get; set; }
+        public string tipo { get; set; }
         public List<ActuacionDetalle> actuacionDetalle { get; set; }
 
         public Actuacion()
         {
         }
 
-        public Actuacion(int id, Taller taller, Cliente cliente, Matricula matricula, DateTime fecha, char tipo, int km)
+        public Actuacion(int id, Taller taller, Cliente cliente, Matricula matricula, DateTime fecha, string tipo, int km)
         {
             this.id = id;
             this.taller = taller;
