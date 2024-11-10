@@ -102,6 +102,10 @@ namespace redTaller.Controlador
             }
 
         }
+        public Cliente Id(int id)
+        {
+            return clienteDB.CargaElemento(id);
+        }
 
     }
 }

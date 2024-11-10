@@ -39,7 +39,7 @@ namespace redTaller.Database
 
         }
 
-        public Taller CargaElemento(int id, string queryEsp = null)
+        public Taller CargaElemento(int id, string queryEsp = null, string nif=null )
         {
             Taller taller = new Taller();
             try
@@ -52,14 +52,28 @@ namespace redTaller.Database
                 }
                 else
                 {
-                    query = $@"
-                            SELECT {DatabaseUtil.selectColumns(dc)}
-                            FROM {tabla}
-                            WHERE id=@key";
+                    if (nif == null)
+                    {
+                        query = $@"
+                                SELECT {DatabaseUtil.selectColumns(dc)}
+                                FROM {tabla}
+                                WHERE id=@key";
+                    }
+                    else
+                    {
+                        query = $@"
+                                SELECT {DatabaseUtil.selectColumns(dc)}
+                                FROM {tabla}
+                                WHERE nif=@key";
+                    }
                 }
                 using (MySqlCommand cmd = new MySqlCommand(query, db.DbConn))
                 {
-                    cmd.Parameters.AddWithValue("@key", id);
+                    if( nif == null )
+                        cmd.Parameters.AddWithValue("@key", id);
+                    else
+                        cmd.Parameters.AddWithValue("@key", nif);
+
                     using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
                         if (reader.Read())

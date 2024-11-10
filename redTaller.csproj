@@ -119,6 +119,7 @@
     <Compile Include="Controlador\ControladorCodigoPostal.cs" />
     <Compile Include="Controlador\ControladorConfig.cs" />
     <Compile Include="Controlador\ControladorLogin.cs" />
+    <Compile Include="Controlador\ControladorMatricula.cs" />
     <Compile Include="Controlador\ControladorProvincia.cs" />
     <Compile Include="Controlador\ControladorSearch.cs" />
     <Compile Include="Controlador\ControladorTaller.cs" />

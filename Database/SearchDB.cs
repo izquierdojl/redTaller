@@ -20,10 +20,12 @@ namespace redTaller.Database
             db = new DatabaseUtil();
         }
 
-        public DataTable Load( string tabla, string filter = null )
+        public DataTable Load( string tabla, string filter = null, string condicion = null )
         {
 
             DataTable dataTable = new DataTable();
+            string whereFilter = string.Empty;
+            string whereCondicion = string.Empty;
 
             try
             {
@@ -32,16 +34,31 @@ namespace redTaller.Database
                                 SELECT {DatabaseUtil.selectColumns(dc)} 
                                 FROM {tabla}
                                 ";
-                if (!string.IsNullOrEmpty(filter))
+                if (!string.IsNullOrEmpty(filter) )
                 {
-                    query += " WHERE ";
                     List<string> whereFiltros = new List<string>();
                     foreach (string key in dc.Keys)
                     {
                         whereFiltros.Add( $"( {dc[key].SelectCampo} LIKE '%{filter}%' )");
                     }
-                    query += string.Join(" OR ", whereFiltros);
-
+                    whereFilter += string.Join(" OR ", whereFiltros);
+                }
+                if (!string.IsNullOrEmpty(condicion))
+                {
+                    whereCondicion += " AND " + condicion;
+                }
+                if( !string.IsNullOrEmpty(whereFilter) && !string.IsNullOrEmpty(whereCondicion))
+                {
+                    query += "WHERE ";
+                    if( !string.IsNullOrEmpty(whereFilter) )
+                        query += "(" + whereFilter + ")";
+                    if (!string.IsNullOrEmpty(whereCondicion))
+                    {
+                        if( !string.IsNullOrEmpty(whereFilter) )
+                            query += " AND (" + whereCondicion + ")";
+                        else
+                            query += " (" + whereCondicion + ")";
+                    }
                 }
 
                 using (MySqlDataAdapter adapter = new MySqlDataAdapter(query, db.DbConn))

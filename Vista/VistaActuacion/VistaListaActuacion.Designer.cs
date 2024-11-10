@@ -68,6 +68,7 @@
             // panelCenter
             // 
             this.panelCenter.Controls.Add(this.gridPrincipal);
+            this.panelCenter.TabIndex = 1;
             // 
             // gridPrincipal
             // 
@@ -83,6 +84,7 @@
             this.gridPrincipal.Size = new System.Drawing.Size(800, 369);
             this.gridPrincipal.TabIndex = 1;
             this.gridPrincipal.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.gridPrincipal_CellMouseDoubleClick);
+            this.gridPrincipal.KeyDown += new System.Windows.Forms.KeyEventHandler(this.gridPrincipal_KeyDown);
             // 
             // VistaListaActuacion
             // 

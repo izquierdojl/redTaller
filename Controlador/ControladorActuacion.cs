@@ -60,6 +60,52 @@ namespace redTaller.Controlador
             }
         }
 
+        public void guardar(Actuacion actuacion, int modo, VistaListaActuacion vistaListaActuacion)
+        {
+            if (modo == 1)
+            {
+                actuacionDB.Insert(actuacion);
+            }
+            else
+            {
+                actuacionDB.Update(actuacion);
+            }
+            if (string.IsNullOrEmpty(vistaListaActuacion.textSearch.Text))
+            {
+                vistaListaActuacion.recargaGrid(actuacionDB.Load(), actuacion.id);
+            }
+            else
+            {
+                Dictionary<string, object> filtros = new Dictionary<string, object>();
+                filtros.Add(vistaListaActuacion.comboSearch.SelectedValue.ToString(), vistaListaActuacion.textSearch.Text);  // Filtro
+                vistaListaActuacion.recargaGrid(actuacionDB.Load(filtros), actuacion.id);
+            }
+        }
+
+        public void asignaTaller(VistaFormActuacion vistaFormActuacion)
+        {
+            TallerDB db = new TallerDB();
+            Taller taller = db.CargaElemento( 0, null, vistaFormActuacion.textNif_Taller.Text);
+            if (taller != null)
+                vistaFormActuacion.labelNomTaller.Text = taller.nombre;
+        }
+
+        public void asignaCliente(VistaFormActuacion vistaFormActuacion)
+        {
+            ClienteDB db = new ClienteDB();
+            Cliente cliente = db.CargaElemento(0, null, vistaFormActuacion.textNif_Cliente.Text);
+            if (cliente != null)
+                vistaFormActuacion.labelNomCliente.Text = cliente.nombre;
+        }
+
+        public void asignaMatricula(VistaFormActuacion vistaFormActuacion)
+        {
+            MatriculaDB db = new MatriculaDB();
+            Matricula matricula = db.CargaElemento(0, null, vistaFormActuacion.textMatricula.Text);
+            if (matricula != null)
+                vistaFormActuacion.labelNombreMatricula.Text = matricula.marca + " " + matricula.modelo;
+        }
+
     }
 
 }

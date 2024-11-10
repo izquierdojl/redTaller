@@ -23,7 +23,7 @@ namespace redTaller.Database
 
         }
 
-        public Matricula CargaElemento(int id, string queryEsp = null)
+        public Matricula CargaElemento(int id, string queryEsp = null, string codigo = null)
         {
             Matricula matricula = new Matricula();  
             try
@@ -36,14 +36,27 @@ namespace redTaller.Database
                 }
                 else
                 {
-                    query = $@"
-                            SELECT {DatabaseUtil.selectColumns(dc)}
-                            FROM {tabla}
-                            WHERE id=@key";
+                    if (codigo == null)
+                    {
+                        query = $@"
+                                SELECT {DatabaseUtil.selectColumns(dc)}
+                                FROM {tabla}
+                                WHERE id=@key";
+                    }
+                    else
+                    {
+                        query = $@"
+                                SELECT {DatabaseUtil.selectColumns(dc)}
+                                FROM {tabla}
+                                WHERE matricula=@key";
+                    }
                 }
                 using (MySqlCommand cmd = new MySqlCommand(query, db.DbConn))
                 {
-                    cmd.Parameters.AddWithValue("@key", id);
+                    if ( codigo == null)
+                        cmd.Parameters.AddWithValue("@key", id);
+                    else
+                        cmd.Parameters.AddWithValue("@key", codigo);
                     using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
                         if (reader.Read())

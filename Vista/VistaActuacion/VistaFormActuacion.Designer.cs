@@ -108,14 +108,17 @@
             this.btnSearchTaller.TabIndex = 58;
             this.btnSearchTaller.TabStop = false;
             this.btnSearchTaller.UseVisualStyleBackColor = true;
+            this.btnSearchTaller.Click += new System.EventHandler(this.btnSearchNif_Taller_Click);
             // 
             // textNif_Taller
             // 
             this.textNif_Taller.Location = new System.Drawing.Point(89, 38);
-            this.textNif_Taller.MaxLength = 7;
+            this.textNif_Taller.MaxLength = 15;
             this.textNif_Taller.Name = "textNif_Taller";
             this.textNif_Taller.Size = new System.Drawing.Size(135, 20);
             this.textNif_Taller.TabIndex = 55;
+            this.textNif_Taller.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textNif_Taller_KeyDown);
+            this.textNif_Taller.Validating += new System.ComponentModel.CancelEventHandler(this.textNif_Taller_Validating);
             // 
             // labTaller
             // 
@@ -131,7 +134,6 @@
             this.labelNomTaller.Name = "labelNomTaller";
             this.labelNomTaller.Size = new System.Drawing.Size(454, 20);
             this.labelNomTaller.TabIndex = 59;
-            this.labelNomTaller.Text = "Nombre de Taller";
             // 
             // labelNomCliente
             // 
@@ -139,7 +141,6 @@
             this.labelNomCliente.Name = "labelNomCliente";
             this.labelNomCliente.Size = new System.Drawing.Size(454, 20);
             this.labelNomCliente.TabIndex = 63;
-            this.labelNomCliente.Text = "Nombre de Cliente";
             // 
             // btnSearchCliente
             // 
@@ -152,14 +153,17 @@
             this.btnSearchCliente.TabIndex = 62;
             this.btnSearchCliente.TabStop = false;
             this.btnSearchCliente.UseVisualStyleBackColor = true;
+            this.btnSearchCliente.Click += new System.EventHandler(this.btnSearchNif_Cliente_Click);
             // 
             // textNif_Cliente
             // 
             this.textNif_Cliente.Location = new System.Drawing.Point(89, 68);
-            this.textNif_Cliente.MaxLength = 7;
+            this.textNif_Cliente.MaxLength = 15;
             this.textNif_Cliente.Name = "textNif_Cliente";
             this.textNif_Cliente.Size = new System.Drawing.Size(135, 20);
             this.textNif_Cliente.TabIndex = 60;
+            this.textNif_Cliente.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textNif_Cliente_KeyDown);
+            this.textNif_Cliente.Validating += new System.ComponentModel.CancelEventHandler(this.textNif_Cliente_Validating);
             // 
             // labCliente
             // 
@@ -175,7 +179,6 @@
             this.labelNombreMatricula.Name = "labelNombreMatricula";
             this.labelNombreMatricula.Size = new System.Drawing.Size(454, 20);
             this.labelNombreMatricula.TabIndex = 67;
-            this.labelNombreMatricula.Text = "Datos del Vehículo";
             // 
             // btnSearchMatricula
             // 
@@ -188,14 +191,17 @@
             this.btnSearchMatricula.TabIndex = 66;
             this.btnSearchMatricula.TabStop = false;
             this.btnSearchMatricula.UseVisualStyleBackColor = true;
+            this.btnSearchMatricula.Click += new System.EventHandler(this.btnSearchMatricula_Click);
             // 
             // textMatricula
             // 
             this.textMatricula.Location = new System.Drawing.Point(89, 99);
-            this.textMatricula.MaxLength = 7;
+            this.textMatricula.MaxLength = 20;
             this.textMatricula.Name = "textMatricula";
             this.textMatricula.Size = new System.Drawing.Size(135, 20);
             this.textMatricula.TabIndex = 64;
+            this.textMatricula.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textMatricula_KeyDown);
+            this.textMatricula.Validating += new System.ComponentModel.CancelEventHandler(this.textMatricula_Validating);
             // 
             // labMatricula
             // 
@@ -219,13 +225,13 @@
             this.labelFecha.Name = "labelFecha";
             this.labelFecha.Size = new System.Drawing.Size(56, 20);
             this.labelFecha.TabIndex = 69;
-            this.labelFecha.Text = "Fecha";
+            this.labelFecha.Text = "Fecha:";
             // 
             // labelKm
             // 
             this.labelKm.Location = new System.Drawing.Point(27, 167);
             this.labelKm.Name = "labelKm";
-            this.labelKm.Size = new System.Drawing.Size(56, 20);
+            this.labelKm.Size = new System.Drawing.Size(71, 20);
             this.labelKm.TabIndex = 70;
             this.labelKm.Text = "Kilómetros:";
             // 
@@ -341,16 +347,12 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Label labelNomTaller;
         private System.Windows.Forms.Button btnSearchTaller;
         public System.Windows.Forms.TextBox textNif_Taller;
         private System.Windows.Forms.Label labTaller;
-        private System.Windows.Forms.Label labelNombreMatricula;
         private System.Windows.Forms.Button btnSearchMatricula;
         public System.Windows.Forms.TextBox textMatricula;
         private System.Windows.Forms.Label labMatricula;
-        private System.Windows.Forms.Label labelNomCliente;
         private System.Windows.Forms.Button btnSearchCliente;
         public System.Windows.Forms.TextBox textNif_Cliente;
         private System.Windows.Forms.Label labCliente;
@@ -367,5 +369,8 @@
         private System.Windows.Forms.Button btnGridAdd;
         private System.Windows.Forms.ComboBox comboTipo;
         private System.Windows.Forms.Label labelTipo;
+        public System.Windows.Forms.Label labelNomTaller;
+        public System.Windows.Forms.Label labelNombreMatricula;
+        public System.Windows.Forms.Label labelNomCliente;
     }
 }

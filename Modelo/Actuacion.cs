@@ -19,7 +19,7 @@ namespace redTaller.Modelo
         {
         }
 
-        public Actuacion(int id, Taller taller, Cliente cliente, Matricula matricula, DateTime fecha, string tipo, int km)
+        public Actuacion(int id, Taller taller, Cliente cliente, Matricula matricula, DateTime fecha, string tipo, int km, List<ActuacionDetalle> actuacionDetalle)
         {
             this.id = id;
             this.taller = taller;
@@ -28,6 +28,7 @@ namespace redTaller.Modelo
             this.fecha = fecha;
             this.tipo = tipo;
             this.km = km;
+            this.actuacionDetalle = actuacionDetalle;
         }
 
     }

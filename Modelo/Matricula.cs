@@ -15,7 +15,6 @@ namespace redTaller.Modelo
 
         public Matricula()
         {
-            this.matricula = matricula;
         }
 
         public Matricula(string matricula)

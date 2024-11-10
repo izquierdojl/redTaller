@@ -80,7 +80,7 @@ namespace redTaller.Vista.VistaActuacion
             actuacion.km = int.Parse(textKm.Text.Replace(".", ""));
             actuacion.tipo = comboTipo.SelectedValue.ToString();
             this.Close();
-            //controlador.guardar(cliente, modo, lista);
+            controlador.guardar(actuacion, modo, lista);
         }
 
         private void btnCancelar_Click(object sender, System.EventArgs e)
@@ -90,21 +90,122 @@ namespace redTaller.Vista.VistaActuacion
 
         private void textKm_TextChanged(object sender, EventArgs e)
         {
-            // Guarda la posición actual del cursor para restaurarlo después
             int cursorPosition = textKm.SelectionStart;
-
-            // Elimina cualquier formato actual (puntos o comas)
             string text = textKm.Text.Replace(".", "").Replace(",", "");
-
             if (double.TryParse(text, out double value))
             {
-                // Aplica el formato de número con puntos de miles
                 textKm.Text = value.ToString("N0");
-
-                // Restaura la posición del cursor
                 textKm.SelectionStart = Math.Min(cursorPosition, textKm.Text.Length);
             }
         }
+
+        private void textNif_Taller_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            controlador.asignaTaller(this);
+        }
+
+        private void busca_Taller()
+        {
+            ControladorSearch controladorSearch = new ControladorSearch("Taller", "taller");
+            int id = controladorSearch.Load();
+            if (id != 0)
+            {
+                ControladorTaller controladorTaller = new ControladorTaller();
+                Taller taller = controladorTaller.Id(id);
+                if (taller != null)
+                {
+                    textNif_Taller.Text = taller.nif;
+                    labelNomTaller.Text = taller.nombre;    
+                    textNif_Taller.Focus();
+                }
+            }
+        }
+
+        private void btnSearchNif_Taller_Click(object sender, System.EventArgs e)
+        {
+            busca_Taller();
+        }
+
+        private void textNif_Taller_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Control && e.KeyCode == Keys.B)
+            {
+                busca_Taller();
+            }
+        }
+
+        private void textNif_Cliente_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            controlador.asignaCliente(this);
+        }
+
+        private void busca_Cliente()
+        {
+            ControladorSearch controladorSearch = new ControladorSearch("Cliente", "cliente");
+            int id = controladorSearch.Load();
+            if (id != 0)
+            {
+                ControladorCliente controladorCliente = new ControladorCliente();
+                Cliente cliente = controladorCliente.Id(id);
+                if (cliente != null)
+                {
+                    textNif_Cliente.Text = cliente.nif;
+                    labelNomCliente.Text = cliente.nombre;
+                    textNif_Cliente.Focus();
+                }
+            }
+        }
+
+        private void btnSearchNif_Cliente_Click(object sender, System.EventArgs e)
+        {
+            busca_Cliente();
+        }
+
+        private void textNif_Cliente_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Control && e.KeyCode == Keys.B)
+            {
+                busca_Cliente();
+            }
+        }
+
+        //
+
+        private void textMatricula_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            controlador.asignaMatricula(this);
+        }
+
+        private void busca_Matricula()
+        {
+            ControladorSearch controladorSearch = new ControladorSearch("Matricula", "matricula");
+            int id = controladorSearch.Load();
+            if (id != 0)
+            {
+                ControladorMatricula controladorMatricula = new ControladorMatricula();
+                Matricula matricula = controladorMatricula.Id(id);
+                if (matricula != null)
+                {
+                    textMatricula.Text = matricula.matricula;
+                    labelNombreMatricula.Text = matricula.marca + " " + matricula.modelo;
+                    textMatricula.Focus();
+                }
+            }
+        }
+
+        private void btnSearchMatricula_Click(object sender, System.EventArgs e)
+        {
+            busca_Matricula();
+        }
+
+        private void textMatricula_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Control && e.KeyCode == Keys.B)
+            {
+                busca_Matricula();
+            }
+        }
+
     }
 
 }

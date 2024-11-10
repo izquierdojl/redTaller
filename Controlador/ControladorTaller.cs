@@ -135,9 +135,9 @@ namespace redTaller.Controlador
 
         }
 
-        public void activa(Taller taller)
+        public Taller Id(int id)
         {
-
+            return tallerDB.CargaElemento(id);
         }
 
     }

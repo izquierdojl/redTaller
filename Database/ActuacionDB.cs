@@ -139,21 +139,22 @@ namespace redTaller.Database
                             }
                         }
 
-                        // Insertar en la tabla actuacion_detalle
-                        foreach (ActuacionDetalle actuacionDetalle in actuacion.actuacionDetalle)
+                        if (actuacion.actuacionDetalle != null)
                         {
-                            query = $"INSERT INTO actuacion_detalle SET id_actuacion=@id_actuacion, orden=@orden, descripcion=@descripcion, imagen=@imagen";
-                            using (MySqlCommand cmd = new MySqlCommand(query, db.DbConn, transaction))
+                            foreach (ActuacionDetalle actuacionDetalle in actuacion.actuacionDetalle)
                             {
-                                cmd.Parameters.AddWithValue("@id_actuacion", actuacion.id);
-                                cmd.Parameters.AddWithValue("@orden", actuacionDetalle.orden);
-                                cmd.Parameters.AddWithValue("@descripcion", actuacionDetalle.descripcion);
-                                cmd.Parameters.AddWithValue("@imagen", actuacionDetalle.imagen);
-                                nuevas += cmd.ExecuteNonQuery();
+                                query = $"INSERT INTO actuacion_detalle SET id_actuacion=@id_actuacion, orden=@orden, descripcion=@descripcion, imagen=@imagen";
+                                using (MySqlCommand cmd = new MySqlCommand(query, db.DbConn, transaction))
+                                {
+                                    cmd.Parameters.AddWithValue("@id_actuacion", actuacion.id);
+                                    cmd.Parameters.AddWithValue("@orden", actuacionDetalle.orden);
+                                    cmd.Parameters.AddWithValue("@descripcion", actuacionDetalle.descripcion);
+                                    cmd.Parameters.AddWithValue("@imagen", actuacionDetalle.imagen);
+                                    nuevas += cmd.ExecuteNonQuery();
+                                }
                             }
                         }
 
-                        // Confirmar la transacción
                         transaction.Commit();
                     }
                     catch (Exception ex)
@@ -209,17 +210,19 @@ namespace redTaller.Database
                             modificadas += cmd.ExecuteNonQuery();
                         }
 
-                        // Insertar las nuevas líneas de actuacion_detalle
-                        foreach (ActuacionDetalle actuacionDetalle in actuacion.actuacionDetalle)
+                        if (actuacion.actuacionDetalle != null)
                         {
-                            query = $"INSERT INTO actuacion_detalle (id_actuacion, orden, descripcion, imagen) VALUES (@id_actuacion, @orden, @descripcion, @imagen)";
-                            using (MySqlCommand cmd = new MySqlCommand(query, db.DbConn, transaction))
+                            foreach (ActuacionDetalle actuacionDetalle in actuacion.actuacionDetalle)
                             {
-                                cmd.Parameters.AddWithValue("@id_actuacion", actuacion.id);
-                                cmd.Parameters.AddWithValue("@orden", actuacionDetalle.orden);
-                                cmd.Parameters.AddWithValue("@descripcion", actuacionDetalle.descripcion);
-                                cmd.Parameters.AddWithValue("@imagen", actuacionDetalle.imagen);
-                                modificadas += cmd.ExecuteNonQuery();
+                                query = $"INSERT INTO actuacion_detalle (id_actuacion, orden, descripcion, imagen) VALUES (@id_actuacion, @orden, @descripcion, @imagen)";
+                                using (MySqlCommand cmd = new MySqlCommand(query, db.DbConn, transaction))
+                                {
+                                    cmd.Parameters.AddWithValue("@id_actuacion", actuacion.id);
+                                    cmd.Parameters.AddWithValue("@orden", actuacionDetalle.orden);
+                                    cmd.Parameters.AddWithValue("@descripcion", actuacionDetalle.descripcion);
+                                    cmd.Parameters.AddWithValue("@imagen", actuacionDetalle.imagen);
+                                    modificadas += cmd.ExecuteNonQuery();
+                                }
                             }
                         }
 
