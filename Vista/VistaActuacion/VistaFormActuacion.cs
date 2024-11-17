@@ -1,7 +1,10 @@
 ﻿using redTaller.Controlador;
+using redTaller.Database;
 using redTaller.Modelo;
 using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace redTaller.Vista.VistaActuacion
@@ -14,14 +17,16 @@ namespace redTaller.Vista.VistaActuacion
         VistaListaActuacion lista;
         Actuacion actuacion;
         ControladorActuacion controlador = new ControladorActuacion();
+        Dictionary<string, CampoInfo> dcDetalle;
 
-        public VistaFormActuacion(VistaListaActuacion lista, int modo, Actuacion actuacion)
+        public VistaFormActuacion(VistaListaActuacion lista, int modo, Actuacion actuacion, Dictionary<string, CampoInfo> dcDetalle )
         {
             
             InitializeComponent();
             this.lista = lista;
             this.modo = modo;
             this.actuacion = actuacion;
+            this.dcDetalle = dcDetalle;
             if ( modo == 1 )
               Text = "Nueva Actuación";
             else
@@ -56,6 +61,8 @@ namespace redTaller.Vista.VistaActuacion
             {
                 actuacion.km = 0;
             }
+
+            recargaGridActuacionDetalle(controlador.loadDetalle( actuacion ));
 
         }
 
@@ -224,6 +231,38 @@ namespace redTaller.Vista.VistaActuacion
                 busca_Matricula();
             }
         }
+
+
+        public void recargaGridActuacionDetalle(DataTable data, int idPosiciona = 0)
+        {
+
+            gridActuacionDetalle.DataSource = null;
+            gridActuacionDetalle.DataSource = data;
+
+            if (idPosiciona != 0)
+            {
+                int index = gridActuacionDetalle.Rows
+                    .Cast<DataGridViewRow>()
+                    .FirstOrDefault(row => (int)row.Cells["id"].Value == idPosiciona)?.Index ?? -1;
+                if (index != -1)
+                {
+                    gridActuacionDetalle.ClearSelection();
+                    gridActuacionDetalle.Rows[index].Selected = true;
+                    gridActuacionDetalle.CurrentCell = gridActuacionDetalle.Rows[index].Cells[0];
+                }
+            }
+
+            foreach (string key in dcDetalle.Keys)
+            {
+                gridActuacionDetalle.Columns[key].HeaderText = dcDetalle[key].Header;
+                if (dcDetalle[key].VisibleTabla == false)
+                {
+                    gridActuacionDetalle.Columns[key].Visible = false;
+                }
+            }
+
+        }
+
 
     }
 

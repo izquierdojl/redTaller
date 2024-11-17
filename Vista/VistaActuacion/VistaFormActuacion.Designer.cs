@@ -53,10 +53,13 @@
             this.btnGridAdd = new System.Windows.Forms.Button();
             this.comboTipo = new System.Windows.Forms.ComboBox();
             this.labelTipo = new System.Windows.Forms.Label();
+            this.gridActuacionDetalle = new System.Windows.Forms.DataGridView();
             this.panelButton.SuspendLayout();
             this.panelPrincipal.SuspendLayout();
             this.panelBottom.SuspendLayout();
+            this.panelGridCenter.SuspendLayout();
             this.panelGridTop.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gridActuacionDetalle)).BeginInit();
             this.SuspendLayout();
             // 
             // panelButton
@@ -258,6 +261,7 @@
             // 
             // panelGridCenter
             // 
+            this.panelGridCenter.Controls.Add(this.gridActuacionDetalle);
             this.panelGridCenter.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelGridCenter.Location = new System.Drawing.Point(0, 45);
             this.panelGridCenter.Name = "panelGridCenter";
@@ -331,6 +335,20 @@
             this.labelTipo.TabIndex = 73;
             this.labelTipo.Text = "Tipo de Actuación:";
             // 
+            // gridActuacionDetalle
+            // 
+            this.gridActuacionDetalle.AllowUserToAddRows = false;
+            this.gridActuacionDetalle.AllowUserToDeleteRows = false;
+            this.gridActuacionDetalle.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gridActuacionDetalle.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gridActuacionDetalle.Location = new System.Drawing.Point(0, 0);
+            this.gridActuacionDetalle.Name = "gridActuacionDetalle";
+            this.gridActuacionDetalle.ReadOnly = true;
+            this.gridActuacionDetalle.RowHeadersWidth = 62;
+            this.gridActuacionDetalle.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.gridActuacionDetalle.Size = new System.Drawing.Size(752, 276);
+            this.gridActuacionDetalle.TabIndex = 1;
+            // 
             // VistaFormActuacion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -340,8 +358,10 @@
             this.panelPrincipal.ResumeLayout(false);
             this.panelPrincipal.PerformLayout();
             this.panelBottom.ResumeLayout(false);
+            this.panelGridCenter.ResumeLayout(false);
             this.panelGridTop.ResumeLayout(false);
             this.panelGridTop.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gridActuacionDetalle)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -372,5 +392,6 @@
         public System.Windows.Forms.Label labelNomTaller;
         public System.Windows.Forms.Label labelNombreMatricula;
         public System.Windows.Forms.Label labelNomCliente;
+        protected System.Windows.Forms.DataGridView gridActuacionDetalle;
     }
 }

@@ -10,6 +10,9 @@ namespace redTaller.Database
 {
     internal class ActuacionDB : GeneralDB
     {
+
+        public Dictionary<string, CampoInfo> dcDetalle { get; set; }
+
         public ActuacionDB()
         {
             tabla = "actuacion";
@@ -26,6 +29,14 @@ namespace redTaller.Database
                 { "tipo", new CampoInfo { SelectCampo = "actuacion.tipo", VisibleTabla = true , VisibleFiltro = true , Header = "Tipo" } },
                 { "fecha", new CampoInfo { SelectCampo = "actuacion.fecha", VisibleTabla = true , VisibleFiltro = true , Header = "Fecha" } },
             };
+            this.dcDetalle = new Dictionary<string, CampoInfo>()
+            {
+                { "id", new CampoInfo { SelectCampo = "actuacion_detalle.id", VisibleTabla = false , VisibleFiltro = false , Header = "Id" } },
+                { "id_actuacion", new CampoInfo { SelectCampo = "actuacion_detalle.id_actuacion", VisibleTabla = false , VisibleFiltro = false , Header = "ID Actuación" } },
+                { "linea", new CampoInfo { SelectCampo = "actuacion_detalle.linea", VisibleTabla = false , VisibleFiltro = false , Header = "Orden" } },
+                { "detalle", new CampoInfo { SelectCampo = "actuacion_detalle.detalle", VisibleTabla = true , VisibleFiltro = true , Header = "Descripción" } },
+            };
+
         }
 
         public Actuacion CargaElemento(int id)
@@ -247,7 +258,7 @@ namespace redTaller.Database
             return modificadas;
         }
 
-        public new DataTable Load(Dictionary<string, object> filtros = null)
+        public DataTable Load(Dictionary<string, object> filtros = null)
         {
             DataTable dataTable = new DataTable();
 
@@ -285,6 +296,57 @@ namespace redTaller.Database
             catch (Exception ex)
             {
                 Debug.WriteLine($"Error al obtener {tabla}: {ex.Message}");
+            }
+            finally
+            {
+                db.Desconectar();
+            }
+
+            return dataTable;
+        }
+
+        public DataTable LoadDetalle(int id, Dictionary<string, object> filtros = null)
+        {
+            DataTable dataTable = new DataTable();
+
+            try
+            {
+                db.Conectar();
+                string query = $@"
+                        SELECT {DatabaseUtil.selectColumns(dcDetalle)} 
+                        FROM actuacion_detalle
+                        WHERE actuacion_detalle.id_actuacion=@id
+                        ";
+
+                if (filtros != null && filtros.Count > 0)
+                {
+                    List<string> whereFiltros = new List<string>();
+                    foreach (var filtro in filtros)
+                    {
+                        whereFiltros.Add($"{filtro.Key} LIKE @{filtro.Key}");
+                    }
+                    query += " AND " + string.Join(" AND ", whereFiltros);
+                }
+
+                using (MySqlCommand cmd = new MySqlCommand(query, db.DbConn))
+                {
+                    cmd.Parameters.AddWithValue("@id", id);
+                    if (filtros != null && filtros.Count > 0)
+                    {
+                        foreach (var filtro in filtros)
+                        {
+                            cmd.Parameters.AddWithValue($"@{filtro.Key}", "%" + filtro.Value.ToString() + "%");
+                        }
+                    }
+                    using (MySqlDataAdapter adapter = new MySqlDataAdapter(cmd))
+                    {
+                        adapter.Fill(dataTable);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error al obtener Detalle de Actuación: {ex.Message}");
             }
             finally
             {
