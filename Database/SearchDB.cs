@@ -47,7 +47,7 @@ namespace redTaller.Database
                 {
                     whereCondicion += " AND " + condicion;
                 }
-                if( !string.IsNullOrEmpty(whereFilter) && !string.IsNullOrEmpty(whereCondicion))
+                if( !string.IsNullOrEmpty(whereFilter) || !string.IsNullOrEmpty(whereCondicion))
                 {
                     query += "WHERE ";
                     if( !string.IsNullOrEmpty(whereFilter) )

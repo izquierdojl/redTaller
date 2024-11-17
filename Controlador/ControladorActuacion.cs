@@ -3,6 +3,7 @@ using redTaller.Modelo;
 using redTaller.Vista.VistaActuacion;
 using redTaller.Vista.VistaUtil;
 using System.Collections.Generic;
+using System.Data;
 using System.Windows.Forms;
 
 namespace redTaller.Controlador
@@ -34,7 +35,7 @@ namespace redTaller.Controlador
 
         public void nuevo(VistaListaActuacion vistaListaActuacion)
         {
-            VistaFormActuacion vistaFormActuacion = new VistaFormActuacion(vistaListaActuacion, 1, new Actuacion());
+            VistaFormActuacion vistaFormActuacion = new VistaFormActuacion(vistaListaActuacion, 1, new Actuacion() , actuacionDB.dcDetalle );
             vistaFormActuacion.ShowDialog();
         }
 
@@ -43,7 +44,7 @@ namespace redTaller.Controlador
             Actuacion actuacion = actuacionDB.CargaElemento(id);
             if (actuacion != null)
             {
-                VistaFormActuacion vistaFormActuacion = new VistaFormActuacion(vistaListaActuacion, 2, actuacion);
+                VistaFormActuacion vistaFormActuacion = new VistaFormActuacion(vistaListaActuacion, 2, actuacion , actuacionDB.dcDetalle );
                 vistaFormActuacion.ShowDialog();
             }
         }
@@ -80,6 +81,8 @@ namespace redTaller.Controlador
                 filtros.Add(vistaListaActuacion.comboSearch.SelectedValue.ToString(), vistaListaActuacion.textSearch.Text);  // Filtro
                 vistaListaActuacion.recargaGrid(actuacionDB.Load(filtros), actuacion.id);
             }
+            if (modo == 1)
+                modificar(vistaListaActuacion, actuacion.id);
         }
 
         public void asignaTaller(VistaFormActuacion vistaFormActuacion)
@@ -113,6 +116,11 @@ namespace redTaller.Controlador
                 vistaFormActuacion.labelNombreMatricula.Text = matricula.marca + " " + matricula.modelo;
                 return true;
             }else return false;
+        }
+
+        public DataTable loadDetalle(Actuacion actuacion)
+        {
+            return actuacionDB.LoadDetalle(actuacion.id);
         }
 
     }

@@ -1,7 +1,10 @@
 ﻿using redTaller.Controlador;
+using redTaller.Database;
 using redTaller.Modelo;
 using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace redTaller.Vista.VistaActuacion
@@ -14,18 +17,27 @@ namespace redTaller.Vista.VistaActuacion
         VistaListaActuacion lista;
         Actuacion actuacion;
         ControladorActuacion controlador = new ControladorActuacion();
+        Dictionary<string, CampoInfo> dcDetalle;
 
-        public VistaFormActuacion(VistaListaActuacion lista, int modo, Actuacion actuacion)
+        public VistaFormActuacion(VistaListaActuacion lista, int modo, Actuacion actuacion, Dictionary<string, CampoInfo> dcDetalle )
         {
             
             InitializeComponent();
             this.lista = lista;
             this.modo = modo;
             this.actuacion = actuacion;
-            if ( modo == 1 )
-              Text = "Nueva Actuación";
+            this.dcDetalle = dcDetalle;
+            if (modo == 1)
+            {
+                Text = "Nueva Actuación";
+                panelBottom.Hide();
+            }
             else
-              Text = "Detalle Actuación " + actuacion.id;
+            {
+                Text = "Detalle Actuación " + actuacion.id;
+                panelBottom.Show();
+            }
+
 
             DataTable dataTable = new DataTable();
             dataTable.Columns.Add("codigo", typeof(string));
@@ -54,12 +66,40 @@ namespace redTaller.Vista.VistaActuacion
             }
             else
             {
-                actuacion.km = 0;
+                textKm.Text = "0";
             }
+
+            gridActuacionDetalle.AutoGenerateColumns = true;
+            gridActuacionDetalle.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            recargaGridActuacionDetalle(controlador.loadDetalle( actuacion ));
 
         }
 
         private void btnAceptar_Click(object sender, System.EventArgs e)
+        {
+            if( string.IsNullOrEmpty(textNif_Taller.Text))
+            {
+                VistaUtil.VistaUtil.MsgInfo("NIF de taller obligatorio", "Atención");
+                textNif_Taller.Focus();
+                return;
+            }
+            if (string.IsNullOrEmpty(textNif_Cliente.Text))
+            {
+                VistaUtil.VistaUtil.MsgInfo("NIF de cliente obligatorio", "Atención");
+                textNif_Cliente.Focus();
+                return;
+            }
+            if (string.IsNullOrEmpty(textMatricula.Text))
+            {
+                VistaUtil.VistaUtil.MsgInfo("Matrícula/Vehículo obligatorio", "Atención");
+                textMatricula.Focus();
+                return;
+            }
+            this.Close();
+            guardarActuacion();
+        }
+
+        private void guardarActuacion()
         {
             actuacion.taller = new Taller();
             actuacion.taller.nif = textNif_Taller.Text;
@@ -70,13 +110,12 @@ namespace redTaller.Vista.VistaActuacion
             actuacion.fecha = DateTime.Parse(dateFecha.Text);
             actuacion.km = int.Parse(textKm.Text.Replace(".", ""));
             actuacion.tipo = comboTipo.SelectedValue.ToString();
-            this.Close();
             controlador.guardar(actuacion, modo, lista);
         }
 
         private void btnCancelar_Click(object sender, System.EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private void textKm_TextChanged(object sender, EventArgs e)
@@ -92,7 +131,8 @@ namespace redTaller.Vista.VistaActuacion
 
         private void textNif_Taller_Validating(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            controlador.asignaTaller(this);
+            if( !string.IsNullOrEmpty(textNif_Taller.Text) )
+                controlador.asignaTaller(this);
         }
 
         private void busca_Taller()
@@ -127,19 +167,22 @@ namespace redTaller.Vista.VistaActuacion
 
         private void textNif_Cliente_Validating(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (!controlador.asignaCliente(this))
+            if (!string.IsNullOrEmpty(textNif_Cliente.Text))
             {
-                if (MessageBox.Show("El NIF no existe, ¿ Desea crear uno nuevo ?", "NIF/Cliente no encontrado", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                if (!controlador.asignaCliente(this))
                 {
-                    ControladorCliente controladorCliente = new ControladorCliente();
-                    Cliente cliente = new Cliente();
-                    cliente.nif = textNif_Cliente.Text;
-                    controladorCliente.nuevo(cliente);
-                    textNif_Cliente.Focus();
-                }
-                else
-                {
-                    textNif_Cliente.Focus();
+                    if (MessageBox.Show("El NIF no existe, ¿ Desea crear uno nuevo ?", "NIF/Cliente no encontrado", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    {
+                        ControladorCliente controladorCliente = new ControladorCliente();
+                        Cliente cliente = new Cliente();
+                        cliente.nif = textNif_Cliente.Text;
+                        controladorCliente.nuevo(cliente);
+                        textNif_Cliente.Focus();
+                    }
+                    else
+                    {
+                        textNif_Cliente.Focus();
+                    }
                 }
             }
         }
@@ -178,19 +221,22 @@ namespace redTaller.Vista.VistaActuacion
 
         private void textMatricula_Validating(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (!controlador.asignaMatricula(this))
+            if (!string.IsNullOrEmpty(textMatricula.Text))
             {
-                if (MessageBox.Show("La matrícula/vehículo no existe, ¿ Desea crear uno nuevo ?", "Vehículo no encontrado", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                if (!controlador.asignaMatricula(this))
                 {
-                    ControladorMatricula controladorMatricula = new ControladorMatricula();
-                    Matricula matricula = new Matricula();
-                    matricula.matricula = textMatricula.Text;
-                    controladorMatricula.nuevo(matricula);
-                    textMatricula.Focus();
-                }
-                else
-                {
-                    textMatricula.Focus();
+                    if (MessageBox.Show("La matrícula/vehículo no existe, ¿ Desea crear uno nuevo ?", "Vehículo no encontrado", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    {
+                        ControladorMatricula controladorMatricula = new ControladorMatricula();
+                        Matricula matricula = new Matricula();
+                        matricula.matricula = textMatricula.Text;
+                        controladorMatricula.nuevo(matricula);
+                        textMatricula.Focus();
+                    }
+                    else
+                    {
+                        textMatricula.Focus();
+                    }
                 }
             }
         }
@@ -223,6 +269,37 @@ namespace redTaller.Vista.VistaActuacion
             {
                 busca_Matricula();
             }
+        }
+
+
+        public void recargaGridActuacionDetalle(DataTable data, int idPosiciona = 0)
+        {
+
+            gridActuacionDetalle.DataSource = null;
+            gridActuacionDetalle.DataSource = data;
+
+            if (idPosiciona != 0)
+            {
+                int index = gridActuacionDetalle.Rows
+                    .Cast<DataGridViewRow>()
+                    .FirstOrDefault(row => (int)row.Cells["id"].Value == idPosiciona)?.Index ?? -1;
+                if (index != -1)
+                {
+                    gridActuacionDetalle.ClearSelection();
+                    gridActuacionDetalle.Rows[index].Selected = true;
+                    gridActuacionDetalle.CurrentCell = gridActuacionDetalle.Rows[index].Cells[0];
+                }
+            }
+
+            foreach (string key in dcDetalle.Keys)
+            {
+                gridActuacionDetalle.Columns[key].HeaderText = dcDetalle[key].Header;
+                if (dcDetalle[key].VisibleTabla == false)
+                {
+                    gridActuacionDetalle.Columns[key].Visible = false;
+                }
+            }
+
         }
 
     }
