@@ -67,19 +67,29 @@ namespace redTaller.Vista.VistaTaller
 
         private void textNif_Validating(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (!VistaUtil.VistaUtil.ValidaNIF(textNif.Text))
+
+            if (string.IsNullOrEmpty(textNif.Text))
             {
-                MessageBox.Show("Error de formato de NIF.");
+                MessageBox.Show("Campo Obligatorio");
                 textNif.Select();
             }
             else
             {
-                if (!controlador.valida(textNif.Text))
+                if (!VistaUtil.VistaUtil.ValidaNIF(textNif.Text))
                 {
-                    MessageBox.Show("El nif ya existe o es inválido.");
+                    MessageBox.Show("Error de formato de NIF.");
                     textNif.Select();
                 }
+                else
+                {
+                    if (!controlador.valida(textNif.Text))
+                    {
+                        MessageBox.Show("El nif ya existe o es inválido.");
+                        textNif.Select();
+                    }
+                }
             }
+
         }
 
         private void textCp_Validating(object sender, System.ComponentModel.CancelEventArgs e)

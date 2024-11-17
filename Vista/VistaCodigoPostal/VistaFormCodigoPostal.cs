@@ -54,13 +54,21 @@ namespace redTaller.Vista.VistaCodigoPostal
 
         private void textCodigo_Validating(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (!controlador.valida(textCodigo.Text))
+            if (!string.IsNullOrEmpty(textCodigo.Text))
             {
-                MessageBox.Show("El código ya existe o es inválido.");
+                if (!controlador.valida(textCodigo.Text))
+                {
+                    MessageBox.Show("El código ya existe o es inválido.");
+                    textCodigo.Select();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Código Obligatorio");
                 textCodigo.Select();
             }
-
         }
+
     }
 
 }

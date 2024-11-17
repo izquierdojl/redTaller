@@ -136,7 +136,16 @@ namespace redTaller.Vista.VistaActuacion
 
         private void textNif_Cliente_Validating(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            controlador.asignaCliente(this);
+            if (!controlador.asignaCliente(this))
+            {
+                if (MessageBox.Show("El NIF no existe, ¿ Desea crear uno nuevo ?", "NIF/Cliente no encontrado", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    ControladorCliente controladorCliente = new ControladorCliente();
+                    Cliente cliente = new Cliente();
+                    cliente.nif = textNif_Cliente.Text;
+                    controladorCliente.nuevo(cliente);
+                }
+            }
         }
 
         private void busca_Cliente()

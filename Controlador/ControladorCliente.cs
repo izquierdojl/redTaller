@@ -38,6 +38,13 @@ namespace redTaller.Controlador
             vistaFormCliente.ShowDialog();
         }
 
+        public void nuevo(Cliente cliente)
+        {
+            VistaFormCliente vistaFormCliente = new VistaFormCliente(null, 1, cliente);
+            vistaFormCliente.ShowDialog();
+        }
+
+
         public void modificar(VistaListaCliente vistaListaCliente, int id)
         {
             Cliente cliente = clienteDB.CargaElemento(id);
@@ -71,15 +78,18 @@ namespace redTaller.Controlador
             {
                 clienteDB.update(cliente);
             }
-            if (string.IsNullOrEmpty(vistaListaCliente.textSearch.Text))
+            if (vistaListaCliente != null)
             {
-                vistaListaCliente.recargaGrid(clienteDB.Load(null), cliente.id);
-            }
-            else
-            {
-                Dictionary<string, object> filtros = new Dictionary<string, object>();
-                filtros.Add(vistaListaCliente.comboSearch.SelectedValue.ToString(), vistaListaCliente.textSearch.Text);  // Filtro
-                vistaListaCliente.recargaGrid(clienteDB.Load(filtros), cliente.id);
+                if (string.IsNullOrEmpty(vistaListaCliente.textSearch.Text))
+                {
+                    vistaListaCliente.recargaGrid(clienteDB.Load(null), cliente.id);
+                }
+                else
+                {
+                    Dictionary<string, object> filtros = new Dictionary<string, object>();
+                    filtros.Add(vistaListaCliente.comboSearch.SelectedValue.ToString(), vistaListaCliente.textSearch.Text);  // Filtro
+                    vistaListaCliente.recargaGrid(clienteDB.Load(filtros), cliente.id);
+                }
             }
         }
 
