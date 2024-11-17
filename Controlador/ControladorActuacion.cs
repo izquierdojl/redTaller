@@ -81,6 +81,8 @@ namespace redTaller.Controlador
                 filtros.Add(vistaListaActuacion.comboSearch.SelectedValue.ToString(), vistaListaActuacion.textSearch.Text);  // Filtro
                 vistaListaActuacion.recargaGrid(actuacionDB.Load(filtros), actuacion.id);
             }
+            if (modo == 1)
+                modificar(vistaListaActuacion, actuacion.id);
         }
 
         public void asignaTaller(VistaFormActuacion vistaFormActuacion)

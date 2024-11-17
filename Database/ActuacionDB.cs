@@ -33,7 +33,7 @@ namespace redTaller.Database
             {
                 { "id", new CampoInfo { SelectCampo = "actuacion_detalle.id", VisibleTabla = false , VisibleFiltro = false , Header = "Id" } },
                 { "id_actuacion", new CampoInfo { SelectCampo = "actuacion_detalle.id_actuacion", VisibleTabla = false , VisibleFiltro = false , Header = "ID Actuación" } },
-                { "linea", new CampoInfo { SelectCampo = "actuacion_detalle.linea", VisibleTabla = false , VisibleFiltro = false , Header = "Orden" } },
+                { "linea", new CampoInfo { SelectCampo = "actuacion_detalle.linea", VisibleTabla = true , VisibleFiltro = false , Header = "Orden" } },
                 { "detalle", new CampoInfo { SelectCampo = "actuacion_detalle.detalle", VisibleTabla = true , VisibleFiltro = true , Header = "Descripción" } },
             };
 
