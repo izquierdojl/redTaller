@@ -104,12 +104,15 @@ namespace redTaller.Controlador
             
         }
 
-        public void asignaMatricula(VistaFormActuacion vistaFormActuacion)
+        public bool asignaMatricula(VistaFormActuacion vistaFormActuacion)
         {
             MatriculaDB db = new MatriculaDB();
             Matricula matricula = db.CargaElemento(0, null, vistaFormActuacion.textMatricula.Text);
-            if (matricula != null)
+            if (matricula.matricula != null)
+            {
                 vistaFormActuacion.labelNombreMatricula.Text = matricula.marca + " " + matricula.modelo;
+                return true;
+            }else return false;
         }
 
     }

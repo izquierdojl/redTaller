@@ -1,17 +1,8 @@
 ﻿using redTaller.Controlador;
-using redTaller.Database;
 using redTaller.Modelo;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Globalization;
-using System.Text;
-using System.Windows.Controls;
 using System.Windows.Forms;
-using System.Windows.Forms.VisualStyles;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace redTaller.Vista.VistaActuacion
 {
@@ -144,6 +135,11 @@ namespace redTaller.Vista.VistaActuacion
                     Cliente cliente = new Cliente();
                     cliente.nif = textNif_Cliente.Text;
                     controladorCliente.nuevo(cliente);
+                    textNif_Cliente.Focus();
+                }
+                else
+                {
+                    textNif_Cliente.Focus();
                 }
             }
         }
@@ -182,7 +178,21 @@ namespace redTaller.Vista.VistaActuacion
 
         private void textMatricula_Validating(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            controlador.asignaMatricula(this);
+            if (!controlador.asignaMatricula(this))
+            {
+                if (MessageBox.Show("La matrícula/vehículo no existe, ¿ Desea crear uno nuevo ?", "Vehículo no encontrado", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    ControladorMatricula controladorMatricula = new ControladorMatricula();
+                    Matricula matricula = new Matricula();
+                    matricula.matricula = textMatricula.Text;
+                    controladorMatricula.nuevo(matricula);
+                    textMatricula.Focus();
+                }
+                else
+                {
+                    textMatricula.Focus();
+                }
+            }
         }
 
         private void busca_Matricula()

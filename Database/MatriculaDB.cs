@@ -2,6 +2,7 @@
 using redTaller.Modelo;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Diagnostics;
 
 namespace redTaller.Database
@@ -174,6 +175,64 @@ namespace redTaller.Database
             }
 
             return list;
+        }
+
+        public List<string> distinctMarcas()
+        {
+            DataTable dataTable = new DataTable();
+            List<string> marcas = new List<string>();
+            try
+            {
+                db.Conectar();
+                string query = $"SELECT DISTINCT marca FROM {tabla} ";
+                using (MySqlCommand cmd = new MySqlCommand(query, db.DbConn))
+                {
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                            marcas.Add(reader.GetString("marca"));
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error al obtener {tabla}: {ex.Message}");
+            }
+            finally
+            {
+                db.Desconectar();
+            }
+            return marcas;
+        }
+
+        public List<string> distinctModelos(string marca)
+        {
+            DataTable dataTable = new DataTable();
+            List<string> modelos = new List<string>();
+            try
+            {
+                db.Conectar();
+                string query = $@"SELECT DISTINCT modelo FROM {tabla} WHERE marca=@marca";
+                using (MySqlCommand cmd = new MySqlCommand(query, db.DbConn))
+                {
+                    cmd.Parameters.AddWithValue("@marca", marca);
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                            modelos.Add(reader.GetString("modelo"));
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error al obtener {tabla}: {ex.Message}");
+            }
+            finally
+            {
+                db.Desconectar();
+            }
+            return modelos;
         }
 
     }
