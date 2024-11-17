@@ -90,20 +90,29 @@ namespace redTaller.Controlador
                 vistaFormActuacion.labelNomTaller.Text = taller.nombre;
         }
 
-        public void asignaCliente(VistaFormActuacion vistaFormActuacion)
+        public bool asignaCliente(VistaFormActuacion vistaFormActuacion)
         {
             ClienteDB db = new ClienteDB();
             Cliente cliente = db.CargaElemento(0, null, vistaFormActuacion.textNif_Cliente.Text);
-            if (cliente != null)
+            if (cliente.nif != null)
+            {
                 vistaFormActuacion.labelNomCliente.Text = cliente.nombre;
+                return true;
+            }
+            else
+                return false; 
+            
         }
 
-        public void asignaMatricula(VistaFormActuacion vistaFormActuacion)
+        public bool asignaMatricula(VistaFormActuacion vistaFormActuacion)
         {
             MatriculaDB db = new MatriculaDB();
             Matricula matricula = db.CargaElemento(0, null, vistaFormActuacion.textMatricula.Text);
-            if (matricula != null)
+            if (matricula.matricula != null)
+            {
                 vistaFormActuacion.labelNombreMatricula.Text = matricula.marca + " " + matricula.modelo;
+                return true;
+            }else return false;
         }
 
     }

@@ -13,14 +13,14 @@ namespace redTaller.Vista.VistaCliente
         Cliente cliente;
         ControladorCliente controlador = new ControladorCliente();
 
-        public VistaFormCliente(VistaListaCliente lista, int modo, Cliente cliente)
+        public VistaFormCliente(VistaListaCliente lista, int modo, Cliente cliente )
         {
+
             InitializeComponent();
             this.lista = lista;
             this.modo = modo;
             this.cliente = cliente;
             Text = "Detalle Cliente";
-            
 
             checkActivo.Enabled = false;
 
@@ -39,6 +39,15 @@ namespace redTaller.Vista.VistaCliente
                 checkBloqueado.Checked = cliente.bloqueado;
                 checkActivo.Checked = cliente.activo;
                 //VistaUtil.VistaUtil.MakeFormReadOnly(this);   
+            }
+            else
+            {
+                if (!string.IsNullOrEmpty(cliente.nif))
+                {
+                    textNif.Text = cliente.nif;
+                    textNif.Enabled = false;
+                }
+
             }
 
         }
@@ -67,17 +76,25 @@ namespace redTaller.Vista.VistaCliente
 
         private void textNif_Validating(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (!VistaUtil.VistaUtil.ValidaNIF(textNif.Text))
+            if (string.IsNullOrEmpty(textNif.Text))
             {
-                MessageBox.Show("Error de formato de NIF.");
+                MessageBox.Show("Campo Obligatorio");
                 textNif.Select();
             }
             else
             {
-                if (!controlador.valida(textNif.Text))
+                if (!VistaUtil.VistaUtil.ValidaNIF(textNif.Text))
                 {
-                    MessageBox.Show("El nif ya existe o es inválido.");
+                    MessageBox.Show("Error de formato de NIF.");
                     textNif.Select();
+                }
+                else
+                {
+                    if (!controlador.valida(textNif.Text))
+                    {
+                        MessageBox.Show("El nif ya existe o es inválido.");
+                        textNif.Select();
+                    }
                 }
             }
         }

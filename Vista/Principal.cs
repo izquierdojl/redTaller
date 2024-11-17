@@ -21,6 +21,7 @@ namespace redTaller
             InitializeComponent();
             this.FormClosing += new FormClosingEventHandler(PrincipalForm_FormClosing);
             this.Load += new EventHandler(PrincipalForm_Load);
+            ConfigurarMenuVentana();
         }
 
         private void menuFicherosProvincias_Click(object sender, EventArgs e)
@@ -76,6 +77,78 @@ namespace redTaller
                 this.menuFicherosProvincias.Visible = false;
             }
 
+        }
+
+        private void ConfigurarMenuVentana()
+        {
+
+            ToolStripMenuItem menuVentana = new ToolStripMenuItem("&Ventana");
+
+            ToolStripMenuItem menuCascada = new ToolStripMenuItem("&Cascada", null, new EventHandler(MenuCascada_Click));
+            ToolStripMenuItem menuApiladosHorizontal = new ToolStripMenuItem("Apilados &Horizontalmente", null, new EventHandler(MenuApiladosHorizontal_Click));
+            ToolStripMenuItem menuApiladosVertical = new ToolStripMenuItem("Apilados &Verticalmente", null, new EventHandler(MenuApiladosVertical_Click));
+            ToolStripMenuItem menuMaximizarTodo = new ToolStripMenuItem("Ma&ximizar Todo", null, new EventHandler(MenuMaximizarTodo_Click));
+            ToolStripMenuItem menuMinimizarTodo = new ToolStripMenuItem("Mi&nimizar Todo", null, new EventHandler(MenuMinimizarTodo_Click));
+            ToolStripMenuItem menuCerrarTodo = new ToolStripMenuItem("&Cerrar Todo", null, new EventHandler(MenuCerrarTodo_Click));
+            ToolStripMenuItem menuSalir = new ToolStripMenuItem("&Salir", null, new EventHandler(MenuSalir_Click));
+
+            menuVentana.DropDownItems.Add(menuCascada);
+            menuVentana.DropDownItems.Add(menuApiladosHorizontal);
+            menuVentana.DropDownItems.Add(menuApiladosVertical);
+            menuVentana.DropDownItems.Add(new ToolStripSeparator());
+            menuVentana.DropDownItems.Add(menuMaximizarTodo);
+            menuVentana.DropDownItems.Add(menuMinimizarTodo);
+            menuVentana.DropDownItems.Add(menuCerrarTodo);
+            menuVentana.DropDownItems.Add(new ToolStripSeparator());
+            menuVentana.DropDownItems.Add(menuSalir);
+
+            menuFicheros.Items.Add(menuVentana);
+
+        }
+
+
+        private void MenuCascada_Click(object sender, EventArgs e)
+        {
+            this.LayoutMdi(MdiLayout.Cascade);
+        }
+
+        private void MenuApiladosHorizontal_Click(object sender, EventArgs e)
+        {
+            this.LayoutMdi(MdiLayout.TileHorizontal);
+        }
+
+        private void MenuApiladosVertical_Click(object sender, EventArgs e)
+        {
+            this.LayoutMdi(MdiLayout.TileVertical);
+        }
+
+        private void MenuMaximizarTodo_Click(object sender, EventArgs e)
+        {
+            foreach (Form childForm in this.MdiChildren)
+            {
+                childForm.WindowState = FormWindowState.Maximized;
+            }
+        }
+
+        private void MenuMinimizarTodo_Click(object sender, EventArgs e)
+        {
+            foreach (Form childForm in this.MdiChildren)
+            {
+                childForm.WindowState = FormWindowState.Minimized;
+            }
+        }
+
+        private void MenuCerrarTodo_Click(object sender, EventArgs e)
+        {
+            foreach (Form childForm in this.MdiChildren)
+            {
+                childForm.Close();
+            }
+        }
+
+        private void MenuSalir_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
 
 

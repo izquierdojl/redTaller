@@ -154,10 +154,6 @@ namespace redTaller.Vista.VistaCliente
         private void textSearch_KeyPress(object sender, KeyPressEventArgs e)
         {
 
-            if (e.KeyChar == (char)Keys.Enter)
-            {
-                vistaBuscar();
-            }
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
