@@ -23,7 +23,7 @@ namespace redTaller.Database
                 { "nombre", new CampoInfo { SelectCampo = tabla + ".nombre", VisibleTabla = true, VisibleFiltro = true , Header = "Nombre"  } },
                 { "domicilio", new CampoInfo { SelectCampo = tabla + ".domicilio", VisibleTabla = false, VisibleFiltro = false , Header = "Domicilio"  } },
                 { "cp", new CampoInfo { SelectCampo = tabla + ".cp", VisibleTabla = false, VisibleFiltro = true , Header = "Código Postal"  } },
-                { "pob", new CampoInfo { SelectCampo = tabla + ".pob", VisibleTabla = false, VisibleFiltro = true , Header = "Población"  } },
+                { "pob", new CampoInfo { SelectCampo = tabla + ".pob", VisibleTabla = true, VisibleFiltro = true , Header = "Población"  } },
                 { "pro", new CampoInfo { SelectCampo = tabla + ".pro", VisibleTabla = true, VisibleFiltro = true , Header = "Provincia"  } },
                 { "tel", new CampoInfo { SelectCampo = tabla + ".tel", VisibleTabla = false, VisibleFiltro = false , Header = "Teléfono"  } },
                 { "email", new CampoInfo { SelectCampo = tabla + ".email", VisibleTabla = false, VisibleFiltro = false , Header = "Correo Electrónico"  } },
