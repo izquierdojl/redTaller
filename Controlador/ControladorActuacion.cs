@@ -122,20 +122,48 @@ namespace redTaller.Controlador
 
         public DataTable loadDetalle(Actuacion actuacion)
         {
-            return actuacionDB.LoadDetalle(actuacion.id);
+            return actuacionDB.LoadDetalle(actuacion);
         }
 
-        public bool borrarDetalle(List<int> ids)
+        public void nuevoDetalle(VistaFormActuacion vistaFormActuacion, int idActuacion)
         {
-            if (actuacionDB.DeleteDetalle(ids) > 0)
+            VistaFormActuacionDetalle vistaFormActuacionDetalle = new VistaFormActuacionDetalle(vistaFormActuacion, 1, idActuacion, new ActuacionDetalle());
+            vistaFormActuacionDetalle.ShowDialog();
+        }
+
+        public void modificarDetalle(VistaFormActuacion vistaFormActuacion, int idActuacionDetalle)
+        {
+            ActuacionDetalle actuacionDetalle = actuacionDB.CargaActuacionDetalle( vistaFormActuacion.actuacion, idActuacionDetalle );
+            if (actuacionDetalle != null)
             {
-                VistaUtil.MsgInfo("Se ha borrado " + ids.Count.ToString() + " registro(s)", "Información");
+                VistaFormActuacionDetalle vistaFormActuacionDetalle = new VistaFormActuacionDetalle(vistaFormActuacion, 2, vistaFormActuacion.actuacion.id, actuacionDetalle );
+                vistaFormActuacionDetalle.ShowDialog();
+            }
+        }
+
+        public bool borrarDetalle(List<int> lineas, Actuacion actuacion)
+        {
+            if (actuacionDB.DeleteDetalle(lineas,actuacion) > 0)
+            {
+                VistaUtil.MsgInfo("Se ha borrado " + lineas.Count.ToString() + " registro(s)", "Información");
                 return true;
             }
             else
             {
                 VistaUtil.MsgInfo("No se han podido borrar", "Información");
                 return false;
+            }
+        }
+
+        public void guardarDetalle(ActuacionDetalle actuacionDetalle, int modo, VistaFormActuacion vistaFormActuacion, VistaFormActuacionDetalle vistaFormActuacionDetalle)
+        {
+            if (modo == 1)
+            {
+                actuacionDB.InsertDetalle(vistaFormActuacion.actuacion, actuacionDetalle);
+            }
+            else
+            {
+                actuacionDB.UpdateDetalle(vistaFormActuacion.actuacion, actuacionDetalle);
             }
         }
 

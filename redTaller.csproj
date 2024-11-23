@@ -146,6 +146,12 @@
     <Compile Include="Util\Email.cs" />
     <Compile Include="Util\ServicioCifrado.cs" />
     <Compile Include="Util\Session.cs" />
+    <Compile Include="Vista\VistaActuacion\VistaFormActuacionDetalle.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Vista\VistaActuacion\VistaFormActuacionDetalle.Designer.cs">
+      <DependentUpon>VistaFormActuacionDetalle.cs</DependentUpon>
+    </Compile>
     <Compile Include="Vista\VistaActuacion\VistaFormActuacion.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -270,6 +276,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Vista\VistaActuacion\VistaFormActuacionDetalle.resx">
+      <DependentUpon>VistaFormActuacionDetalle.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Vista\VistaActuacion\VistaFormActuacion.resx">
       <DependentUpon>VistaFormActuacion.cs</DependentUpon>
     </EmbeddedResource>
@@ -364,6 +373,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="img\email.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="img\subir.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

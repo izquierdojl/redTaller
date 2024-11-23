@@ -281,6 +281,8 @@
             this.gridActuacionDetalle.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.gridActuacionDetalle.Size = new System.Drawing.Size(752, 276);
             this.gridActuacionDetalle.TabIndex = 1;
+            this.gridActuacionDetalle.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.gridActuacionDetalle_CellMouseDoubleClick);
+            this.gridActuacionDetalle.KeyDown += new System.Windows.Forms.KeyEventHandler(this.gridActuacionDetalle_KeyDown);
             // 
             // panelGridTop
             // 
@@ -322,6 +324,7 @@
             this.btnGridEdit.Size = new System.Drawing.Size(42, 37);
             this.btnGridEdit.TabIndex = 74;
             this.btnGridEdit.UseVisualStyleBackColor = true;
+            this.btnGridEdit.Click += new System.EventHandler(this.btnGridEdit_Click);
             // 
             // btnGridAdd
             // 
@@ -331,6 +334,7 @@
             this.btnGridAdd.Size = new System.Drawing.Size(42, 37);
             this.btnGridAdd.TabIndex = 73;
             this.btnGridAdd.UseVisualStyleBackColor = true;
+            this.btnGridAdd.Click += new System.EventHandler(this.btnGridAdd_Click);
             // 
             // comboTipo
             // 

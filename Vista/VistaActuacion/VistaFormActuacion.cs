@@ -15,7 +15,7 @@ namespace redTaller.Vista.VistaActuacion
         int modo; // modo de edición 1 - Añadir  2 - Editar  3 - Consultar
 
         VistaListaActuacion lista;
-        Actuacion actuacion;
+        public Actuacion actuacion {  get; set; }
         ControladorActuacion controlador = new ControladorActuacion();
         Dictionary<string, CampoInfo> dcDetalle;
 
@@ -37,7 +37,6 @@ namespace redTaller.Vista.VistaActuacion
                 Text = "Detalle Actuación " + actuacion.id;
                 panelBottom.Show();
             }
-
 
             DataTable dataTable = new DataTable();
             dataTable.Columns.Add("codigo", typeof(string));
@@ -272,17 +271,17 @@ namespace redTaller.Vista.VistaActuacion
         }
 
 
-        public void recargaGridActuacionDetalle(DataTable data, int idPosiciona = 0)
+        public void recargaGridActuacionDetalle(DataTable data, int lineaPosiciona = 0)
         {
 
             gridActuacionDetalle.DataSource = null;
             gridActuacionDetalle.DataSource = data;
 
-            if (idPosiciona != 0)
+            if (lineaPosiciona != 0)
             {
                 int index = gridActuacionDetalle.Rows
                     .Cast<DataGridViewRow>()
-                    .FirstOrDefault(row => (int)row.Cells["id"].Value == idPosiciona)?.Index ?? -1;
+                    .FirstOrDefault(row => (int)row.Cells["linea"].Value == lineaPosiciona)?.Index ?? -1;
                 if (index != -1)
                 {
                     gridActuacionDetalle.ClearSelection();
@@ -310,14 +309,27 @@ namespace redTaller.Vista.VistaActuacion
             }
             else if (e.KeyCode == Keys.Insert)
             {
-                //vistaAnadir();
+                vistaDetalleAnadir();
             }
             else if (e.KeyCode == Keys.Enter)
             {
-                //vistaEditar();
+                vistaDetalleEditar();
             }
         }
 
+        private void vistaDetalleAnadir()
+        {
+            controlador.nuevoDetalle(this,actuacion.id);
+        }
+
+        private void vistaDetalleEditar()
+        {
+            if (gridActuacionDetalle.SelectedRows.Count > 0)
+            {
+                int id = (int)gridActuacionDetalle.Rows[gridActuacionDetalle.CurrentRow.Index].Cells["linea"].Value;
+                controlador.modificarDetalle(this, id);
+            }
+        }
 
         private void vistaDetalleBorrar()
         {
@@ -329,8 +341,8 @@ namespace redTaller.Vista.VistaActuacion
                     foreach (DataGridViewRow row in gridActuacionDetalle.SelectedRows)
                     {
                         ids.Clear();
-                        ids.Add((int)row.Cells["id"].Value);
-                        if (controlador.borrarDetalle(ids))
+                        ids.Add((int)row.Cells["linea"].Value);
+                        if (controlador.borrarDetalle(ids,actuacion))
                             gridActuacionDetalle.Rows.Remove(row);
                     }
                 }
@@ -340,6 +352,21 @@ namespace redTaller.Vista.VistaActuacion
         private void btnGridDel_Click(object sender, EventArgs e)
         {
             vistaDetalleBorrar();
+        }
+
+        private void btnGridAdd_Click(object sender, EventArgs e)
+        {
+            vistaDetalleAnadir();
+        }
+
+        private void btnGridEdit_Click(object sender, EventArgs e)
+        {
+            vistaDetalleEditar();
+        }
+
+        private void gridActuacionDetalle_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            vistaDetalleEditar();
         }
     }
 

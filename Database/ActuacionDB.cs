@@ -31,10 +31,8 @@ namespace redTaller.Database
             };
             this.dcDetalle = new Dictionary<string, CampoInfo>()
             {
-                { "id", new CampoInfo { SelectCampo = "actuacion_detalle.id", VisibleTabla = false , VisibleFiltro = false , Header = "Id" } },
-                { "id_actuacion", new CampoInfo { SelectCampo = "actuacion_detalle.id_actuacion", VisibleTabla = false , VisibleFiltro = false , Header = "ID Actuación" } },
                 { "linea", new CampoInfo { SelectCampo = "actuacion_detalle.linea", VisibleTabla = true , VisibleFiltro = false , Header = "Orden" } },
-                { "detalle", new CampoInfo { SelectCampo = "actuacion_detalle.detalle", VisibleTabla = true , VisibleFiltro = true , Header = "Descripción" } },
+                { "descripcion", new CampoInfo { SelectCampo = "actuacion_detalle.detalle", VisibleTabla = true , VisibleFiltro = true , Header = "Descripción" } },
             };
 
         }
@@ -81,25 +79,25 @@ namespace redTaller.Database
                         FROM actuacion_detalle
                         WHERE actuacion_detalle.id_actuacion=@id
                         ORDER BY linea
-                        WHERE actuacion_detalle.id=@key
                         ";
                 using (MySqlCommand cmd = new MySqlCommand(query, db.DbConn))
                 {
 
-                    cmd.Parameters.AddWithValue("@key", id);
+                    cmd.Parameters.AddWithValue("@id", id);
                     using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
+                        actuacion.actuacionDetalle = new List<ActuacionDetalle>();
                         while (reader.Read())
                         {
                             ActuacionDetalle actuacionDetalle = new ActuacionDetalle();
                             actuacionDetalle.id = reader.GetInt32("id");
                             actuacionDetalle.id_actuacion = reader.GetInt32("id_actuacion");
                             actuacionDetalle.descripcion = reader.GetString("descripcion");
+                            actuacionDetalle.linea = reader.GetInt32("linea");
                             if (!reader.IsDBNull(reader.GetOrdinal("imagen")))
                             {
                                 actuacionDetalle.imagen = (byte[])reader["imagen"];
                             }
-
                             actuacion.actuacionDetalle.Add(actuacionDetalle);
                         }
                     }
@@ -150,24 +148,21 @@ namespace redTaller.Database
                             }
                         }
 
-                        /*
                         if (actuacion.actuacionDetalle != null)
                         {
                             foreach (ActuacionDetalle actuacionDetalle in actuacion.actuacionDetalle)
                             {
-                                query = $"INSERT INTO actuacion_detalle SET id_actuacion=@id_actuacion, orden=@orden, descripcion=@descripcion, imagen=@imagen";
+                                query = $"INSERT INTO actuacion_detalle SET id_actuacion=@id_actuacion, linea=@linea, descripcion=@descripcion, imagen=@imagen";
                                 using (MySqlCommand cmd = new MySqlCommand(query, db.DbConn, transaction))
                                 {
                                     cmd.Parameters.AddWithValue("@id_actuacion", actuacion.id);
-                                    cmd.Parameters.AddWithValue("@orden", actuacionDetalle.orden);
+                                    cmd.Parameters.AddWithValue("@linea", actuacionDetalle.linea);
                                     cmd.Parameters.AddWithValue("@descripcion", actuacionDetalle.descripcion);
                                     cmd.Parameters.AddWithValue("@imagen", actuacionDetalle.imagen);
                                     nuevas += cmd.ExecuteNonQuery();
                                 }
                             }
                         }
-                        */
-
                         transaction.Commit();
                     }
                     catch (Exception ex)
@@ -215,7 +210,6 @@ namespace redTaller.Database
                             modificadas = cmd.ExecuteNonQuery();
                         }
 
-                        /*
                         query = "DELETE FROM actuacion_detalle WHERE id_actuacion=@id_actuacion";
                         using (MySqlCommand cmd = new MySqlCommand(query, db.DbConn, transaction))
                         {
@@ -227,18 +221,17 @@ namespace redTaller.Database
                         {
                             foreach (ActuacionDetalle actuacionDetalle in actuacion.actuacionDetalle)
                             {
-                                query = $"INSERT INTO actuacion_detalle (id_actuacion, orden, descripcion, imagen) VALUES (@id_actuacion, @orden, @descripcion, @imagen)";
+                                query = $"INSERT INTO actuacion_detalle (id_actuacion, linea, descripcion, imagen) VALUES (@id_actuacion, @linea, @descripcion, @imagen)";
                                 using (MySqlCommand cmd = new MySqlCommand(query, db.DbConn, transaction))
                                 {
                                     cmd.Parameters.AddWithValue("@id_actuacion", actuacion.id);
-                                    cmd.Parameters.AddWithValue("@orden", actuacionDetalle.orden);
+                                    cmd.Parameters.AddWithValue("@linea", actuacionDetalle.linea);
                                     cmd.Parameters.AddWithValue("@descripcion", actuacionDetalle.descripcion);
                                     cmd.Parameters.AddWithValue("@imagen", actuacionDetalle.imagen);
                                     modificadas += cmd.ExecuteNonQuery();
                                 }
                             }
                         }
-                        */
 
                         transaction.Commit();
                     }
@@ -308,56 +301,34 @@ namespace redTaller.Database
             return dataTable;
         }
 
-        public DataTable LoadDetalle(int id, Dictionary<string, object> filtros = null)
+        public DataTable LoadDetalle(Actuacion actuacion)
         {
             DataTable dataTable = new DataTable();
 
-            try
-            {
-                db.Conectar();
-                string query = $@"
-                        SELECT {DatabaseUtil.selectColumns(dcDetalle)} 
-                        FROM actuacion_detalle
-                        WHERE actuacion_detalle.id_actuacion=@id
-                        ";
+            dataTable.Columns.Add("linea", typeof(int));
+            dataTable.Columns.Add("descripcion", typeof(string));
 
-                if (filtros != null && filtros.Count > 0)
-                {
-                    List<string> whereFiltros = new List<string>();
-                    foreach (var filtro in filtros)
-                    {
-                        whereFiltros.Add($"{filtro.Key} LIKE @{filtro.Key}");
-                    }
-                    query += " AND " + string.Join(" AND ", whereFiltros);
-                }
-
-                using (MySqlCommand cmd = new MySqlCommand(query, db.DbConn))
-                {
-                    cmd.Parameters.AddWithValue("@id", id);
-                    if (filtros != null && filtros.Count > 0)
-                    {
-                        foreach (var filtro in filtros)
-                        {
-                            cmd.Parameters.AddWithValue($"@{filtro.Key}", "%" + filtro.Value.ToString() + "%");
-                        }
-                    }
-                    using (MySqlDataAdapter adapter = new MySqlDataAdapter(cmd))
-                    {
-                        adapter.Fill(dataTable);
-                    }
-                }
-            }
-            catch (Exception ex)
+            foreach (ActuacionDetalle detalle in actuacion.actuacionDetalle)
             {
-                Debug.WriteLine($"Error al obtener Detalle de Actuación: {ex.Message}");
+                DataRow row = dataTable.NewRow();
+                row["linea"] = detalle.linea;
+                row["descripcion"] = detalle.descripcion;
+                dataTable.Rows.Add(row);
             }
-            finally
-            {
-                db.Desconectar();
-            }
-
             return dataTable;
         }
+
+        public ActuacionDetalle CargaActuacionDetalle( Actuacion actuacion, int linea )
+        {
+            foreach (ActuacionDetalle detalle in actuacion.actuacionDetalle)
+            {
+                if( detalle.linea == linea )
+                    return detalle;
+            }
+            return null;
+        }
+
+
 
         public List<Actuacion> Lista()
         {
@@ -452,46 +423,27 @@ namespace redTaller.Database
             return borradas;
         }
 
-        public int DeleteDetalle(List<int> ids)
+        public int DeleteDetalle(List<int> lineas, Actuacion actuacion)
         {
-            int borradas = 0;
-            try
-            {
-                db.Conectar();
-                using (var transaction = db.DbConn.BeginTransaction())
-                {
-                    try
-                    {
-
-                        string query = $"DELETE FROM actuacion_detalle WHERE id IN ({string.Join(",", ids.Select(id => "'" + id + "'"))})";
-                        using (var cmd = new MySqlCommand(query, db.DbConn, transaction))
-                        {
-                            borradas += cmd.ExecuteNonQuery();
-                        }
-
-                        transaction.Commit();
-
-                    }
-
-                    catch (Exception ex)
-                    {
-                        transaction.Rollback();
-                        Debug.WriteLine($"Error al borrar {tabla}: {ex.Message}");
-                        throw;
-                    }
-                }
-
-            }
-
-            catch (Exception ex)
-            {
-                Debug.WriteLine($"Error al conectar la base de datos: {ex.Message}");
-            }
-            finally
-            {
-                db.Desconectar();
-            }
+            int borradas = actuacion.actuacionDetalle.RemoveAll(detalle => lineas.Contains(detalle.linea));
             return borradas;
+        }
+
+        public void InsertDetalle(Actuacion actuacion, ActuacionDetalle actuacionDetalle)
+        {
+            actuacion.actuacionDetalle.Add(actuacionDetalle);
+        }
+
+        public void UpdateDetalle(Actuacion actuacion, ActuacionDetalle actuacionDetalle)
+        {
+            for (int i = 0; i < actuacion.actuacionDetalle.Count; i++)
+            {
+                if (actuacion.actuacionDetalle[i].linea == actuacionDetalle.linea)
+                {
+                    actuacion.actuacionDetalle[i] = actuacionDetalle;
+                    return; 
+                }
+            }
         }
 
     }
