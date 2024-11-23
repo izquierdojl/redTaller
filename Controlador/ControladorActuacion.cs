@@ -125,6 +125,20 @@ namespace redTaller.Controlador
             return actuacionDB.LoadDetalle(actuacion.id);
         }
 
+        public bool borrarDetalle(List<int> ids)
+        {
+            if (actuacionDB.DeleteDetalle(ids) > 0)
+            {
+                VistaUtil.MsgInfo("Se ha borrado " + ids.Count.ToString() + " registro(s)", "Información");
+                return true;
+            }
+            else
+            {
+                VistaUtil.MsgInfo("No se han podido borrar", "Información");
+                return false;
+            }
+        }
+
     }
 
 }

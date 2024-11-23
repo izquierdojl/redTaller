@@ -302,6 +302,45 @@ namespace redTaller.Vista.VistaActuacion
 
         }
 
+        private void gridActuacionDetalle_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Delete)
+            {
+                vistaDetalleBorrar();
+            }
+            else if (e.KeyCode == Keys.Insert)
+            {
+                //vistaAnadir();
+            }
+            else if (e.KeyCode == Keys.Enter)
+            {
+                //vistaEditar();
+            }
+        }
+
+
+        private void vistaDetalleBorrar()
+        {
+            if (gridActuacionDetalle.SelectedRows.Count > 0)
+            {
+                if (MessageBox.Show("¿ Seguro de borrar las líneas seleccionadas ?", "Eliminar Registros", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    List<int> ids = new List<int>();
+                    foreach (DataGridViewRow row in gridActuacionDetalle.SelectedRows)
+                    {
+                        ids.Clear();
+                        ids.Add((int)row.Cells["id"].Value);
+                        if (controlador.borrarDetalle(ids))
+                            gridActuacionDetalle.Rows.Remove(row);
+                    }
+                }
+            }
+        }
+
+        private void btnGridDel_Click(object sender, EventArgs e)
+        {
+            vistaDetalleBorrar();
+        }
     }
 
 }

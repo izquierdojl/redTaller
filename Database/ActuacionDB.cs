@@ -130,7 +130,7 @@ namespace redTaller.Database
                 {
                     try
                     {
-                        // Insertar en la tabla actuacion
+
                         string query = $"INSERT INTO {tabla} SET nif_taller=@nif_taller, nif_cliente=@nif_cliente, matricula=@matricula, fecha=@fecha, km=@km, tipo=@tipo";
 
                         using (MySqlCommand cmd = new MySqlCommand(query, db.DbConn, transaction))
@@ -150,6 +150,7 @@ namespace redTaller.Database
                             }
                         }
 
+                        /*
                         if (actuacion.actuacionDetalle != null)
                         {
                             foreach (ActuacionDetalle actuacionDetalle in actuacion.actuacionDetalle)
@@ -165,12 +166,12 @@ namespace redTaller.Database
                                 }
                             }
                         }
+                        */
 
                         transaction.Commit();
                     }
                     catch (Exception ex)
                     {
-                        // Revertir la transacción en caso de error
                         transaction.Rollback();
                         Debug.WriteLine($"Error al insertar {tabla}: {ex.Message}");
                         throw;
@@ -199,7 +200,7 @@ namespace redTaller.Database
                 {
                     try
                     {
-                        // Actualizar la tabla actuacion
+
                         string query = $"UPDATE {tabla} SET nif_taller=@nif_taller, nif_cliente=@nif_cliente, matricula=@matricula, fecha=@fecha, km=@km, tipo=@tipo WHERE {key}=@id";
 
                         using (MySqlCommand cmd = new MySqlCommand(query, db.DbConn, transaction))
@@ -214,6 +215,7 @@ namespace redTaller.Database
                             modificadas = cmd.ExecuteNonQuery();
                         }
 
+                        /*
                         query = "DELETE FROM actuacion_detalle WHERE id_actuacion=@id_actuacion";
                         using (MySqlCommand cmd = new MySqlCommand(query, db.DbConn, transaction))
                         {
@@ -236,6 +238,7 @@ namespace redTaller.Database
                                 }
                             }
                         }
+                        */
 
                         transaction.Commit();
                     }
@@ -420,6 +423,48 @@ namespace redTaller.Database
 
                         string queryActuacion = $"DELETE FROM {tabla} WHERE id IN ({string.Join(",", ids.Select(id => "'" + id + "'"))})";
                         using (var cmd = new MySqlCommand(queryActuacion, db.DbConn, transaction))
+                        {
+                            borradas += cmd.ExecuteNonQuery();
+                        }
+
+                        transaction.Commit();
+
+                    }
+
+                    catch (Exception ex)
+                    {
+                        transaction.Rollback();
+                        Debug.WriteLine($"Error al borrar {tabla}: {ex.Message}");
+                        throw;
+                    }
+                }
+
+            }
+
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error al conectar la base de datos: {ex.Message}");
+            }
+            finally
+            {
+                db.Desconectar();
+            }
+            return borradas;
+        }
+
+        public int DeleteDetalle(List<int> ids)
+        {
+            int borradas = 0;
+            try
+            {
+                db.Conectar();
+                using (var transaction = db.DbConn.BeginTransaction())
+                {
+                    try
+                    {
+
+                        string query = $"DELETE FROM actuacion_detalle WHERE id IN ({string.Join(",", ids.Select(id => "'" + id + "'"))})";
+                        using (var cmd = new MySqlCommand(query, db.DbConn, transaction))
                         {
                             borradas += cmd.ExecuteNonQuery();
                         }
