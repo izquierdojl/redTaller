@@ -39,15 +39,17 @@ namespace redTaller.Controlador
             }
         }
 
-        public void borrar(VistaListaProvincia vistaListaProvincia, List<int> ids)
+        public bool borrar(VistaListaProvincia vistaListaProvincia, List<int> ids)
         {
             if (provinciaDB.delete(ids) > 0)
             {
                 VistaUtil.MsgInfo("Se ha borrado " + ids.Count.ToString() + " registro(s)", "Información");
+                return true;
             }
             else
             {
                 VistaUtil.MsgInfo("No se han podido borrar", "Información");
+                return false;
             }
         }
 

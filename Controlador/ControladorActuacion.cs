@@ -49,15 +49,17 @@ namespace redTaller.Controlador
             }
         }
 
-        public void borrar(VistaListaActuacion vistaListaActuacion, List<int> ids)
+        public bool borrar(VistaListaActuacion vistaListaActuacion, List<int> ids)
         {
             if (actuacionDB.delete(ids) > 0)
             {
                 VistaUtil.MsgInfo("Se ha borrado " + ids.Count.ToString() + " registro(s)", "Información");
+                return true;
             }
             else
             {
                 VistaUtil.MsgInfo("No se han podido borrar", "Información");
+                return false;
             }
         }
 

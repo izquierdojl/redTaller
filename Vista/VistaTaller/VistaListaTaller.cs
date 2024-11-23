@@ -79,10 +79,11 @@ namespace redTaller.Vista.VistaTaller
                     List<int> ids = new List<int>();
                     foreach (DataGridViewRow row in gridPrincipal.SelectedRows)
                     {
-                        ids.Add((int)row.Cells["id"].Value);
-                        gridPrincipal.Rows.Remove(row);
+                        ids.Clear();
+                        ids.Add( (int) row.Cells["id"].Value) ;
+                        if( controlador.borrar(this, ids ) )
+                            gridPrincipal.Rows.Remove(row);
                     }
-                    controlador.borrar(this, ids);
                 }
             }
         }
