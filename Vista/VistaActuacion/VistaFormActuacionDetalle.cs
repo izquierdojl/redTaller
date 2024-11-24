@@ -19,6 +19,7 @@ namespace redTaller.Vista.VistaActuacion
         VistaFormActuacion vista;
         ActuacionDetalle actuacionDetalle;
         ControladorActuacion controlador = new ControladorActuacion();
+        bool actualizaImagen;
 
         public VistaFormActuacionDetalle( VistaFormActuacion vista, int modo, int idActuacion, ActuacionDetalle actuacionDetalle )
         {
@@ -27,6 +28,7 @@ namespace redTaller.Vista.VistaActuacion
             this.idActuacion = idActuacion;
             this.modo = modo;
             this.actuacionDetalle = actuacionDetalle;
+            this.actualizaImagen = false;
             if (modo == 1)
             {
                 Text = "Nuevo Detalle Actuacion";
@@ -58,6 +60,7 @@ namespace redTaller.Vista.VistaActuacion
             if (openFileDialogImage.ShowDialog() == DialogResult.OK)
             {
                 pictureImagen.Load(openFileDialogImage.FileName);
+                actualizaImagen = true;
             }
         }
 
@@ -66,6 +69,7 @@ namespace redTaller.Vista.VistaActuacion
             if (MessageBox.Show("¿ Seguro de eliminar la imagen ?", "Limpiar Imagen", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 pictureImagen.Image = null;
+                actuacionDetalle.imagen = null;
             }
         }
 
@@ -84,10 +88,11 @@ namespace redTaller.Vista.VistaActuacion
             actuacionDetalle.id_actuacion = idActuacion;
             actuacionDetalle.linea = (int)textOrden.Value;   
             actuacionDetalle.descripcion = textDescripcion.Text;
-            if (pictureImagen.Image != null)
+            if (actualizaImagen && pictureImagen.Image != null)
             { 
                 using (MemoryStream ms = new MemoryStream())
                 {
+                    ms.SetLength(0);
                     pictureImagen.Image.Save(ms, pictureImagen.Image.RawFormat);
                     actuacionDetalle.imagen = System.Text.Encoding.UTF8.GetBytes(Convert.ToBase64String(ms.ToArray()));
                 }
