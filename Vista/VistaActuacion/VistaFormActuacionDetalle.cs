@@ -129,6 +129,14 @@ namespace redTaller.Vista.VistaActuacion
                 {
                     valido = true;
                 }
+                else
+                {
+                    if( modo == 2 ) // editando, si no cambia la línea, es válido
+                    {
+                        if( (int)textOrden.Value == actuacionDetalle.linea )
+                            valido = true;
+                    }
+                }
 
             }
             if( !valido )
