@@ -1,5 +1,6 @@
 ﻿using MySqlConnector;
 using redTaller.Modelo;
+using redTaller.Util;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -33,11 +34,20 @@ namespace redTaller.Database
                 { "tipo", new CampoInfo { SelectCampo = "actuacion.tipo", VisibleTabla = true , VisibleFiltro = true , Header = "Tipo" } },
                 { "fecha", new CampoInfo { SelectCampo = "actuacion.fecha", VisibleTabla = true , VisibleFiltro = true , Header = "Fecha" } },
             };
+
             this.dcDetalle = new Dictionary<string, CampoInfo>()
             {
                 { "linea", new CampoInfo { SelectCampo = "actuacion_detalle.linea", VisibleTabla = true , VisibleFiltro = false , Header = "Orden" } },
                 { "descripcion", new CampoInfo { SelectCampo = "actuacion_detalle.detalle", VisibleTabla = true , VisibleFiltro = true , Header = "Descripción" } },
             };
+
+            if (Session.Instance.Profile == "taller")
+            {
+                dc["taller"].VisibleTabla = false;
+                dc["taller"].VisibleFiltro = false;
+                dc["nombre_taller"].VisibleTabla = false;
+                dc["nombre_taller"].VisibleFiltro = false;
+            }
 
         }
 
@@ -261,6 +271,7 @@ namespace redTaller.Database
         public DataTable Load(Dictionary<string, object> filtros = null)
         {
             DataTable dataTable = new DataTable();
+            bool hayFiltros = false;
 
             try
             {
@@ -281,6 +292,16 @@ namespace redTaller.Database
                         whereFiltros.Add($"{filtro.Key} LIKE @{filtro.Key}");
                     }
                     query += " WHERE " + string.Join(" AND ", whereFiltros);
+                    hayFiltros = true;
+                }
+
+                if (Session.Instance.Profile == "taller")
+                {
+                    if( !hayFiltros )
+                        query += " WHERE ";
+                    else
+                        query += " AND ";
+                    query += "nif_taller=@nif_taller_perfil";
                 }
 
                 using (MySqlDataAdapter adapter = new MySqlDataAdapter(query, db.DbConn))
@@ -290,6 +311,8 @@ namespace redTaller.Database
                         foreach (var filtro in filtros)
                             adapter.SelectCommand.Parameters.AddWithValue($"@{filtro.Key}", "%" + filtro.Value.ToString() + "%");
                     }
+                    if (Session.Instance.Profile == "taller")
+                        adapter.SelectCommand.Parameters.AddWithValue("@nif_taller_perfil", Session.Instance.User);
                     adapter.Fill(dataTable);
                 }
             }
@@ -314,19 +337,22 @@ namespace redTaller.Database
             dataTable.Columns.Add("imagen", typeof(Image));
             Image foto = Properties.Resources.camara;
 
-            foreach (ActuacionDetalle detalle in actuacion.actuacionDetalle)
+            if (actuacion.actuacionDetalle != null)
             {
-                DataRow row = dataTable.NewRow();
-                row["linea"] = detalle.linea;
-                row["descripcion"] = detalle.descripcion;
-                dataTable.Rows.Add(row);
-                if (detalle.imagen != null && detalle.imagen.Length > 0)
+                foreach (ActuacionDetalle detalle in actuacion.actuacionDetalle)
                 {
-                    row["imagen"] = foto;
-                }
-                else
-                {
-                    row["imagen"] = null;
+                    DataRow row = dataTable.NewRow();
+                    row["linea"] = detalle.linea;
+                    row["descripcion"] = detalle.descripcion;
+                    dataTable.Rows.Add(row);
+                    if (detalle.imagen != null && detalle.imagen.Length > 0)
+                    {
+                        row["imagen"] = foto;
+                    }
+                    else
+                    {
+                        row["imagen"] = null;
+                    }
                 }
             }
             return dataTable;

@@ -16,11 +16,11 @@ namespace redTaller.Controlador
         string condicion;
         SearchDB db;
 
-        public ControladorSearch(string opcion, string tabla)
+        public ControladorSearch(string opcion, string tabla, string condicion=null )
         {
             this.opcion = opcion;
             this.tabla = tabla;
-            this.condicion = null;
+            this.condicion = condicion;
         }
 
         public int Load()
@@ -76,7 +76,7 @@ namespace redTaller.Controlador
 
         public void filtrar(VistaListaSearch vistaListaSearch, string filtro)
         {
-            vistaListaSearch.recargaGrid(db.Load(tabla, filtro));
+            vistaListaSearch.recargaGrid(db.Load(tabla, filtro, condicion));
         }
 
     }

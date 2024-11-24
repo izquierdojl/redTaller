@@ -1,6 +1,7 @@
 ﻿using redTaller.Controlador;
 using redTaller.Database;
 using redTaller.Modelo;
+using redTaller.Util;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -66,6 +67,15 @@ namespace redTaller.Vista.VistaActuacion
             else
             {
                 textKm.Text = "0";
+            }
+
+            if (Session.Instance.Profile == "taller") // ocultamos las opciones para el taller
+            {
+                textNif_Taller.Text = Session.Instance.User;
+                textNif_Taller.Hide();
+                labelNomTaller.Hide();
+                labTaller.Hide();
+                btnSearchTaller.Hide();
             }
 
             gridActuacionDetalle.AutoGenerateColumns = true;
@@ -190,7 +200,11 @@ namespace redTaller.Vista.VistaActuacion
 
         private void busca_Cliente()
         {
-            ControladorSearch controladorSearch = new ControladorSearch("Cliente", "cliente");
+            ControladorSearch controladorSearch;
+            if( Session.Instance.Profile == "taller")
+                controladorSearch = new ControladorSearch("Cliente", "cliente" , "EXISTS ( SELECT actuacion.id FROM actuacion WHERE actuacion.nif_taller='" + Session.Instance.User + "' and actuacion.nif_cliente=cliente.nif )" );
+            else
+                controladorSearch = new ControladorSearch("Cliente", "cliente");
             int id = controladorSearch.Load();
             if (id != 0)
             {
