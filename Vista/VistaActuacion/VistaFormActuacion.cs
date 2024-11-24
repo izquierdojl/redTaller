@@ -70,6 +70,8 @@ namespace redTaller.Vista.VistaActuacion
 
             gridActuacionDetalle.AutoGenerateColumns = true;
             gridActuacionDetalle.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            gridActuacionDetalle.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            gridActuacionDetalle.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             recargaGridActuacionDetalle(controlador.loadDetalle( actuacion ));
 
         }
@@ -298,6 +300,8 @@ namespace redTaller.Vista.VistaActuacion
                     gridActuacionDetalle.Columns[key].Visible = false;
                 }
             }
+
+            gridActuacionDetalle.Columns["imagen"].DefaultCellStyle.NullValue = null;
 
         }
 

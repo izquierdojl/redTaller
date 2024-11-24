@@ -377,5 +377,8 @@
   <ItemGroup>
     <None Include="img\subir.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="img\camara.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -52,6 +52,7 @@
             // 
             // btnDelete
             // 
+            this.btnDelete.Image = global::redTaller.Properties.Resources.borrar;
             this.toolBotones.SetToolTip(this.btnDelete, "Elimina los registros seleccionados (Supr)");
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
@@ -70,6 +71,10 @@
             this.panelCenter.Controls.Add(this.gridPrincipal);
             this.panelCenter.TabIndex = 1;
             // 
+            // textSearch
+            // 
+            this.textSearch.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
+            // 
             // gridPrincipal
             // 
             this.gridPrincipal.AllowUserToAddRows = false;
@@ -77,19 +82,21 @@
             this.gridPrincipal.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gridPrincipal.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gridPrincipal.Location = new System.Drawing.Point(0, 0);
+            this.gridPrincipal.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.gridPrincipal.Name = "gridPrincipal";
             this.gridPrincipal.ReadOnly = true;
             this.gridPrincipal.RowHeadersWidth = 62;
             this.gridPrincipal.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.gridPrincipal.Size = new System.Drawing.Size(800, 369);
+            this.gridPrincipal.Size = new System.Drawing.Size(1200, 567);
             this.gridPrincipal.TabIndex = 1;
             this.gridPrincipal.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.gridPrincipal_CellMouseDoubleClick);
             this.gridPrincipal.KeyDown += new System.Windows.Forms.KeyEventHandler(this.gridPrincipal_KeyDown);
             // 
             // VistaListaActuacion
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.ClientSize = new System.Drawing.Size(1200, 692);
+            this.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
             this.Name = "VistaListaActuacion";
             this.panelTop.ResumeLayout(false);
             this.panelSearch.ResumeLayout(false);

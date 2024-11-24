@@ -166,7 +166,6 @@
             // 
             // VistaFormActuacionDetalle
             // 
-            this.AcceptButton = this.btnAceptar;
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.CancelButton = this.btnCancelar;
             this.ClientSize = new System.Drawing.Size(1155, 1012);

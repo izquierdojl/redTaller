@@ -4,7 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
+using System.Drawing;
 using System.Linq;
+using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace redTaller.Database
@@ -308,6 +310,8 @@ namespace redTaller.Database
 
             dataTable.Columns.Add("linea", typeof(int));
             dataTable.Columns.Add("descripcion", typeof(string));
+            dataTable.Columns.Add("imagen", typeof(Image));
+            Image foto = Properties.Resources.camara;
 
             foreach (ActuacionDetalle detalle in actuacion.actuacionDetalle)
             {
@@ -315,6 +319,14 @@ namespace redTaller.Database
                 row["linea"] = detalle.linea;
                 row["descripcion"] = detalle.descripcion;
                 dataTable.Rows.Add(row);
+                if (detalle.imagen != null && detalle.imagen.Length > 0)
+                {
+                    row["imagen"] = foto;
+                }
+                else
+                {
+                    row["imagen"] = null;
+                }
             }
             return dataTable;
         }
