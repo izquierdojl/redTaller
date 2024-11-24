@@ -61,6 +61,9 @@ namespace redTaller.Vista.VistaActuacion
 
         private void loadImage()
         {
+            openFileDialogImage.Filter = "Archivos de Imagen|*.bmp;*.jpg;*.jpeg;*.png;*.gif";
+            openFileDialogImage.Title = "Seleccionar una Imagen";
+
             if (openFileDialogImage.ShowDialog() == DialogResult.OK)
             {
                 pictureImagen.Load(openFileDialogImage.FileName);
