@@ -46,6 +46,11 @@ namespace redTaller.Vista.VistaTaller
 
         private void btnAceptar_Click(object sender, System.EventArgs e)
         {
+            guardar();
+        }
+
+        private void guardar()
+        {
             taller.nif = textNif.Text;
             taller.nombre = textNombre.Text;
             taller.domicilio = textDomicilio.Text;
@@ -136,6 +141,8 @@ namespace redTaller.Vista.VistaTaller
                 if (MessageBox.Show("¿ Seguro de enviar correo de activación a " + taller.email + " ?", "Activación", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     controlador.enviaCorreoActivacion(taller);
+                    taller.activo = false;
+                    guardar();
                 }
             }
 

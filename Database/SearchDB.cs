@@ -45,7 +45,7 @@ namespace redTaller.Database
                 }
                 if (!string.IsNullOrEmpty(condicion))
                 {
-                    whereCondicion += " AND " + condicion;
+                    whereCondicion += condicion;
                 }
                 if( !string.IsNullOrEmpty(whereFilter) || !string.IsNullOrEmpty(whereCondicion))
                 {

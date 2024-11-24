@@ -1,10 +1,15 @@
 ﻿using MySqlConnector;
 using redTaller.Modelo;
+using redTaller.Util;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
+using System.Drawing;
 using System.Linq;
+using System.Windows.Documents;
+using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace redTaller.Database
 {
@@ -29,13 +34,20 @@ namespace redTaller.Database
                 { "tipo", new CampoInfo { SelectCampo = "actuacion.tipo", VisibleTabla = true , VisibleFiltro = true , Header = "Tipo" } },
                 { "fecha", new CampoInfo { SelectCampo = "actuacion.fecha", VisibleTabla = true , VisibleFiltro = true , Header = "Fecha" } },
             };
+
             this.dcDetalle = new Dictionary<string, CampoInfo>()
             {
-                { "id", new CampoInfo { SelectCampo = "actuacion_detalle.id", VisibleTabla = false , VisibleFiltro = false , Header = "Id" } },
-                { "id_actuacion", new CampoInfo { SelectCampo = "actuacion_detalle.id_actuacion", VisibleTabla = false , VisibleFiltro = false , Header = "ID Actuación" } },
                 { "linea", new CampoInfo { SelectCampo = "actuacion_detalle.linea", VisibleTabla = true , VisibleFiltro = false , Header = "Orden" } },
-                { "detalle", new CampoInfo { SelectCampo = "actuacion_detalle.detalle", VisibleTabla = true , VisibleFiltro = true , Header = "Descripción" } },
+                { "descripcion", new CampoInfo { SelectCampo = "actuacion_detalle.detalle", VisibleTabla = true , VisibleFiltro = true , Header = "Descripción" } },
             };
+
+            if (Session.Instance.Profile == "taller")
+            {
+                dc["taller"].VisibleTabla = false;
+                dc["taller"].VisibleFiltro = false;
+                dc["nombre_taller"].VisibleTabla = false;
+                dc["nombre_taller"].VisibleFiltro = false;
+            }
 
         }
 
@@ -81,25 +93,25 @@ namespace redTaller.Database
                         FROM actuacion_detalle
                         WHERE actuacion_detalle.id_actuacion=@id
                         ORDER BY linea
-                        WHERE actuacion_detalle.id=@key
                         ";
                 using (MySqlCommand cmd = new MySqlCommand(query, db.DbConn))
                 {
 
-                    cmd.Parameters.AddWithValue("@key", id);
+                    cmd.Parameters.AddWithValue("@id", id);
                     using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
+                        actuacion.actuacionDetalle = new List<ActuacionDetalle>();
                         while (reader.Read())
                         {
                             ActuacionDetalle actuacionDetalle = new ActuacionDetalle();
                             actuacionDetalle.id = reader.GetInt32("id");
                             actuacionDetalle.id_actuacion = reader.GetInt32("id_actuacion");
                             actuacionDetalle.descripcion = reader.GetString("descripcion");
+                            actuacionDetalle.linea = reader.GetInt32("linea");
                             if (!reader.IsDBNull(reader.GetOrdinal("imagen")))
                             {
                                 actuacionDetalle.imagen = (byte[])reader["imagen"];
                             }
-
                             actuacion.actuacionDetalle.Add(actuacionDetalle);
                         }
                     }
@@ -130,7 +142,7 @@ namespace redTaller.Database
                 {
                     try
                     {
-                        // Insertar en la tabla actuacion
+
                         string query = $"INSERT INTO {tabla} SET nif_taller=@nif_taller, nif_cliente=@nif_cliente, matricula=@matricula, fecha=@fecha, km=@km, tipo=@tipo";
 
                         using (MySqlCommand cmd = new MySqlCommand(query, db.DbConn, transaction))
@@ -154,23 +166,21 @@ namespace redTaller.Database
                         {
                             foreach (ActuacionDetalle actuacionDetalle in actuacion.actuacionDetalle)
                             {
-                                query = $"INSERT INTO actuacion_detalle SET id_actuacion=@id_actuacion, orden=@orden, descripcion=@descripcion, imagen=@imagen";
+                                query = $"INSERT INTO actuacion_detalle SET id_actuacion=@id_actuacion, linea=@linea, descripcion=@descripcion, imagen=@imagen";
                                 using (MySqlCommand cmd = new MySqlCommand(query, db.DbConn, transaction))
                                 {
                                     cmd.Parameters.AddWithValue("@id_actuacion", actuacion.id);
-                                    cmd.Parameters.AddWithValue("@orden", actuacionDetalle.orden);
+                                    cmd.Parameters.AddWithValue("@linea", actuacionDetalle.linea);
                                     cmd.Parameters.AddWithValue("@descripcion", actuacionDetalle.descripcion);
                                     cmd.Parameters.AddWithValue("@imagen", actuacionDetalle.imagen);
                                     nuevas += cmd.ExecuteNonQuery();
                                 }
                             }
                         }
-
                         transaction.Commit();
                     }
                     catch (Exception ex)
                     {
-                        // Revertir la transacción en caso de error
                         transaction.Rollback();
                         Debug.WriteLine($"Error al insertar {tabla}: {ex.Message}");
                         throw;
@@ -199,7 +209,7 @@ namespace redTaller.Database
                 {
                     try
                     {
-                        // Actualizar la tabla actuacion
+
                         string query = $"UPDATE {tabla} SET nif_taller=@nif_taller, nif_cliente=@nif_cliente, matricula=@matricula, fecha=@fecha, km=@km, tipo=@tipo WHERE {key}=@id";
 
                         using (MySqlCommand cmd = new MySqlCommand(query, db.DbConn, transaction))
@@ -225,11 +235,11 @@ namespace redTaller.Database
                         {
                             foreach (ActuacionDetalle actuacionDetalle in actuacion.actuacionDetalle)
                             {
-                                query = $"INSERT INTO actuacion_detalle (id_actuacion, orden, descripcion, imagen) VALUES (@id_actuacion, @orden, @descripcion, @imagen)";
+                                query = $"INSERT INTO actuacion_detalle (id_actuacion, linea, descripcion, imagen) VALUES (@id_actuacion, @linea, @descripcion, @imagen)";
                                 using (MySqlCommand cmd = new MySqlCommand(query, db.DbConn, transaction))
                                 {
                                     cmd.Parameters.AddWithValue("@id_actuacion", actuacion.id);
-                                    cmd.Parameters.AddWithValue("@orden", actuacionDetalle.orden);
+                                    cmd.Parameters.AddWithValue("@linea", actuacionDetalle.linea);
                                     cmd.Parameters.AddWithValue("@descripcion", actuacionDetalle.descripcion);
                                     cmd.Parameters.AddWithValue("@imagen", actuacionDetalle.imagen);
                                     modificadas += cmd.ExecuteNonQuery();
@@ -261,6 +271,7 @@ namespace redTaller.Database
         public DataTable Load(Dictionary<string, object> filtros = null)
         {
             DataTable dataTable = new DataTable();
+            bool hayFiltros = false;
 
             try
             {
@@ -281,6 +292,16 @@ namespace redTaller.Database
                         whereFiltros.Add($"{filtro.Key} LIKE @{filtro.Key}");
                     }
                     query += " WHERE " + string.Join(" AND ", whereFiltros);
+                    hayFiltros = true;
+                }
+
+                if (Session.Instance.Profile == "taller")
+                {
+                    if( !hayFiltros )
+                        query += " WHERE ";
+                    else
+                        query += " AND ";
+                    query += "nif_taller=@nif_taller_perfil";
                 }
 
                 using (MySqlDataAdapter adapter = new MySqlDataAdapter(query, db.DbConn))
@@ -290,6 +311,8 @@ namespace redTaller.Database
                         foreach (var filtro in filtros)
                             adapter.SelectCommand.Parameters.AddWithValue($"@{filtro.Key}", "%" + filtro.Value.ToString() + "%");
                     }
+                    if (Session.Instance.Profile == "taller")
+                        adapter.SelectCommand.Parameters.AddWithValue("@nif_taller_perfil", Session.Instance.User);
                     adapter.Fill(dataTable);
                 }
             }
@@ -305,56 +328,47 @@ namespace redTaller.Database
             return dataTable;
         }
 
-        public DataTable LoadDetalle(int id, Dictionary<string, object> filtros = null)
+        public DataTable LoadDetalle(Actuacion actuacion)
         {
             DataTable dataTable = new DataTable();
 
-            try
+            dataTable.Columns.Add("linea", typeof(int));
+            dataTable.Columns.Add("descripcion", typeof(string));
+            dataTable.Columns.Add("imagen", typeof(Image));
+            Image foto = Properties.Resources.camara;
+
+            if (actuacion.actuacionDetalle != null)
             {
-                db.Conectar();
-                string query = $@"
-                        SELECT {DatabaseUtil.selectColumns(dcDetalle)} 
-                        FROM actuacion_detalle
-                        WHERE actuacion_detalle.id_actuacion=@id
-                        ";
-
-                if (filtros != null && filtros.Count > 0)
+                foreach (ActuacionDetalle detalle in actuacion.actuacionDetalle)
                 {
-                    List<string> whereFiltros = new List<string>();
-                    foreach (var filtro in filtros)
+                    DataRow row = dataTable.NewRow();
+                    row["linea"] = detalle.linea;
+                    row["descripcion"] = detalle.descripcion;
+                    dataTable.Rows.Add(row);
+                    if (detalle.imagen != null && detalle.imagen.Length > 0)
                     {
-                        whereFiltros.Add($"{filtro.Key} LIKE @{filtro.Key}");
+                        row["imagen"] = foto;
                     }
-                    query += " AND " + string.Join(" AND ", whereFiltros);
-                }
-
-                using (MySqlCommand cmd = new MySqlCommand(query, db.DbConn))
-                {
-                    cmd.Parameters.AddWithValue("@id", id);
-                    if (filtros != null && filtros.Count > 0)
+                    else
                     {
-                        foreach (var filtro in filtros)
-                        {
-                            cmd.Parameters.AddWithValue($"@{filtro.Key}", "%" + filtro.Value.ToString() + "%");
-                        }
-                    }
-                    using (MySqlDataAdapter adapter = new MySqlDataAdapter(cmd))
-                    {
-                        adapter.Fill(dataTable);
+                        row["imagen"] = null;
                     }
                 }
             }
-            catch (Exception ex)
-            {
-                Debug.WriteLine($"Error al obtener Detalle de Actuación: {ex.Message}");
-            }
-            finally
-            {
-                db.Desconectar();
-            }
-
             return dataTable;
         }
+
+        public ActuacionDetalle CargaActuacionDetalle( Actuacion actuacion, int linea )
+        {
+            foreach (ActuacionDetalle detalle in actuacion.actuacionDetalle)
+            {
+                if( detalle.linea == linea )
+                    return detalle;
+            }
+            return null;
+        }
+
+
 
         public List<Actuacion> Lista()
         {
@@ -448,6 +462,59 @@ namespace redTaller.Database
             }
             return borradas;
         }
+
+        public int DeleteDetalle(List<int> lineas, Actuacion actuacion)
+        {
+            int borradas = actuacion.actuacionDetalle.RemoveAll(detalle => lineas.Contains(detalle.linea));
+            return borradas;
+        }
+
+        public void InsertDetalle(Actuacion actuacion, ActuacionDetalle actuacionDetalle)
+        {
+            actuacion.actuacionDetalle.Add(actuacionDetalle);
+        }
+
+        public void UpdateDetalle(Actuacion actuacion, ActuacionDetalle actuacionDetalle)
+        {
+            for (int i = 0; i < actuacion.actuacionDetalle.Count; i++)
+            {
+                if (actuacion.actuacionDetalle[i].linea == actuacionDetalle.linea)
+                {
+                    actuacion.actuacionDetalle[i] = actuacionDetalle;
+                    return; 
+                }
+            }
+        }
+
+        public int maxLinea( Actuacion actuacion )
+        {
+            int maxLinea = 0;
+            if (actuacion.actuacionDetalle != null)
+            {
+                foreach (ActuacionDetalle actuacionDetalle in actuacion.actuacionDetalle)
+                {
+                    if( actuacionDetalle.linea > maxLinea )
+                        maxLinea = actuacionDetalle.linea;
+                }
+            }
+            return maxLinea;
+        }
+
+        public bool existeLinea(Actuacion actuacion, int linea)
+        {
+            if (actuacion.actuacionDetalle != null)
+            {
+                foreach (ActuacionDetalle actuacionDetalle in actuacion.actuacionDetalle)
+                {
+                    if (actuacionDetalle.linea == linea)
+                        return true;
+                }
+            }
+            return false;
+
+        }
+
+
 
     }
 

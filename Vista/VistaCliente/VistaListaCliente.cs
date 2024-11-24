@@ -76,15 +76,16 @@ namespace redTaller.Vista.VistaCliente
         {
             if (gridPrincipal.SelectedRows.Count > 0)
             {
-                if (MessageBox.Show("¿ Seguro de borrar los Talleres seleccionados ?", "Eliminar Registros", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                if (MessageBox.Show("¿ Seguro de borrar los Clientes seleccionados ?", "Eliminar Registros", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     List<int> ids = new List<int>();
                     foreach (DataGridViewRow row in gridPrincipal.SelectedRows)
                     {
+                        ids.Clear();
                         ids.Add((int)row.Cells["id"].Value);
-                        gridPrincipal.Rows.Remove(row);
+                        if (controlador.borrar(this, ids))
+                            gridPrincipal.Rows.Remove(row);
                     }
-                    controlador.borrar(this, ids);
                 }
             }
         }

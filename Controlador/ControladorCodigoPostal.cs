@@ -43,15 +43,17 @@ namespace redTaller.Controlador
             }
         }
         
-        public void borrar( VistaListaCodigoPostal vistaListaCodigoPostal, List<int> ids )
+        public bool borrar( VistaListaCodigoPostal vistaListaCodigoPostal, List<int> ids )
         {
             if (codigoPostalDB.delete(ids) > 0)
             {
                 VistaUtil.MsgInfo("Se ha borrado " + ids.Count.ToString() + " registro(s)"  , "Información" );
+                return true;
             }
             else
             {
                 VistaUtil.MsgInfo("No se han podido borrar", "Información");
+                return false;
             }
         }
 

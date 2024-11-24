@@ -55,15 +55,17 @@ namespace redTaller.Controlador
             }
         }
 
-        public void borrar(VistaListaCliente vistaListaCliente, List<int> ids)
+        public bool borrar(VistaListaCliente vistaListaCliente, List<int> ids)
         {
             if (clienteDB.delete(ids) > 0)
             {
                 VistaUtil.MsgInfo("Se ha borrado " + ids.Count.ToString() + " registro(s)", "Información");
+                return true;
             }
             else
             {
                 VistaUtil.MsgInfo("No se han podido borrar", "Información");
+                return false;
             }
         }
 

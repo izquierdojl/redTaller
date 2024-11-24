@@ -1,5 +1,6 @@
 ﻿using MySqlConnector;
 using redTaller.Modelo;
+using redTaller.Util;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -31,7 +32,6 @@ namespace redTaller.Database
                 { "password", new CampoInfo { SelectCampo = tabla + ".password", VisibleTabla = false, VisibleFiltro = false } },
                 { "activo", new CampoInfo { SelectCampo = tabla + ".activo", VisibleTabla = true, VisibleFiltro = false , Header = "Cuenta Activa"  } },
                 { "bloqueado", new CampoInfo { SelectCampo = tabla + ".bloqueado", VisibleTabla = true, VisibleFiltro = false , Header = "Cuenta Bloqueada"  } },
-                { "nif_taller_alta", new CampoInfo { SelectCampo = tabla + ".nif_taller_alta", VisibleTabla = true, VisibleFiltro = true , Header = "Taller Alta"  } },
                 { "id", new CampoInfo { SelectCampo = tabla + ".id", VisibleTabla = false } }
             };
 
@@ -88,11 +88,6 @@ namespace redTaller.Database
                             cliente.password = Encoding.UTF8.GetBytes(reader.GetString("password"));
                             cliente.activo = Convert.ToBoolean(reader.GetInt32("activo"));
                             cliente.bloqueado = Convert.ToBoolean(reader.GetInt32("bloqueado"));
-                            if (!reader.IsDBNull(reader.GetOrdinal("nif_taller_alta")))
-                            {
-                                TallerDB tallerDB = new TallerDB();
-                                cliente.nif_taller_alta = tallerDB.CargaElemento(0, $"SELECT * FROM taller WHERE taller.nif='{reader.GetString(reader.GetOrdinal("nif_taller_alta"))}'");
-                            }
                         }
                     }
                 }
@@ -115,7 +110,7 @@ namespace redTaller.Database
             try
             {
                 db.Conectar();
-                string query = $"INSERT INTO {tabla} SET nif=@nif, nombre=@nombre, domicilio=@domicilio, cp=@cp, pob=@pob, pro=@pro, tel=@tel, email=@correo, movil=@movil, password=@password, activo=@activo, bloqueado=@bloqueado, nif_taller_alta=@nif_taller_alta";
+                string query = $"INSERT INTO {tabla} SET nif=@nif, nombre=@nombre, domicilio=@domicilio, cp=@cp, pob=@pob, pro=@pro, tel=@tel, email=@correo, movil=@movil, password=@password, activo=@activo, bloqueado=@bloqueado";
                 using (MySqlCommand cmd = new MySqlCommand(query, db.DbConn))
                 {
                     cmd.Parameters.AddWithValue("@nif", cliente.nif);
@@ -130,7 +125,6 @@ namespace redTaller.Database
                     cmd.Parameters.AddWithValue("@password", cliente.password);
                     cmd.Parameters.AddWithValue("@activo", cliente.activo);
                     cmd.Parameters.AddWithValue("@bloqueado", cliente.bloqueado);
-                    cmd.Parameters.AddWithValue("@nif_taller_alta", cliente.nif_taller_alta.nif);
                     nuevas = cmd.ExecuteNonQuery();
                     if (nuevas > 0)
                     {
@@ -173,7 +167,6 @@ namespace redTaller.Database
                     cmd.Parameters.AddWithValue("@password", cliente.password);
                     cmd.Parameters.AddWithValue("@activo", cliente.activo);
                     cmd.Parameters.AddWithValue("@bloqueado", cliente.bloqueado);
-                    cmd.Parameters.AddWithValue("@nif_taller_alta", cliente.nif_taller_alta.nif);
                     modificadas = cmd.ExecuteNonQuery();
                 }
             }
@@ -187,6 +180,61 @@ namespace redTaller.Database
             }
             return modificadas;
         }
+
+        public DataTable Load(Dictionary<string, object> filtros = null)
+        {
+            DataTable dataTable = new DataTable();
+            bool hayFiltros = false;
+
+            try
+            {
+                db.Conectar();
+                string query = $"SELECT {DatabaseUtil.selectColumns(dc)} FROM {tabla} ";
+                if (filtros != null && filtros.Count > 0)
+                {
+                    List<string> whereFiltros = new List<string>();
+                    foreach (var filtro in filtros)
+                    {
+                        whereFiltros.Add($"{filtro.Key} LIKE @{filtro.Key}");
+                    }
+                    query += " WHERE " + string.Join(" AND ", whereFiltros);
+                    hayFiltros = true;
+                }
+
+                if (Session.Instance.Profile == "taller")
+                {
+                    if (!hayFiltros)
+                        query += " WHERE ";
+                    else
+                        query += " AND ";
+                    query += " EXISTS ( SELECT actuacion.id FROM actuacion WHERE actuacion.nif_taller=@nif_taller_perfil and  actuacion.nif_cliente=cliente.nif ) ";
+                }
+
+
+                using (MySqlDataAdapter adapter = new MySqlDataAdapter(query, db.DbConn))
+                {
+                    if (filtros != null && filtros.Count > 0)
+                    {
+                        foreach (var filtro in filtros)
+                            adapter.SelectCommand.Parameters.AddWithValue($"@{filtro.Key}", "%" + filtro.Value.ToString() + "%");
+                    }
+                    if (Session.Instance.Profile == "taller")
+                        adapter.SelectCommand.Parameters.AddWithValue("@nif_taller_perfil", Session.Instance.User);
+                    adapter.Fill(dataTable);
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error al obtener {tabla}: {ex.Message}");
+            }
+            finally
+            {
+                db.Desconectar();
+            }
+
+            return dataTable;
+        }
+
 
         public List<Cliente> lista()
         {
@@ -217,8 +265,6 @@ namespace redTaller.Database
                             cliente.password = Encoding.UTF8.GetBytes(reader.GetString("password"));
                             cliente.activo = reader.GetBoolean("activo");
                             cliente.bloqueado = reader.GetBoolean("bloqueado");
-                            TallerDB tallerDB = new TallerDB();
-                            cliente.nif_taller_alta = tallerDB.CargaElemento(0, $"SELECT * FROM taller WHERE taller.nif={reader.GetString("nif_taller_alta")}");
                             list.Add(cliente);
                         }
                     }

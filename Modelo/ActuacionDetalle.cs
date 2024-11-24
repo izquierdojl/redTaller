@@ -5,7 +5,7 @@ namespace redTaller.Modelo
     {
         public int id { get; set; }
         public int id_actuacion { get; set; }
-        public int orden { get; set; }
+        public int linea { get; set; }
         public string descripcion { get; set; }
         public byte[] imagen { get; set; }
 
@@ -17,7 +17,7 @@ namespace redTaller.Modelo
         {
             this.id = id;
             this.id_actuacion = id_actuacion;
-            this.orden = orden; 
+            this.linea = orden; 
             this.descripcion = descripcion;
             this.imagen = imagen;
         }

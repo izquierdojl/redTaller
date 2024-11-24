@@ -46,6 +46,7 @@
             this.textKm = new System.Windows.Forms.MaskedTextBox();
             this.panelBottom = new System.Windows.Forms.Panel();
             this.panelGridCenter = new System.Windows.Forms.Panel();
+            this.gridActuacionDetalle = new System.Windows.Forms.DataGridView();
             this.panelGridTop = new System.Windows.Forms.Panel();
             this.labCaptionActuaciones = new System.Windows.Forms.Label();
             this.btnGridDel = new System.Windows.Forms.Button();
@@ -53,13 +54,12 @@
             this.btnGridAdd = new System.Windows.Forms.Button();
             this.comboTipo = new System.Windows.Forms.ComboBox();
             this.labelTipo = new System.Windows.Forms.Label();
-            this.gridActuacionDetalle = new System.Windows.Forms.DataGridView();
             this.panelButton.SuspendLayout();
             this.panelPrincipal.SuspendLayout();
             this.panelBottom.SuspendLayout();
             this.panelGridCenter.SuspendLayout();
-            this.panelGridTop.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridActuacionDetalle)).BeginInit();
+            this.panelGridTop.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelButton
@@ -268,6 +268,22 @@
             this.panelGridCenter.Size = new System.Drawing.Size(752, 276);
             this.panelGridCenter.TabIndex = 1;
             // 
+            // gridActuacionDetalle
+            // 
+            this.gridActuacionDetalle.AllowUserToAddRows = false;
+            this.gridActuacionDetalle.AllowUserToDeleteRows = false;
+            this.gridActuacionDetalle.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gridActuacionDetalle.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gridActuacionDetalle.Location = new System.Drawing.Point(0, 0);
+            this.gridActuacionDetalle.Name = "gridActuacionDetalle";
+            this.gridActuacionDetalle.ReadOnly = true;
+            this.gridActuacionDetalle.RowHeadersWidth = 62;
+            this.gridActuacionDetalle.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.gridActuacionDetalle.Size = new System.Drawing.Size(752, 276);
+            this.gridActuacionDetalle.TabIndex = 1;
+            this.gridActuacionDetalle.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.gridActuacionDetalle_CellMouseDoubleClick);
+            this.gridActuacionDetalle.KeyDown += new System.Windows.Forms.KeyEventHandler(this.gridActuacionDetalle_KeyDown);
+            // 
             // panelGridTop
             // 
             this.panelGridTop.Controls.Add(this.labCaptionActuaciones);
@@ -298,6 +314,7 @@
             this.btnGridDel.Size = new System.Drawing.Size(42, 37);
             this.btnGridDel.TabIndex = 75;
             this.btnGridDel.UseVisualStyleBackColor = true;
+            this.btnGridDel.Click += new System.EventHandler(this.btnGridDel_Click);
             // 
             // btnGridEdit
             // 
@@ -307,6 +324,7 @@
             this.btnGridEdit.Size = new System.Drawing.Size(42, 37);
             this.btnGridEdit.TabIndex = 74;
             this.btnGridEdit.UseVisualStyleBackColor = true;
+            this.btnGridEdit.Click += new System.EventHandler(this.btnGridEdit_Click);
             // 
             // btnGridAdd
             // 
@@ -316,6 +334,7 @@
             this.btnGridAdd.Size = new System.Drawing.Size(42, 37);
             this.btnGridAdd.TabIndex = 73;
             this.btnGridAdd.UseVisualStyleBackColor = true;
+            this.btnGridAdd.Click += new System.EventHandler(this.btnGridAdd_Click);
             // 
             // comboTipo
             // 
@@ -335,20 +354,6 @@
             this.labelTipo.TabIndex = 73;
             this.labelTipo.Text = "Tipo de Actuación:";
             // 
-            // gridActuacionDetalle
-            // 
-            this.gridActuacionDetalle.AllowUserToAddRows = false;
-            this.gridActuacionDetalle.AllowUserToDeleteRows = false;
-            this.gridActuacionDetalle.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gridActuacionDetalle.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gridActuacionDetalle.Location = new System.Drawing.Point(0, 0);
-            this.gridActuacionDetalle.Name = "gridActuacionDetalle";
-            this.gridActuacionDetalle.ReadOnly = true;
-            this.gridActuacionDetalle.RowHeadersWidth = 62;
-            this.gridActuacionDetalle.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.gridActuacionDetalle.Size = new System.Drawing.Size(752, 276);
-            this.gridActuacionDetalle.TabIndex = 1;
-            // 
             // VistaFormActuacion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -359,9 +364,9 @@
             this.panelPrincipal.PerformLayout();
             this.panelBottom.ResumeLayout(false);
             this.panelGridCenter.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.gridActuacionDetalle)).EndInit();
             this.panelGridTop.ResumeLayout(false);
             this.panelGridTop.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gridActuacionDetalle)).EndInit();
             this.ResumeLayout(false);
 
         }
