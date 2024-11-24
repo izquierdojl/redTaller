@@ -1,10 +1,12 @@
-﻿using redTaller.Controlador;
+﻿using Org.BouncyCastle.Utilities;
+using redTaller.Controlador;
 using redTaller.Database;
 using redTaller.Modelo;
 using System;
+using System.Drawing;
 using System.IO;
+using System.Windows.Controls;
 using System.Windows.Forms;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace redTaller.Vista.VistaActuacion
 {
@@ -40,7 +42,9 @@ namespace redTaller.Vista.VistaActuacion
                 textDescripcion.Text = actuacionDetalle.descripcion;
                 if (actuacionDetalle.imagen != null)
                 {
-                    using (MemoryStream ms = new MemoryStream(actuacionDetalle.imagen))
+                    string base64String = System.Text.Encoding.UTF8.GetString(actuacionDetalle.imagen);
+                    byte[] imageBytes = Convert.FromBase64String(base64String);
+                    using (var ms = new MemoryStream(imageBytes))
                     {
                         pictureImagen.Image = System.Drawing.Image.FromStream(ms);
                     }
@@ -85,7 +89,7 @@ namespace redTaller.Vista.VistaActuacion
                 using (MemoryStream ms = new MemoryStream())
                 {
                     pictureImagen.Image.Save(ms, pictureImagen.Image.RawFormat);
-                    actuacionDetalle.imagen = ms.ToArray();
+                    actuacionDetalle.imagen = System.Text.Encoding.UTF8.GetBytes(Convert.ToBase64String(ms.ToArray()));
                 }
             }
             controlador.guardarDetalle(actuacionDetalle, modo, vista, this);
