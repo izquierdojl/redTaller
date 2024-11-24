@@ -6,6 +6,7 @@ using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Windows.Documents;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
@@ -458,6 +459,36 @@ namespace redTaller.Database
                 }
             }
         }
+
+        public int maxLinea( Actuacion actuacion )
+        {
+            int maxLinea = 0;
+            if (actuacion.actuacionDetalle != null)
+            {
+                foreach (ActuacionDetalle actuacionDetalle in actuacion.actuacionDetalle)
+                {
+                    if( actuacionDetalle.linea > maxLinea )
+                        maxLinea = actuacionDetalle.linea;
+                }
+            }
+            return maxLinea;
+        }
+
+        public bool existeLinea(Actuacion actuacion, int linea)
+        {
+            if (actuacion.actuacionDetalle != null)
+            {
+                foreach (ActuacionDetalle actuacionDetalle in actuacion.actuacionDetalle)
+                {
+                    if (actuacionDetalle.linea == linea)
+                        return true;
+                }
+            }
+            return false;
+
+        }
+
+
 
     }
 

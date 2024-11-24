@@ -52,6 +52,10 @@ namespace redTaller.Vista.VistaActuacion
                     }
                 }
             }
+            else
+            {
+                textOrden.Value = controlador.maxLinea(vista.actuacion) + 1;
+            }
 
         }
 
@@ -111,6 +115,21 @@ namespace redTaller.Vista.VistaActuacion
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void textOrden_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            bool valido = false;
+            if (textOrden.Value > 0)
+            {
+                if( !controlador.existeLinea( vista.actuacion, (int)textOrden.Value ))
+                {
+                    valido = true;
+                }
+
+            }
+            if( !valido )
+                textOrden.Focus();
         }
     }
 

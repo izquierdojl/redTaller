@@ -107,6 +107,7 @@
             this.textOrden.Name = "textOrden";
             this.textOrden.Size = new System.Drawing.Size(104, 26);
             this.textOrden.TabIndex = 2;
+            this.textOrden.Validating += new System.ComponentModel.CancelEventHandler(this.textOrden_Validating);
             // 
             // textDescripcion
             // 

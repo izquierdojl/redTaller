@@ -167,6 +167,16 @@ namespace redTaller.Controlador
             }
         }
 
+        public int maxLinea(Actuacion actuacion)
+        {
+            return actuacionDB.maxLinea(actuacion);
+        }
+
+        public bool existeLinea(Actuacion actuacion, int linea)
+        {
+            return actuacionDB.existeLinea(actuacion,linea);
+        }
+
     }
 
 }
