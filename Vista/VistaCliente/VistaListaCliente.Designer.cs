@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VistaListaCliente));
             this.gridPrincipal = new System.Windows.Forms.DataGridView();
             this.panelTop.SuspendLayout();
             this.panelSearch.SuspendLayout();
@@ -71,7 +72,7 @@
             // 
             // textSearch
             // 
-            this.textSearch.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textSearch.Margin = new System.Windows.Forms.Padding(2);
             // 
             // gridPrincipal
             // 
@@ -93,7 +94,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "VistaListaCliente";
             this.panelTop.ResumeLayout(false);
             this.panelSearch.ResumeLayout(false);

@@ -22,7 +22,6 @@ namespace redTaller.Vista.VistaActuacion
 
             InitializeComponent();
             gridPrincipal.AutoGenerateColumns = true;
-            this.WindowState = FormWindowState.Maximized;
             this.dc = dc;
 
             recargaGrid(data);

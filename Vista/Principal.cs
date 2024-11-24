@@ -75,6 +75,8 @@ namespace redTaller
                 this.menuFicherosTalleres.Visible = false;
                 this.menuFicherosCodigosPostales.Visible = false;
                 this.menuFicherosProvincias.Visible = false;
+                this.menuHerramientas.Visible = false;
+                this.toolStripBtnTaller.Visible = false;
             }
 
         }
@@ -157,6 +159,34 @@ namespace redTaller
             Application.Exit();
         }
 
+        private void toolStripSalir_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void toolStripBtnTaller_Click(object sender, EventArgs e)
+        {
+            ControladorTaller controladorTaller = new ControladorTaller();
+            controladorTaller.mostrar(this);
+        }
+
+        private void toolStripCliente_Click(object sender, EventArgs e)
+        {
+            ControladorCliente controlladorCliente = new ControladorCliente();
+            controlladorCliente.mostrar(this);
+        }
+
+        private void toolStripActuacion_Click(object sender, EventArgs e)
+        {
+            ControladorActuacion controladorActuacion = new ControladorActuacion();
+            controladorActuacion.mostrar(this);
+        }
+
+        private void Principal_Resize(object sender, EventArgs e)
+        {
+
+            this.BackgroundImageLayout = ImageLayout.Stretch;
+        }
     }
 
 }

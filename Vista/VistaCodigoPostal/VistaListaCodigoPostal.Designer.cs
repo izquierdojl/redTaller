@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VistaListaCodigoPostal));
             this.gridPrincipal = new System.Windows.Forms.DataGridView();
             this.panelTop.SuspendLayout();
             this.panelSearch.SuspendLayout();
@@ -99,6 +100,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.ClientSize = new System.Drawing.Size(1054, 535);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "VistaListaCodigoPostal";
             this.panelTop.ResumeLayout(false);
             this.panelSearch.ResumeLayout(false);

@@ -380,5 +380,23 @@
   <ItemGroup>
     <None Include="img\camara.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="img\codigo-postal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="img\configuracion.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="img\provincia.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="img\taller.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="img\cliente.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="img\reparacion.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
