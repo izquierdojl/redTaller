@@ -135,9 +135,9 @@ namespace redTaller.Vista.VistaTaller
 
         private void correoActivacion()
         {
+            taller.email = this.textEmail.Text;
             if (!string.IsNullOrEmpty(taller.email))
             { 
-                taller.email = this.textEmail.Text;
                 if (MessageBox.Show("¿ Seguro de enviar correo de activación a " + taller.email + " ?", "Activación", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     controlador.enviaCorreoActivacion(taller);

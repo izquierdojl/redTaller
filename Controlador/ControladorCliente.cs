@@ -1,8 +1,11 @@
 ﻿using redTaller.Database;
+using redTaller.Database.Util;
 using redTaller.Modelo;
+using redTaller.Util;
 using redTaller.Vista.VistaCliente;
 using redTaller.Vista.VistaUtil;
 using System.Collections.Generic;
+using System.Text;
 using System.Windows.Forms;
 
 namespace redTaller.Controlador
@@ -118,6 +121,36 @@ namespace redTaller.Controlador
         {
             return clienteDB.CargaElemento(id);
         }
+
+        public void enviaCorreoActivacion(Cliente cliente)
+        {
+            ClienteDB db = new ClienteDB();
+            string randomPassword = Password.RandomPassword(8);
+            cliente.password = Encoding.UTF8.GetBytes(randomPassword);
+            if (db.updateActivacion(cliente) )
+            {
+                Email email = new Email();
+                string body = $@"
+                                Estimado, {cliente.nombre} 
+                                A continuación, se le envía la contraseña para poder acceder a la aplicación REDTALLER
+                                Contraseña:
+                                {randomPassword}
+                                Atentamente,
+                                ";
+
+                if (email.EnviarEmail(cliente.email, "REDTALLER - Activación de Cuenta de Cliente", body))
+                {
+                    VistaUtil.MsgInfo("Mensaje enviado correctamente", "Envío correcto");
+                }
+                else
+                {
+                    VistaUtil.MsgInfo("No se ha podido realizar el envío del correo electrónico, inténtelo en unos instantes.", "Envio incorrecto");
+                }
+
+            }
+
+        }
+
 
     }
 }
