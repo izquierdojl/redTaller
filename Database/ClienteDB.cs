@@ -110,7 +110,7 @@ namespace redTaller.Database
             try
             {
                 db.Conectar();
-                string query = $"INSERT INTO {tabla} SET nif=@nif, nombre=@nombre, domicilio=@domicilio, cp=@cp, pob=@pob, pro=@pro, tel=@tel, email=@correo, movil=@movil, password=@password, activo=@activo, bloqueado=@bloqueado";
+                string query = $"INSERT INTO {tabla} SET nif=@nif, nombre=@nombre, domicilio=@domicilio, cp=@cp, pob=@pob, pro=@pro, tel=@tel, email=@correo, movil=@movil, activo=@activo, bloqueado=@bloqueado";
                 using (MySqlCommand cmd = new MySqlCommand(query, db.DbConn))
                 {
                     cmd.Parameters.AddWithValue("@nif", cliente.nif);
@@ -122,7 +122,6 @@ namespace redTaller.Database
                     cmd.Parameters.AddWithValue("@tel", cliente.tel);
                     cmd.Parameters.AddWithValue("@correo", cliente.email);
                     cmd.Parameters.AddWithValue("@movil", cliente.movil);
-                    cmd.Parameters.AddWithValue("@password", cliente.password);
                     cmd.Parameters.AddWithValue("@activo", cliente.activo);
                     cmd.Parameters.AddWithValue("@bloqueado", cliente.bloqueado);
                     nuevas = cmd.ExecuteNonQuery();
@@ -151,7 +150,7 @@ namespace redTaller.Database
             try
             {
                 db.Conectar();
-                string query = $"UPDATE {tabla} SET nif=@nif, nombre=@nombre, domicilio=@domicilio, cp=@cp, pob=@pob, pro=@pro, tel=@tel, email=@correo, movil=@movil, password=@password, activo=@activo, bloqueado=@bloqueado WHERE id=@id";
+                string query = $"UPDATE {tabla} SET nif=@nif, nombre=@nombre, domicilio=@domicilio, cp=@cp, pob=@pob, pro=@pro, tel=@tel, email=@correo, movil=@movil, activo=@activo, bloqueado=@bloqueado WHERE id=@id";
                 using (MySqlCommand cmd = new MySqlCommand(query, db.DbConn))
                 {
                     cmd.Parameters.AddWithValue("@id", cliente.id);
@@ -164,7 +163,6 @@ namespace redTaller.Database
                     cmd.Parameters.AddWithValue("@tel", cliente.tel);
                     cmd.Parameters.AddWithValue("@correo", cliente.email);
                     cmd.Parameters.AddWithValue("@movil", cliente.movil);
-                    cmd.Parameters.AddWithValue("@password", cliente.password);
                     cmd.Parameters.AddWithValue("@activo", cliente.activo);
                     cmd.Parameters.AddWithValue("@bloqueado", cliente.bloqueado);
                     modificadas = cmd.ExecuteNonQuery();
@@ -262,7 +260,6 @@ namespace redTaller.Database
                             cliente.tel = reader.GetString("tel");
                             cliente.email = reader.GetString("email");
                             cliente.movil = reader.GetString("movil");
-                            cliente.password = Encoding.UTF8.GetBytes(reader.GetString("password"));
                             cliente.activo = reader.GetBoolean("activo");
                             cliente.bloqueado = reader.GetBoolean("bloqueado");
                             list.Add(cliente);
@@ -282,6 +279,33 @@ namespace redTaller.Database
 
             return list;
         }
+        public bool updateActivacion(Cliente cliente)
+        {
+            int modificadas = 0;
+            bool actualiza = false;
+            try
+            {
+                db.Conectar();
+                string query = $"UPDATE {tabla} SET activo=0,bloqueado=0,password=SHA2(@password,256) WHERE id=@id";
+                using (MySqlCommand cmd = new MySqlCommand(query, db.DbConn))
+                {
+                    cmd.Parameters.AddWithValue("@id", cliente.id);
+                    cmd.Parameters.AddWithValue("@password", cliente.password);
+                    modificadas = cmd.ExecuteNonQuery();
+                    actualiza = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error al modificar {tabla}: {ex.Message}");
+            }
+            finally
+            {
+                db.Desconectar();
+            }
+            return actualiza;
+        }
+
 
     }
 

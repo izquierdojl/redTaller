@@ -54,6 +54,11 @@ namespace redTaller.Vista.VistaCliente
 
         private void btnAceptar_Click(object sender, System.EventArgs e)
         {
+            guardar();
+        }
+
+        private void guardar()
+        {
             cliente.nif = textNif.Text;
             cliente.nombre = textNombre.Text;
             cliente.domicilio = textDomicilio.Text;
@@ -135,5 +140,24 @@ namespace redTaller.Vista.VistaCliente
             }
         }
 
+        private void correoActivacion()
+        {
+            cliente.email = this.textEmail.Text;
+            if (!string.IsNullOrEmpty(cliente.email))
+            {
+                if (MessageBox.Show("¿ Seguro de enviar correo de activación a " + cliente.email + " ?", "Activación", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    controlador.enviaCorreoActivacion(cliente);
+                    cliente.activo = true;
+                    guardar();
+                }
+            }
+
+        }
+
+        private void btnActivación_Click(object sender, System.EventArgs e)
+        {
+            correoActivacion();
+        }
     }
 }

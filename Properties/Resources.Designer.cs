@@ -203,6 +203,16 @@ namespace redTaller.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap redTaller {
+            get {
+                object obj = ResourceManager.GetObject("redTaller", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap reparacion {
             get {
                 object obj = ResourceManager.GetObject("reparacion", resourceCulture);
