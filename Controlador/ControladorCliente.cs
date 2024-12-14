@@ -3,6 +3,7 @@ using redTaller.Database.Util;
 using redTaller.Modelo;
 using redTaller.Util;
 using redTaller.Vista.VistaCliente;
+using redTaller.Vista.VistaTaller;
 using redTaller.Vista.VistaUtil;
 using System.Collections.Generic;
 using System.Text;
@@ -107,13 +108,17 @@ namespace redTaller.Controlador
         public void asignaCodigoPostal(VistaFormCliente vistaFormCliente )
         {
             CodigoPostalDB db = new CodigoPostalDB();
-            CodigoPostal codigoPostal = db.CargaElemento(0, vistaFormCliente.textCp.Text);
-            if (codigoPostal != null)
+            if (!string.IsNullOrEmpty(vistaFormCliente.textCp.Text))
             {
-                if (string.IsNullOrEmpty(vistaFormCliente.textPoblacion.Text))
-                    vistaFormCliente.textPoblacion.Text = codigoPostal.nombre;
-                if (string.IsNullOrEmpty(vistaFormCliente.textProvincia.Text))
-                    vistaFormCliente.textProvincia.Text = codigoPostal.provincia.nombre;
+
+                CodigoPostal codigoPostal = db.CargaElemento(0, vistaFormCliente.textCp.Text);
+                if (codigoPostal != null)
+                {
+                    if (string.IsNullOrEmpty(vistaFormCliente.textPoblacion.Text))
+                        vistaFormCliente.textPoblacion.Text = codigoPostal.nombre;
+                    if (string.IsNullOrEmpty(vistaFormCliente.textProvincia.Text))
+                        vistaFormCliente.textProvincia.Text = codigoPostal.provincia.nombre;
+                }
             }
 
         }
