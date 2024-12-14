@@ -113,7 +113,7 @@ namespace redTaller.Database
             try
             {
                 db.Conectar();
-                string query = $"INSERT INTO {tabla} SET nif=@nif, nombre=@nombre, domicilio=@domicilio, cp=@cp, pob=@pob, pro=@pro, tel=@tel, email=@correo, movil=@movil, password=@password, activo=@activo, bloqueado=@bloqueado";
+                string query = $"INSERT INTO {tabla} SET nif=@nif, nombre=@nombre, domicilio=@domicilio, cp=@cp, pob=@pob, pro=@pro, tel=@tel, email=@correo, movil=@movil, activo=@activo, bloqueado=@bloqueado";
                 using (MySqlCommand cmd = new MySqlCommand(query, db.DbConn))
                 {
                     cmd.Parameters.AddWithValue("@nif", taller.nif);
