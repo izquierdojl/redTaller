@@ -18,42 +18,51 @@ namespace redTaller.Controlador
         public bool aceptar(VistaLogin vistaLogin)
         {
             bool acceso = false;
-            DatabaseLogin databaseLogin = new DatabaseLogin(vistaLogin.textUser.Text,vistaLogin.textPassword.Text);
-            Session.Instance.SetSession(vistaLogin.textUser.Text, vistaLogin.textPassword.Text);
-            if (databaseLogin.checkLogin())
+            ServicioConexion servicioConexion = new ServicioConexion(vistaLogin.textUser.Text, vistaLogin.textPassword.Text);
+            if (servicioConexion.estado)
             {
 
-                acceso = true;
-
-                if (Session.Instance.Profile == "taller") // verificamos si es un taller y está activo
+                DatabaseLogin databaseLogin = new DatabaseLogin(vistaLogin.textUser.Text, vistaLogin.textPassword.Text);
+                Session.Instance.SetSession(vistaLogin.textUser.Text, vistaLogin.textPassword.Text);
+                if (databaseLogin.checkLogin())
                 {
-                    Taller taller = new Taller();
-                    TallerDB tallerDB = new TallerDB();
-                    taller = tallerDB.CargaElemento(0, "SELECT * FROM taller WHERE nif='" + Session.Instance.User + "'");
-                    if (taller != null)
+
+                    acceso = true;
+
+                    if (Session.Instance.Profile == "taller") // verificamos si es un taller y está activo
                     {
-                        if (taller.bloqueado)
+                        Taller taller = new Taller();
+                        TallerDB tallerDB = new TallerDB();
+                        taller = tallerDB.CargaElemento(0, "SELECT * FROM taller WHERE nif='" + Session.Instance.User + "'");
+                        if (taller != null)
                         {
-                            VistaUtil.MsgInfo("Usuario bloqueado", "Incorrecto");
-                            cancelar(vistaLogin);
+                            if (taller.bloqueado)
+                            {
+                                VistaUtil.MsgInfo("Usuario bloqueado", "Incorrecto");
+                                cancelar(vistaLogin);
+                            }
+                            if (!taller.activo)
+                            {
+                                vistaLogin.Hide();
+                                VistaLoginConfirma vistaLoginConfirma = new VistaLoginConfirma(this);
+                                vistaLoginConfirma.ShowDialog();
+                            }
                         }
-                        if (!taller.activo)
-                        {
-                            vistaLogin.Hide();
-                            VistaLoginConfirma vistaLoginConfirma = new VistaLoginConfirma(this);
-                            vistaLoginConfirma.ShowDialog();
-                        }
+
                     }
 
+                    Principal principal = new Principal();
+                    principal.Show();
+
                 }
-
-                Principal principal = new Principal();
-                principal.Show();
-
+                else
+                {
+                    VistaUtil.MsgInfo("Usuario o password incorrecto", "Incorrecto");
+                }
             }
             else
             {
-                VistaUtil.MsgInfo("Usuario o password incorrecto", "Incorrecto");
+                VistaUtil.MsgInfo("No se puede acceder a la base de datos de credenciales", "Incorrecto");
             }
 
             return acceso;
