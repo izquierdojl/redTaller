@@ -41,9 +41,9 @@
             // labUsuario
             // 
             this.labUsuario.AutoSize = true;
-            this.labUsuario.Location = new System.Drawing.Point(262, 65);
+            this.labUsuario.Location = new System.Drawing.Point(262, 43);
             this.labUsuario.Name = "labUsuario";
-            this.labUsuario.Size = new System.Drawing.Size(94, 20);
+            this.labUsuario.Size = new System.Drawing.Size(146, 31);
             this.labUsuario.TabIndex = 1;
             this.labUsuario.Text = "Usuario/NIF :";
             // 
@@ -52,15 +52,15 @@
             this.textUser.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textUser.Location = new System.Drawing.Point(266, 88);
             this.textUser.Name = "textUser";
-            this.textUser.Size = new System.Drawing.Size(213, 20);
+            this.textUser.Size = new System.Drawing.Size(213, 30);
             this.textUser.TabIndex = 2;
             // 
             // textPassword
             // 
             this.textPassword.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textPassword.Location = new System.Drawing.Point(266, 145);
+            this.textPassword.Location = new System.Drawing.Point(266, 165);
             this.textPassword.Name = "textPassword";
-            this.textPassword.Size = new System.Drawing.Size(213, 20);
+            this.textPassword.Size = new System.Drawing.Size(213, 30);
             this.textPassword.TabIndex = 4;
             // 
             // labPassword
@@ -68,16 +68,16 @@
             this.labPassword.AutoSize = true;
             this.labPassword.Location = new System.Drawing.Point(262, 122);
             this.labPassword.Name = "labPassword";
-            this.labPassword.Size = new System.Drawing.Size(86, 20);
+            this.labPassword.Size = new System.Drawing.Size(134, 31);
             this.labPassword.TabIndex = 3;
             this.labPassword.Text = "Contraseña:";
             // 
             // btnAceptar
             // 
             this.btnAceptar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAceptar.Location = new System.Drawing.Point(296, 244);
+            this.btnAceptar.Location = new System.Drawing.Point(268, 244);
             this.btnAceptar.Name = "btnAceptar";
-            this.btnAceptar.Size = new System.Drawing.Size(81, 38);
+            this.btnAceptar.Size = new System.Drawing.Size(111, 38);
             this.btnAceptar.TabIndex = 5;
             this.btnAceptar.Text = "Acceder";
             this.btnAceptar.UseVisualStyleBackColor = true;
@@ -108,9 +108,8 @@
             // VistaLogin
             // 
             this.AcceptButton = this.btnAceptar;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 31F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoSize = true;
             this.BackColor = System.Drawing.Color.Moccasin;
             this.CancelButton = this.btnSalir;
             this.ClientSize = new System.Drawing.Size(507, 308);

@@ -60,6 +60,7 @@
             // menuFicheros
             // 
             this.menuFicheros.AutoSize = false;
+            this.menuFicheros.GripMargin = new System.Windows.Forms.Padding(2, 2, 0, 2);
             this.menuFicheros.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.menuFicheros.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ficherosToolStripMenuItem,
@@ -67,9 +68,9 @@
             this.menuHerramientas});
             this.menuFicheros.Location = new System.Drawing.Point(0, 0);
             this.menuFicheros.Name = "menuFicheros";
-            this.menuFicheros.Size = new System.Drawing.Size(1283, 24);
+            this.menuFicheros.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
+            this.menuFicheros.Size = new System.Drawing.Size(1924, 36);
             this.menuFicheros.TabIndex = 1;
-            this.menuFicheros.Text = "menuStrip1";
             // 
             // ficherosToolStripMenuItem
             // 
@@ -81,14 +82,14 @@
             this.menuFicherosCodigosPostales});
             this.ficherosToolStripMenuItem.Name = "ficherosToolStripMenuItem";
             this.ficherosToolStripMenuItem.ShowShortcutKeys = false;
-            this.ficherosToolStripMenuItem.Size = new System.Drawing.Size(63, 20);
+            this.ficherosToolStripMenuItem.Size = new System.Drawing.Size(93, 30);
             this.ficherosToolStripMenuItem.Text = "Ficheros";
             // 
             // menuFicherosTalleres
             // 
             this.menuFicherosTalleres.Image = global::redTaller.Properties.Resources.taller;
             this.menuFicherosTalleres.Name = "menuFicherosTalleres";
-            this.menuFicherosTalleres.Size = new System.Drawing.Size(230, 30);
+            this.menuFicherosTalleres.Size = new System.Drawing.Size(337, 34);
             this.menuFicherosTalleres.Text = "Fichero de Talleres";
             this.menuFicherosTalleres.Click += new System.EventHandler(this.menuFicherosTalleres_Click);
             // 
@@ -96,20 +97,20 @@
             // 
             this.menuFicherosClientes.Image = global::redTaller.Properties.Resources.cliente;
             this.menuFicherosClientes.Name = "menuFicherosClientes";
-            this.menuFicherosClientes.Size = new System.Drawing.Size(230, 30);
+            this.menuFicherosClientes.Size = new System.Drawing.Size(337, 34);
             this.menuFicherosClientes.Text = "Fichero de &Clientes";
             this.menuFicherosClientes.Click += new System.EventHandler(this.menuFicherosClientes_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(227, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(334, 6);
             // 
             // menuFicherosProvincias
             // 
             this.menuFicherosProvincias.Image = global::redTaller.Properties.Resources.provincia;
             this.menuFicherosProvincias.Name = "menuFicherosProvincias";
-            this.menuFicherosProvincias.Size = new System.Drawing.Size(230, 30);
+            this.menuFicherosProvincias.Size = new System.Drawing.Size(337, 34);
             this.menuFicherosProvincias.Text = "Fichero de &Provincias";
             this.menuFicherosProvincias.Click += new System.EventHandler(this.menuFicherosProvincias_Click);
             // 
@@ -117,7 +118,7 @@
             // 
             this.menuFicherosCodigosPostales.Image = global::redTaller.Properties.Resources.codigo_postal;
             this.menuFicherosCodigosPostales.Name = "menuFicherosCodigosPostales";
-            this.menuFicherosCodigosPostales.Size = new System.Drawing.Size(230, 30);
+            this.menuFicherosCodigosPostales.Size = new System.Drawing.Size(337, 34);
             this.menuFicherosCodigosPostales.Text = "Fichero de Códigos &Postales";
             this.menuFicherosCodigosPostales.Click += new System.EventHandler(this.menuFicherosCodigosPostales_Click);
             // 
@@ -126,14 +127,14 @@
             this.menuActuaciones.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuRegistroActuaciones});
             this.menuActuaciones.Name = "menuActuaciones";
-            this.menuActuaciones.Size = new System.Drawing.Size(84, 20);
+            this.menuActuaciones.Size = new System.Drawing.Size(123, 30);
             this.menuActuaciones.Text = "&Actuaciones";
             // 
             // menuRegistroActuaciones
             // 
             this.menuRegistroActuaciones.Image = global::redTaller.Properties.Resources.reparacion;
             this.menuRegistroActuaciones.Name = "menuRegistroActuaciones";
-            this.menuRegistroActuaciones.Size = new System.Drawing.Size(209, 30);
+            this.menuRegistroActuaciones.Size = new System.Drawing.Size(304, 34);
             this.menuRegistroActuaciones.Text = "&Registro de Actuaciones";
             this.menuRegistroActuaciones.Click += new System.EventHandler(this.menuRegistroActuaciones_Click);
             // 
@@ -142,14 +143,14 @@
             this.menuHerramientas.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuConfiguración});
             this.menuHerramientas.Name = "menuHerramientas";
-            this.menuHerramientas.Size = new System.Drawing.Size(90, 20);
+            this.menuHerramientas.Size = new System.Drawing.Size(133, 30);
             this.menuHerramientas.Text = "&Herramientas";
             // 
             // menuConfiguración
             // 
             this.menuConfiguración.Image = global::redTaller.Properties.Resources.configuracion;
             this.menuConfiguración.Name = "menuConfiguración";
-            this.menuConfiguración.Size = new System.Drawing.Size(158, 30);
+            this.menuConfiguración.Size = new System.Drawing.Size(225, 34);
             this.menuConfiguración.Text = "Configuración";
             this.menuConfiguración.Click += new System.EventHandler(this.menuConfiguración_Click);
             // 
@@ -159,9 +160,10 @@
             this.barStatus.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.statusProgram,
             this.statusUser});
-            this.barStatus.Location = new System.Drawing.Point(0, 616);
+            this.barStatus.Location = new System.Drawing.Point(0, 925);
             this.barStatus.Name = "barStatus";
-            this.barStatus.Size = new System.Drawing.Size(1283, 22);
+            this.barStatus.Padding = new System.Windows.Forms.Padding(2, 0, 21, 0);
+            this.barStatus.Size = new System.Drawing.Size(1924, 32);
             this.barStatus.TabIndex = 3;
             this.barStatus.Text = "statusStrip1";
             // 
@@ -169,14 +171,14 @@
             // 
             this.statusProgram.AutoSize = false;
             this.statusProgram.Name = "statusProgram";
-            this.statusProgram.Size = new System.Drawing.Size(150, 17);
+            this.statusProgram.Size = new System.Drawing.Size(150, 25);
             this.statusProgram.Text = "redTaller";
             this.statusProgram.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // statusUser
             // 
             this.statusUser.Name = "statusUser";
-            this.statusUser.Size = new System.Drawing.Size(50, 17);
+            this.statusUser.Size = new System.Drawing.Size(76, 25);
             this.statusUser.Text = "Usuario:";
             // 
             // contextMenuStrip1
@@ -200,9 +202,10 @@
             this.toolStripBtnTaller,
             this.toolStripCliente,
             this.toolStripActuacion});
-            this.toolStripPrincipal.Location = new System.Drawing.Point(0, 24);
+            this.toolStripPrincipal.Location = new System.Drawing.Point(0, 36);
             this.toolStripPrincipal.Name = "toolStripPrincipal";
-            this.toolStripPrincipal.Size = new System.Drawing.Size(1283, 71);
+            this.toolStripPrincipal.Padding = new System.Windows.Forms.Padding(0, 0, 3, 0);
+            this.toolStripPrincipal.Size = new System.Drawing.Size(1924, 73);
             this.toolStripPrincipal.Stretch = true;
             this.toolStripPrincipal.TabIndex = 5;
             this.toolStripPrincipal.Text = "toolStripPrincipal";
@@ -222,7 +225,7 @@
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 71);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 73);
             // 
             // toolStripBtnTaller
             // 
@@ -261,16 +264,17 @@
             // 
             // Principal
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(144F, 144F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.ClientSize = new System.Drawing.Size(1283, 638);
+            this.ClientSize = new System.Drawing.Size(1924, 957);
             this.Controls.Add(this.toolStripPrincipal);
             this.Controls.Add(this.barStatus);
             this.Controls.Add(this.menuFicheros);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.IsMdiContainer = true;
             this.MainMenuStrip = this.menuFicheros;
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "Principal";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "redTaller";

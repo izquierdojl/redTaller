@@ -17,7 +17,7 @@ namespace redTaller
         static void Main()
         {
             Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
+            Application.SetCompatibleTextRenderingDefault(true);
             Application.Run(new VistaLogin());
         }
     }
