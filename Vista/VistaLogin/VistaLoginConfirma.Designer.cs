@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VistaLoginConfirma));
             this.btnSalir = new System.Windows.Forms.Button();
             this.labPassword1 = new System.Windows.Forms.Label();
             this.textPassword = new System.Windows.Forms.TextBox();
@@ -36,13 +37,15 @@
             this.btnAceptar = new System.Windows.Forms.Button();
             this.panelLeft = new System.Windows.Forms.Panel();
             this.labelInfo = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.panelLeft.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnSalir
             // 
             this.btnSalir.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnSalir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSalir.Location = new System.Drawing.Point(410, 240);
+            this.btnSalir.Location = new System.Drawing.Point(429, 240);
             this.btnSalir.Name = "btnSalir";
             this.btnSalir.Size = new System.Drawing.Size(87, 38);
             this.btnSalir.TabIndex = 13;
@@ -53,18 +56,18 @@
             // labPassword1
             // 
             this.labPassword1.AutoSize = true;
-            this.labPassword1.Location = new System.Drawing.Point(300, 94);
+            this.labPassword1.Location = new System.Drawing.Point(300, 67);
             this.labPassword1.Name = "labPassword1";
-            this.labPassword1.Size = new System.Drawing.Size(129, 20);
+            this.labPassword1.Size = new System.Drawing.Size(200, 31);
             this.labPassword1.TabIndex = 8;
             this.labPassword1.Text = "Nueva Contraseña";
             // 
             // textPassword
             // 
             this.textPassword.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textPassword.Location = new System.Drawing.Point(303, 117);
+            this.textPassword.Location = new System.Drawing.Point(303, 101);
             this.textPassword.Name = "textPassword";
-            this.textPassword.Size = new System.Drawing.Size(189, 20);
+            this.textPassword.Size = new System.Drawing.Size(213, 30);
             this.textPassword.TabIndex = 9;
             this.textPassword.UseSystemPasswordChar = true;
             // 
@@ -73,16 +76,16 @@
             this.labPassword2.AutoSize = true;
             this.labPassword2.Location = new System.Drawing.Point(300, 151);
             this.labPassword2.Name = "labPassword2";
-            this.labPassword2.Size = new System.Drawing.Size(147, 20);
+            this.labPassword2.Size = new System.Drawing.Size(226, 31);
             this.labPassword2.TabIndex = 10;
             this.labPassword2.Text = "Repita la contraseña:";
             // 
             // textPassword2
             // 
             this.textPassword2.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textPassword2.Location = new System.Drawing.Point(303, 174);
+            this.textPassword2.Location = new System.Drawing.Point(303, 185);
             this.textPassword2.Name = "textPassword2";
-            this.textPassword2.Size = new System.Drawing.Size(189, 20);
+            this.textPassword2.Size = new System.Drawing.Size(213, 30);
             this.textPassword2.TabIndex = 11;
             this.textPassword2.UseSystemPasswordChar = true;
             // 
@@ -91,7 +94,7 @@
             this.btnAceptar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAceptar.Location = new System.Drawing.Point(304, 240);
             this.btnAceptar.Name = "btnAceptar";
-            this.btnAceptar.Size = new System.Drawing.Size(87, 38);
+            this.btnAceptar.Size = new System.Drawing.Size(119, 38);
             this.btnAceptar.TabIndex = 12;
             this.btnAceptar.Text = "Acceder";
             this.btnAceptar.UseVisualStyleBackColor = true;
@@ -99,6 +102,7 @@
             // 
             // panelLeft
             // 
+            this.panelLeft.Controls.Add(this.panel1);
             this.panelLeft.Dock = System.Windows.Forms.DockStyle.Left;
             this.panelLeft.Location = new System.Drawing.Point(0, 0);
             this.panelLeft.Name = "panelLeft";
@@ -108,16 +112,26 @@
             // labelInfo
             // 
             this.labelInfo.AutoSize = true;
-            this.labelInfo.Location = new System.Drawing.Point(221, 36);
+            this.labelInfo.Location = new System.Drawing.Point(201, 20);
             this.labelInfo.Name = "labelInfo";
-            this.labelInfo.Size = new System.Drawing.Size(286, 20);
+            this.labelInfo.Size = new System.Drawing.Size(336, 31);
             this.labelInfo.TabIndex = 14;
-            this.labelInfo.Text = "Introduzca su nueva contraseña de acceso";
+            this.labelInfo.Text = "Introduzca su nueva contraseña";
+            // 
+            // panel1
+            // 
+            this.panel1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panel1.BackgroundImage")));
+            this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(203, 317);
+            this.panel1.TabIndex = 1;
             // 
             // VistaLoginConfirma
             // 
             this.AcceptButton = this.btnAceptar;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 31F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Moccasin;
             this.CancelButton = this.btnSalir;
@@ -139,6 +153,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "VistaLoginConfirma";
+            this.panelLeft.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -154,5 +169,6 @@
         private System.Windows.Forms.Button btnAceptar;
         private System.Windows.Forms.Panel panelLeft;
         private System.Windows.Forms.Label labelInfo;
+        private System.Windows.Forms.Panel panel1;
     }
 }
