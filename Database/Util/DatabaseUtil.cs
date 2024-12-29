@@ -1,4 +1,5 @@
-﻿using MySqlConnector; 
+﻿using MySqlConnector;
+using redTaller.Util;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -18,7 +19,9 @@ namespace redTaller.Database
         /// </summary>
         public DatabaseUtil()
         {
-            string connectionString = ConfigurationManager.ConnectionStrings["dbTaller"].ConnectionString;
+            //string connectionString = ConfigurationManager.ConnectionStrings["dbTaller"].ConnectionString;
+            // se sustituye guardado en preferencias por clave de conexión otorgada por el servidor
+            string connectionString = Session.Instance.ConnectionString;
             dbConn = new MySqlConnection(connectionString);
         }
 

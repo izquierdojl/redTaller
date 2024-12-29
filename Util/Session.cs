@@ -11,6 +11,8 @@ namespace redTaller.Util
         public string Password { get; set; }
         public string Profile { get; set; }
 
+        public string ConnectionString { get; set; }
+
         private Session() { }
 
         public static Session Instance
