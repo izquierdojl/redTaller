@@ -293,6 +293,12 @@
     <Compile Include="Vista\VistaTaller\VistaListaTaller.Designer.cs">
       <DependentUpon>VistaListaTaller.cs</DependentUpon>
     </Compile>
+    <Compile Include="Vista\VistaUtil\VistaAcercaDe.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Vista\VistaUtil\VistaAcercaDe.Designer.cs">
+      <DependentUpon>VistaAcercaDe.cs</DependentUpon>
+    </Compile>
     <Compile Include="Vista\VistaUtil\VistaConfig.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -363,6 +369,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Vista\VistaTaller\VistaListaTaller.resx">
       <DependentUpon>VistaListaTaller.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Vista\VistaUtil\VistaAcercaDe.resx">
+      <DependentUpon>VistaAcercaDe.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Vista\VistaUtil\VistaConfig.resx">
       <DependentUpon>VistaConfig.cs</DependentUpon>

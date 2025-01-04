@@ -1,5 +1,6 @@
 ﻿using redTaller.Controlador;
 using redTaller.Util;
+using redTaller.Vista.VistaUtil;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -22,6 +23,7 @@ namespace redTaller
             this.FormClosing += new FormClosingEventHandler(PrincipalForm_FormClosing);
             this.Load += new EventHandler(PrincipalForm_Load);
             ConfigurarMenuVentana();
+            ConfigurarMenuAcercaDe();
         }
 
         private void menuFicherosProvincias_Click(object sender, EventArgs e)
@@ -104,8 +106,14 @@ namespace redTaller
             menuVentana.DropDownItems.Add(new ToolStripSeparator());
             menuVentana.DropDownItems.Add(menuSalir);
 
-            menuFicheros.Items.Add(menuVentana);
+            menuPrincipal.Items.Add(menuVentana);
 
+        }
+
+        private void ConfigurarMenuAcercaDe()
+        {
+            ToolStripMenuItem menuAcercaDe = new ToolStripMenuItem("&Acerca de....", null, new EventHandler(menuAcercaDe_Click));
+            menuPrincipal.Items.Add(menuAcercaDe);
         }
 
 
@@ -186,6 +194,12 @@ namespace redTaller
         {
 
             this.BackgroundImageLayout = ImageLayout.Stretch;
+        }
+
+        private void menuAcercaDe_Click(object sender, EventArgs e)
+        {
+            VistaAcercaDe vistaAcercaDe = new VistaAcercaDe();
+            vistaAcercaDe.ShowDialog();
         }
     }
 
