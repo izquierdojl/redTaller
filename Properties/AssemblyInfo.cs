@@ -6,8 +6,12 @@ using System.Runtime.InteropServices;
 // conjunto de atributos. Cambie estos valores de atributo para modificar la información
 // asociada con un ensamblado.
 [assembly: AssemblyTitle("redTaller")]
-[assembly: AssemblyDescription("Esta aplicación ha sido desarrollada con fines académicos para el módulo Proyecto Final del Grado Superior de Aplicaciones Multiplataforma (2024/25)")]
 [assembly: AssemblyConfiguration("")]
+[assembly: AssemblyDescription(@"Esta aplicación ha sido desarrollada con fines académicos para el módulo Proyecto Final del Grado Superior de Aplicaciones Multiplataforma (2024/25)
+
+José Luis Izquierdo Barberán
+
+jlizquierdo@jlizquierdo.com")]
 [assembly: AssemblyCompany("José Luis Izquierdo Barberán")]
 [assembly: AssemblyProduct("redTaller")]
 [assembly: AssemblyCopyright("")]
