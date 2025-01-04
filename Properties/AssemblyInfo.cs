@@ -6,12 +6,12 @@ using System.Runtime.InteropServices;
 // conjunto de atributos. Cambie estos valores de atributo para modificar la información
 // asociada con un ensamblado.
 [assembly: AssemblyTitle("redTaller")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Esta aplicación ha sido desarrollada con fines académicos para el módulo Proyecto Final del Grado Superior de Aplicaciones Multiplataforma (2024/25)")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("José Luis Izquierdo Barberán")]
 [assembly: AssemblyProduct("redTaller")]
-[assembly: AssemblyCopyright("Copyright ©  2024")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCopyright("")]
+[assembly: AssemblyTrademark("José Luis Izquierdo Barberán")]
 [assembly: AssemblyCulture("")]
 
 // Si establece ComVisible en false, los tipos de este ensamblado no estarán visibles 

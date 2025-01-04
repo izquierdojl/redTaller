@@ -32,26 +32,26 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Principal));
             this.menuPrincipal = new System.Windows.Forms.MenuStrip();
             this.menuFicheros = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuFicherosTalleres = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuFicherosClientes = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.menuFicherosProvincias = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuFicherosCodigosPostales = new System.Windows.Forms.ToolStripMenuItem();
             this.menuActuaciones = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuRegistroActuaciones = new System.Windows.Forms.ToolStripMenuItem();
             this.menuHerramientas = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuConfiguración = new System.Windows.Forms.ToolStripMenuItem();
             this.barStatus = new System.Windows.Forms.StatusStrip();
             this.statusProgram = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusUser = new System.Windows.Forms.ToolStripStatusLabel();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripPrincipal = new System.Windows.Forms.ToolStrip();
-            this.toolStripSalir = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSalir = new System.Windows.Forms.ToolStripButton();
             this.toolStripBtnTaller = new System.Windows.Forms.ToolStripButton();
             this.toolStripCliente = new System.Windows.Forms.ToolStripButton();
             this.toolStripActuacion = new System.Windows.Forms.ToolStripButton();
+            this.menuFicherosTalleres = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuFicherosClientes = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuFicherosProvincias = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuFicherosCodigosPostales = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuRegistroActuaciones = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuConfiguración = new System.Windows.Forms.ToolStripMenuItem();
             this.menuPrincipal.SuspendLayout();
             this.barStatus.SuspendLayout();
             this.toolStripPrincipal.SuspendLayout();
@@ -85,42 +85,10 @@
             this.menuFicheros.Size = new System.Drawing.Size(63, 22);
             this.menuFicheros.Text = "Ficheros";
             // 
-            // menuFicherosTalleres
-            // 
-            this.menuFicherosTalleres.Image = global::redTaller.Properties.Resources.taller;
-            this.menuFicherosTalleres.Name = "menuFicherosTalleres";
-            this.menuFicherosTalleres.Size = new System.Drawing.Size(230, 30);
-            this.menuFicherosTalleres.Text = "Fichero de Talleres";
-            this.menuFicherosTalleres.Click += new System.EventHandler(this.menuFicherosTalleres_Click);
-            // 
-            // menuFicherosClientes
-            // 
-            this.menuFicherosClientes.Image = global::redTaller.Properties.Resources.cliente;
-            this.menuFicherosClientes.Name = "menuFicherosClientes";
-            this.menuFicherosClientes.Size = new System.Drawing.Size(230, 30);
-            this.menuFicherosClientes.Text = "Fichero de &Clientes";
-            this.menuFicherosClientes.Click += new System.EventHandler(this.menuFicherosClientes_Click);
-            // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(227, 6);
-            // 
-            // menuFicherosProvincias
-            // 
-            this.menuFicherosProvincias.Image = global::redTaller.Properties.Resources.provincia;
-            this.menuFicherosProvincias.Name = "menuFicherosProvincias";
-            this.menuFicherosProvincias.Size = new System.Drawing.Size(230, 30);
-            this.menuFicherosProvincias.Text = "Fichero de &Provincias";
-            this.menuFicherosProvincias.Click += new System.EventHandler(this.menuFicherosProvincias_Click);
-            // 
-            // menuFicherosCodigosPostales
-            // 
-            this.menuFicherosCodigosPostales.Image = global::redTaller.Properties.Resources.codigo_postal;
-            this.menuFicherosCodigosPostales.Name = "menuFicherosCodigosPostales";
-            this.menuFicherosCodigosPostales.Size = new System.Drawing.Size(230, 30);
-            this.menuFicherosCodigosPostales.Text = "Fichero de Códigos &Postales";
-            this.menuFicherosCodigosPostales.Click += new System.EventHandler(this.menuFicherosCodigosPostales_Click);
             // 
             // menuActuaciones
             // 
@@ -130,14 +98,6 @@
             this.menuActuaciones.Size = new System.Drawing.Size(84, 22);
             this.menuActuaciones.Text = "&Actuaciones";
             // 
-            // menuRegistroActuaciones
-            // 
-            this.menuRegistroActuaciones.Image = global::redTaller.Properties.Resources.reparacion;
-            this.menuRegistroActuaciones.Name = "menuRegistroActuaciones";
-            this.menuRegistroActuaciones.Size = new System.Drawing.Size(209, 30);
-            this.menuRegistroActuaciones.Text = "&Registro de Actuaciones";
-            this.menuRegistroActuaciones.Click += new System.EventHandler(this.menuRegistroActuaciones_Click);
-            // 
             // menuHerramientas
             // 
             this.menuHerramientas.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -145,14 +105,6 @@
             this.menuHerramientas.Name = "menuHerramientas";
             this.menuHerramientas.Size = new System.Drawing.Size(90, 22);
             this.menuHerramientas.Text = "&Herramientas";
-            // 
-            // menuConfiguración
-            // 
-            this.menuConfiguración.Image = global::redTaller.Properties.Resources.configuracion;
-            this.menuConfiguración.Name = "menuConfiguración";
-            this.menuConfiguración.Size = new System.Drawing.Size(188, 30);
-            this.menuConfiguración.Text = "Configuración";
-            this.menuConfiguración.Click += new System.EventHandler(this.menuConfiguración_Click);
             // 
             // barStatus
             // 
@@ -209,6 +161,11 @@
             this.toolStripPrincipal.TabIndex = 5;
             this.toolStripPrincipal.Text = "toolStripPrincipal";
             // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 71);
+            // 
             // toolStripSalir
             // 
             this.toolStripSalir.AutoSize = false;
@@ -220,11 +177,6 @@
             this.toolStripSalir.Size = new System.Drawing.Size(64, 68);
             this.toolStripSalir.Text = "Salir";
             this.toolStripSalir.Click += new System.EventHandler(this.toolStripSalir_Click);
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 71);
             // 
             // toolStripBtnTaller
             // 
@@ -260,6 +212,54 @@
             this.toolStripActuacion.Size = new System.Drawing.Size(64, 68);
             this.toolStripActuacion.Text = "Actuaciones";
             this.toolStripActuacion.Click += new System.EventHandler(this.toolStripActuacion_Click);
+            // 
+            // menuFicherosTalleres
+            // 
+            this.menuFicherosTalleres.Image = global::redTaller.Properties.Resources.taller;
+            this.menuFicherosTalleres.Name = "menuFicherosTalleres";
+            this.menuFicherosTalleres.Size = new System.Drawing.Size(230, 30);
+            this.menuFicherosTalleres.Text = "Fichero de Talleres";
+            this.menuFicherosTalleres.Click += new System.EventHandler(this.menuFicherosTalleres_Click);
+            // 
+            // menuFicherosClientes
+            // 
+            this.menuFicherosClientes.Image = global::redTaller.Properties.Resources.cliente;
+            this.menuFicherosClientes.Name = "menuFicherosClientes";
+            this.menuFicherosClientes.Size = new System.Drawing.Size(230, 30);
+            this.menuFicherosClientes.Text = "Fichero de &Clientes";
+            this.menuFicherosClientes.Click += new System.EventHandler(this.menuFicherosClientes_Click);
+            // 
+            // menuFicherosProvincias
+            // 
+            this.menuFicherosProvincias.Image = global::redTaller.Properties.Resources.provincia;
+            this.menuFicherosProvincias.Name = "menuFicherosProvincias";
+            this.menuFicherosProvincias.Size = new System.Drawing.Size(230, 30);
+            this.menuFicherosProvincias.Text = "Fichero de &Provincias";
+            this.menuFicherosProvincias.Click += new System.EventHandler(this.menuFicherosProvincias_Click);
+            // 
+            // menuFicherosCodigosPostales
+            // 
+            this.menuFicherosCodigosPostales.Image = global::redTaller.Properties.Resources.codigo_postal;
+            this.menuFicherosCodigosPostales.Name = "menuFicherosCodigosPostales";
+            this.menuFicherosCodigosPostales.Size = new System.Drawing.Size(230, 30);
+            this.menuFicherosCodigosPostales.Text = "Fichero de Códigos &Postales";
+            this.menuFicherosCodigosPostales.Click += new System.EventHandler(this.menuFicherosCodigosPostales_Click);
+            // 
+            // menuRegistroActuaciones
+            // 
+            this.menuRegistroActuaciones.Image = global::redTaller.Properties.Resources.reparacion;
+            this.menuRegistroActuaciones.Name = "menuRegistroActuaciones";
+            this.menuRegistroActuaciones.Size = new System.Drawing.Size(201, 22);
+            this.menuRegistroActuaciones.Text = "&Registro de Actuaciones";
+            this.menuRegistroActuaciones.Click += new System.EventHandler(this.menuRegistroActuaciones_Click);
+            // 
+            // menuConfiguración
+            // 
+            this.menuConfiguración.Image = global::redTaller.Properties.Resources.configuracion;
+            this.menuConfiguración.Name = "menuConfiguración";
+            this.menuConfiguración.Size = new System.Drawing.Size(150, 22);
+            this.menuConfiguración.Text = "Configuración";
+            this.menuConfiguración.Click += new System.EventHandler(this.menuConfiguración_Click);
             // 
             // Principal
             // 
