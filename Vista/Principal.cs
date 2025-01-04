@@ -104,7 +104,7 @@ namespace redTaller
             menuVentana.DropDownItems.Add(new ToolStripSeparator());
             menuVentana.DropDownItems.Add(menuSalir);
 
-            menuFicheros.Items.Add(menuVentana);
+            menuPrincipal.Items.Add(menuVentana);
 
         }
 
