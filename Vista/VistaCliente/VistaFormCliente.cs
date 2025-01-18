@@ -147,9 +147,9 @@ namespace redTaller.Vista.VistaCliente
             {
                 if (MessageBox.Show("¿ Seguro de enviar correo de activación a " + cliente.email + " ?", "Activación", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    controlador.enviaCorreoActivacion(cliente);
                     cliente.activo = true;
                     guardar();
+                    controlador.enviaCorreoActivacion(cliente);
                 }
             }
 
