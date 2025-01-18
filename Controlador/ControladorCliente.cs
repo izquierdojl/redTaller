@@ -136,13 +136,12 @@ namespace redTaller.Controlador
             {
                 Email email = new Email();
                 string body = $@"
-                                Estimado, {cliente.nombre} 
-                                A continuación, se le envía la contraseña para poder acceder a la aplicación REDTALLER
-                                Contraseña:
-                                {randomPassword}
-                                Atentamente,
-                                ";
-
+Estimado, {cliente.nombre} 
+A continuación, se le envía la contraseña para poder acceder a la aplicación REDTALLER
+Contraseña:
+{randomPassword}
+Atentamente,
+";
                 if (email.EnviarEmail(cliente.email, "REDTALLER - Activación de Cuenta de Cliente", body))
                 {
                     VistaUtil.MsgInfo("Mensaje enviado correctamente", "Envío correcto");
