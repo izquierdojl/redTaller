@@ -118,13 +118,13 @@ namespace redTaller.Controlador
             {
                 Email email = new Email();
                 string body = $@"
-                                Taller : {taller.nombre} 
-                                A continuación, se le envía la contraseña para poder acceder a la aplicación REDTALLER
-                                Contraseña:
-                                {randomPassword}
-                                La primera vez que acceda, se le solicitará que la cambie por una privada.
-                                Atentamente,
-                                ";
+Taller : {taller.nombre} 
+A continuación, se le envía la contraseña para poder acceder a la aplicación REDTALLER
+Contraseña:
+{randomPassword}
+La primera vez que acceda, se le solicitará que la cambie por una privada.
+Atentamente,
+";
 
                 if (email.EnviarEmail(taller.email, "REDTALLER - Activación de Cuenta", body))
                 {
