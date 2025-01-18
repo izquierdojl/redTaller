@@ -140,9 +140,9 @@ namespace redTaller.Vista.VistaTaller
             { 
                 if (MessageBox.Show("¿ Seguro de enviar correo de activación a " + taller.email + " ?", "Activación", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    controlador.enviaCorreoActivacion(taller);
                     taller.activo = false;
                     guardar();
+                    controlador.enviaCorreoActivacion(taller);
                 }
             }
 
